@@ -1,0 +1,4 @@
+*
+!Dockerfile.vercel
+!requirements.lock.txt
+!app.py

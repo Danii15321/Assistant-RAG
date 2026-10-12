@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "reason": "invalid_llm_output",
+  "actual_calls_upper_bound": 3,
+  "exact_call_count_not_retained": true,
+  "response_not_published": true,
+  "cost_eur": 0,
+  "cloud_deployment": false
+}

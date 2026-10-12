@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+  "corpus": [
+    {
+      "filename": "atelier-rag.pdf",
+      "units": 3,
+      "passages": 2
+    },
+    {
+      "filename": "parcours-2026.docx",
+      "units": 7,
+      "passages": 1
+    },
+    {
+      "filename": "reseau.txt",
+      "units": 5,
+      "passages": 1
+    },
+    {
+      "filename": "politique-2025.txt",
+      "units": 2,
+      "passages": 1
+    }
+  ],
+  "representative_batch": 16,
+  "max_prefixed_tokens": 302,
+  "bounded_process_seconds": 42.77,
+  "model_load_seconds": 3.421,
+  "first_batch_seconds": 4.604,
+  "warm_batch_seconds": 5.9,
+  "encoder_peak_rss_mib": 931.8,
+  "qualification_peak_rss_mib": 1287.7,
+  "model_files_bytes": 492796264,
+  "dimension": 384,
+  "normalization": "l2",
+  "device": "cpu",
+  "cpu_threads": 1,
+  "runtime_network": false,
+  "llm_calls": 0,
+  "cloud_deployment": false,
+  "cost_eur": 0
+}

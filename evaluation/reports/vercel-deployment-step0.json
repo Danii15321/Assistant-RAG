@@ -1,0 +1,35 @@
+{
+  "recorded_at_utc": "2026-10-11T13:31:40.915670+00:00",
+  "project": {
+    "id": "prj_YRjALOFSlBmLPqv4n3cJa1CRSV0W",
+    "name": "assistant-rag",
+    "scope": "danii15321s-projects",
+    "plan": "hobby"
+  },
+  "deployment": {
+    "id": "dpl_CJPLW6bD9ExEQ4GD8ahZjtSdPLZt",
+    "url": "assistant-lkmtm142p-danii15321s-projects.vercel.app",
+    "target": "preview",
+    "readyState": "READY",
+    "createdAt": 1791724963941
+  },
+  "image": {
+    "manifestDigest": "sha256:4f30ab515708155259aebc2cf648d75224e147e211e1029e4255b1342c08e8f3",
+    "platform": "linux",
+    "arch": "amd64",
+    "sizeInBytes": 672534414,
+    "status": "ready",
+    "createdAt": "2026-10-11T13:26:18.322Z",
+    "tags": [
+      "dpl_CJPLW6bD9ExEQ4GD8ahZjtSdPLZt"
+    ]
+  },
+  "registry_image_count_observed": 2,
+  "registry_bytes_observed": 1345066371,
+  "groq_billing": {
+    "plan": "Free",
+    "evidence": "Owner explicitly confirmed Settings → Billing shows Free on 2026-10-11",
+    "api_exposes_plan": false
+  },
+  "limits": "Fixed synthetic fixture only; no DB, Blob, queue, user accounts or infrastructure invoice certification"
+}

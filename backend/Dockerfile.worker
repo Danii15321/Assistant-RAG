@@ -1,0 +1,7 @@
+FROM assistant-rag-backend:local
+USER root
+COPY requirements-embeddings.lock.txt ./
+RUN pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu -r requirements-embeddings.lock.txt && pip check
+ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=1 EMBEDDING_PATH=/opt/models/e5
+USER app
+CMD ["python", "-m", "app.worker.main"]

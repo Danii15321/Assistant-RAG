@@ -1,0 +1,5 @@
+N01 — TCP fournit un flux ordonné avec retransmission ; UDP transporte des datagrammes sans garantie de livraison ni d'ordre.
+N02 — Dans le laboratoire fictif Iris, atelier.test pointe vers 192.0.2.10. Le cache DNS pédagogique possède un TTL de 120 secondes.
+N03 — Le serveur HTTP du laboratoire écoute le port 8080. Le serveur HTTPS écoute le port 8443 ; TLS protège les échanges de ce second service.
+N04 — La procédure de diagnostic commence par vérifier le DNS, puis le port, puis le certificat TLS. Un certificat expiré nécessite un renouvellement.
+N05 — Pour une capture réseau Iris, conserver uniquement des métadonnées de test et anonymiser les adresses des participants.

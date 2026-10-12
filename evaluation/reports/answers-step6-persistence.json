@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "environment": "local-test-only",
+  "documents_checked": 26,
+  "file_bytes_text_and_vectors_unchanged": true,
+  "private_retrieval_unchanged": true,
+  "generation_counters_unchanged": true,
+  "attempts_checked": 1,
+  "counters_sha256": "56a9ddb214bb9c60e79f2da54d9639359c803fb0d7118b0acfe558cd150fb746",
+  "containers_replaced": [
+    "db",
+    "backend-auth-test",
+    "worker-auth-test"
+  ],
+  "cloud_deployment": false
+}

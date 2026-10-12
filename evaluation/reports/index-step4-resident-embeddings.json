@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+  "corpus": [
+    {
+      "filename": "atelier-rag.pdf",
+      "units": 3,
+      "passages": 2
+    },
+    {
+      "filename": "parcours-2026.docx",
+      "units": 7,
+      "passages": 1
+    },
+    {
+      "filename": "reseau.txt",
+      "units": 5,
+      "passages": 1
+    },
+    {
+      "filename": "politique-2025.txt",
+      "units": 2,
+      "passages": 1
+    }
+  ],
+  "representative_batch": 16,
+  "max_prefixed_tokens": 303,
+  "resident_startup_and_first_batch_seconds": 49.336,
+  "resident_warm_batch_seconds": 5.272,
+  "encoder_peak_rss_mib": 963.4,
+  "model_files_bytes": 492796264,
+  "dimension": 384,
+  "normalization": "l2",
+  "device": "cpu",
+  "cpu_threads": 1,
+  "same_process_for_passages_and_queries": true,
+  "packages": {
+    "torch": {
+      "version": "2.14.1+cpu",
+      "license": "Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT"
+    },
+    "sentence-transformers": {
+      "version": "6.1.0",
+      "license": "Apache-2.0"
+    },
+    "tokenizers": {
+      "version": "0.23.3",
+      "license": ""
+    },
+    "transformers": {
+      "version": "5.19.0",
+      "license": "Apache 2.0 License"
+    }
+  },
+  "container_network": "none",
+  "llm_calls": 0,
+  "cloud_deployment": false,
+  "cost_eur": 0
+}

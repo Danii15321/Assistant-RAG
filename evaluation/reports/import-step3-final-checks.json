@@ -1,0 +1,12 @@
+{
+  "stage0_files_unchanged": true,
+  "stage0_files_checked": 4,
+  "secret_scan_files": 90,
+  "secret_matches": 0,
+  "main_http": {
+    "/": 200,
+    "/sign-up": 200,
+    "/api/v1/health": 200,
+    "/api/v1/documents": 401
+  }
+}

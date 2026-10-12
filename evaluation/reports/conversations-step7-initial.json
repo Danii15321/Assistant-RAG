@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-12",
+  "status": "blocked-before-ui-post",
+  "environment": "local-test-only",
+  "observation": {
+    "secure_context": false,
+    "crypto_randomUUID": "undefined",
+    "crypto_getRandomValues": "function",
+    "message_post_sent": false
+  },
+  "resolution": "UUID v4 from Web Crypto getRandomValues when randomUUID is unavailable",
+  "stopped_at_broken_boundary": true,
+  "real_groq_calls": 0,
+  "cloud_deployment": false,
+  "second_observation": {
+    "backend_delete_status": 204,
+    "proxy_delete_status": 503,
+    "reason": "An HTTP 204 must have a null response body",
+    "resolution": "Proxy forwards 204 with null body"
+  },
+  "manual_recovery_pre_fix": {
+    "ui_test_expected": "Consent unchecked and question cleared after recovery",
+    "observed": "Consent still checked",
+    "expected_failure_observed": true,
+    "resolution": "Remount the recovered draft with its document selection and fresh consent"
+  }
+}

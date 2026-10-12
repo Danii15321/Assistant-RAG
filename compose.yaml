@@ -1,0 +1,238 @@
+name: assistant-rag
+
+x-backend: &backend
+  image: assistant-rag-backend:local
+  build: ./backend
+  init: true
+  environment: &backend-environment
+    AUTH_ISSUER: ${BETTER_AUTH_URL:?Run bootstrap.py first}
+    AUTH_JWKS_URL: http://frontend:3000/api/auth/jwks
+    DATABASE_URL: postgresql+psycopg://assistant_rag:${POSTGRES_PASSWORD:?Run python3 scripts/local/bootstrap.py first}@db:5432/assistant_rag
+    PRIVATE_STORAGE_PATH: /data/private
+    UPLOAD_PUBLIC_URL: http://localhost:${BACKEND_PORT:-8000}
+  volumes:
+    - ./backend:/app
+    - private_files:/data/private
+    - ./evaluation/corpus:/evaluation/corpus:ro
+
+services:
+  db:
+    image: pgvector/pgvector:0.8.7-pg16@sha256:7b822b0aac60967beb1ea5e576b8602c94c300a157d187f385ae3e0da199b90a
+    environment:
+      POSTGRES_USER: assistant_rag
+      POSTGRES_DB: assistant_rag
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run python3 scripts/local/bootstrap.py first}
+    ports:
+      - "127.0.0.1:${DATABASE_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U assistant_rag -d assistant_rag"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  migrate:
+    <<: *backend
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  backend:
+    <<: *backend
+    environment:
+      <<: *backend-environment
+      LLM_FREE_PLAN_CONFIRMED: ${LLM_FREE_PLAN_CONFIRMED:-false}
+      LANGSMITH_TRACING: "false"
+      LANGCHAIN_TRACING_V2: "false"
+    volumes:
+      - ./backend:/app
+      - private_files:/data/private
+      - ./evaluation/corpus:/evaluation/corpus:ro
+      - ./.secrets:/run/secrets/llm:ro
+    ports:
+      - "127.0.0.1:${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health', timeout=4)"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  worker:
+    <<: *backend
+    image: assistant-rag-worker:local
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.worker
+    mem_limit: 1536m
+    volumes:
+      - ./backend:/app
+      - private_files:/data/private
+      - ./.models/e5:/opt/models/e5:ro
+      - ./evaluation/corpus:/evaluation/corpus:ro
+    command: ["python", "-m", "app.worker.main"]
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  frontend:
+    image: assistant-rag-frontend:local
+    build: ./frontend
+    init: true
+    environment:
+      AUTH_DATABASE_URL: postgresql://assistant_rag:${POSTGRES_PASSWORD}@db:5432/assistant_rag
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:?Run bootstrap.py first}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?Run bootstrap.py first}
+      API_INTERNAL_URL: http://backend:8000
+      NEXT_TELEMETRY_DISABLED: "1"
+    ports:
+      - "127.0.0.1:${FRONTEND_PORT:-3000}:3000"
+    volumes:
+      - ./frontend:/app
+      - frontend_modules:/app/node_modules
+      - frontend_next:/app/.next
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+
+  e2e:
+    image: mcr.microsoft.com/playwright:v1.62.1-noble@sha256:dcc5531e97840b9b5e794f2814476b21571c5124a3fca2267d73041f56e7580e
+    profiles: ["test"]
+    init: true
+    user: "1000:1000"
+    working_dir: /app
+    environment:
+      TEST_BASE_URL: http://frontend-auth-test:3000
+      AUTH_TEST_DATABASE_URL: postgresql://assistant_rag:${POSTGRES_PASSWORD}@db:5432/assistant_rag_test
+      TEST_AUTH_SECRET: ${TEST_AUTH_SECRET:?Run bootstrap.py first}
+      TEST_API_URL: http://backend-auth-test:8000
+      TEST_LLM_URL: http://llm-test:8000
+    volumes:
+      - ./frontend:/app
+      - frontend_modules:/app/node_modules
+      - ./evaluation/corpus:/corpus:ro
+    depends_on:
+      frontend-auth-test:
+        condition: service_healthy
+      worker-auth-test:
+        condition: service_started
+      llm-test:
+        condition: service_started
+    command: ["npx", "--no-install", "playwright", "test"]
+
+  llm-test:
+    image: assistant-rag-backend:local
+    profiles: ["test"]
+    init: true
+    environment:
+      LLM_TEST_ONLY: assistant_rag_test
+    volumes:
+      - ./backend:/app
+    command: ["uvicorn", "scripts.llm_test_server:app", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]
+
+  backend-auth-test:
+    <<: *backend
+    profiles: ["test"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://assistant_rag:${POSTGRES_PASSWORD}@db:5432/assistant_rag_test
+      AUTH_ISSUER: http://frontend-auth-test:3000
+      AUTH_JWKS_URL: http://frontend-auth-test:3000/api/auth/jwks
+      PRIVATE_STORAGE_PATH: /data/private
+      UPLOAD_PUBLIC_URL: http://backend-auth-test:8000
+      GROQ_API_KEY: synthetic-test-key
+      LLM_FREE_PLAN_CONFIRMED: "true"
+      LLM_TEST_ENDPOINT: http://llm-test:8000/openai/v1/chat/completions
+      LANGSMITH_TRACING: "false"
+    volumes:
+      - ./backend:/app
+      - private_test_files:/data/private
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health', timeout=4)"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  worker-auth-test:
+    <<: *backend
+    image: assistant-rag-worker:local
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.worker
+    mem_limit: 1536m
+    profiles: ["test"]
+    command: ["python", "-m", "app.worker.main"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://assistant_rag:${POSTGRES_PASSWORD}@db:5432/assistant_rag_test
+      PRIVATE_STORAGE_PATH: /data/private
+    volumes:
+      - ./backend:/app
+      - private_test_files:/data/private
+      - ./.models/e5:/opt/models/e5:ro
+    depends_on:
+      db:
+        condition: service_healthy
+
+  worker-evaluation:
+    image: assistant-rag-worker:local
+    profiles: ["evaluation"]
+    init: true
+    mem_limit: 1536m
+    environment:
+      DATABASE_URL: postgresql+psycopg://assistant_rag:${POSTGRES_PASSWORD}@db:5432/assistant_rag_evaluation
+      PRIVATE_STORAGE_PATH: /data/private
+    volumes:
+      - ./backend:/app
+      - private_evaluation_files:/data/private
+      - ./.models/e5:/opt/models/e5:ro
+      - ./evaluation/corpus:/evaluation/corpus:ro
+      - ./evaluation/questions.jsonl:/evaluation/questions.jsonl:ro
+      - ./evaluation/reference_passages.json:/evaluation/reference_passages.json:ro
+    command: ["python", "-m", "scripts.qualify_retrieval"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend-auth-test:
+    image: assistant-rag-frontend:local
+    profiles: ["test"]
+    init: true
+    command: ["npm", "run", "start"]
+    environment:
+      NEXT_DIST_DIR: .next-build
+      AUTH_DATABASE_URL: postgresql://assistant_rag:${POSTGRES_PASSWORD}@db:5432/assistant_rag_test
+      BETTER_AUTH_URL: http://frontend-auth-test:3000
+      BETTER_AUTH_SECRET: ${TEST_AUTH_SECRET:?Run bootstrap.py first}
+      API_INTERNAL_URL: http://backend-auth-test:8000
+      NEXT_TELEMETRY_DISABLED: "1"
+    volumes:
+      - ./frontend:/app
+      - frontend_modules:/app/node_modules
+    depends_on:
+      backend-auth-test:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  private_evaluation_files:
+  private_files:
+  private_test_files:
+  postgres_data:
+  frontend_modules:
+  frontend_next:

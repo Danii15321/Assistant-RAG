@@ -1,0 +1,6 @@
+# Probe Linux CPU seulement ; ne constitue pas le lockfile du futur backend.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1+cpu
+sentence-transformers==6.1.0
+python-docx==1.2.0
+pypdf==6.20.0

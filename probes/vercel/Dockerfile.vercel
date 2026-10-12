@@ -1,0 +1,9 @@
+FROM python:3.10-slim@sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 OMP_NUM_THREADS=1 TOKENIZERS_PARALLELISM=false
+COPY requirements.lock.txt .
+RUN pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu -r requirements.lock.txt
+RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('intfloat/multilingual-e5-small',revision='614241f622f53c4eeff9890bdc4f31cfecc418b3',local_dir='/opt/models/e5',allow_patterns=['*.json','*.txt','*.model','model.safetensors'])"
+ENV EMBEDDING_PATH=/opt/models/e5 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+COPY app.py .
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80", "--workers", "1", "--no-access-log"]

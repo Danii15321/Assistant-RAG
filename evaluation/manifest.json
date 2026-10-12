@@ -1,0 +1,56 @@
+{
+  "version": "iris-1",
+  "provenance": "Textes originaux fictifs créés pour ce projet ; aucun document personnel.",
+  "license": "CC0-1.0",
+  "documents": [
+    {
+      "id": "atelier-rag",
+      "file": "corpus/atelier-rag.pdf",
+      "bytes": 4129,
+      "sha256": "2465a0a39f0b1a68eba66c76fbfd121c16ffc53fa31eac15f20c3ea23201ed0d",
+      "expected": "accepted"
+    },
+    {
+      "id": "corrompu",
+      "file": "corpus/corrompu.pdf",
+      "bytes": 32,
+      "sha256": "df8088e6de6e266de2bcf72a2d1c9e8eee38b393c651184826be82da2877b65d",
+      "expected": "invalid_pdf"
+    },
+    {
+      "id": "parcours-2026",
+      "file": "corpus/parcours-2026.docx",
+      "bytes": 37117,
+      "sha256": "853b07481bbcc67071629ad20f9327583894570d35d30f295b23fcc6a06fe645",
+      "expected": "accepted"
+    },
+    {
+      "id": "politique-2025",
+      "file": "corpus/politique-2025.txt",
+      "bytes": 375,
+      "sha256": "bbab280d419c8aea5aa37bdadc15156aeafab8872341ab1bcea61b7fdcca2d1b",
+      "expected": "accepted"
+    },
+    {
+      "id": "reseau",
+      "file": "corpus/reseau.txt",
+      "bytes": 709,
+      "sha256": "4aef4b897eba4e5b74c5ce1d6cd3e877f1ef94be15c1a825d4c9771a3055c716",
+      "expected": "accepted"
+    },
+    {
+      "id": "scan",
+      "file": "corpus/scan.pdf",
+      "bytes": 5127,
+      "sha256": "6b3c5f0c47e5fe909268b6ad58d714f1f1c6ad5da27a60741f09ec07dcfa8991",
+      "expected": "no_extractable_text"
+    },
+    {
+      "id": "vide",
+      "file": "corpus/vide.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected": "empty_document"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "environment": "local-test-only",
+  "documents_checked": 10,
+  "file_bytes_text_and_vectors_unchanged": true,
+  "containers_replaced": [
+    "backend-auth-test",
+    "worker-auth-test"
+  ],
+  "cloud_deployment": false
+}

@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "environment": "local-test-only",
+  "documents_checked": 36,
+  "conversations_checked": 16,
+  "exchanges_checked": 20,
+  "sources_checked": 10,
+  "available_sources": 6,
+  "deleted_sources": 4,
+  "file_bytes_text_and_vectors_unchanged": true,
+  "private_retrieval_unchanged": true,
+  "generation_counters_unchanged": true,
+  "history_and_sources_unchanged": true,
+  "deleted_source_excerpts_absent": true,
+  "attempts_checked": 1,
+  "history_sha256": "7215091ceca4a01463a24b32e29ad9df4b4bf83a8547e146fc65998c7703642f",
+  "containers_replaced": [
+    "db",
+    "backend-auth-test",
+    "worker-auth-test"
+  ],
+  "cloud_deployment": false
+}

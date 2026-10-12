@@ -1,0 +1,131 @@
+{
+  "recorded_at_utc": "2026-10-11T13:27:57.153832+00:00",
+  "url": "https://assistant-lkmtm142p-danii15321s-projects.vercel.app",
+  "target": "preview",
+  "scope": "FastAPI → E5 CPU → fixture retrieval → Groq → validated references; no DB, Blob, queue or user accounts",
+  "checks": [
+    {
+      "path": "/health",
+      "method": "GET",
+      "authenticated": false,
+      "http_status": 200,
+      "expected_status": 200,
+      "passed": true
+    },
+    {
+      "path": "/probe",
+      "method": "POST",
+      "authenticated": false,
+      "http_status": 401,
+      "expected_status": 401,
+      "passed": true
+    },
+    {
+      "path": "/probe",
+      "method": "POST",
+      "authenticated": true,
+      "http_status": 200,
+      "expected_status": 200,
+      "passed": true
+    },
+    {
+      "path": "/probe",
+      "method": "POST",
+      "authenticated": true,
+      "http_status": 200,
+      "expected_status": 200,
+      "passed": true
+    }
+  ],
+  "probes": [
+    {
+      "status": "passed",
+      "runtime": "vercel-container",
+      "region": "fra1",
+      "embedding": {
+        "model": "intfloat/multilingual-e5-small",
+        "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+        "dimensions": 384,
+        "normalized": true,
+        "retrieved_expected_source": true,
+        "load_seconds": 8.684,
+        "encode_seconds": 0.238
+      },
+      "llm": {
+        "provider": "Groq",
+        "model": "openai/gpt-oss-120b",
+        "http_status": 200,
+        "citations_valid": true,
+        "factual_check_passed": true,
+        "finish_reason": "stop",
+        "usage": {
+          "queue_time": 0.217474191,
+          "prompt_tokens": 131,
+          "prompt_time": 0.004926748,
+          "completion_tokens": 50,
+          "completion_time": 0.102978558,
+          "total_tokens": 181,
+          "total_time": 0.107905306,
+          "completion_tokens_details": {
+            "reasoning_tokens": 12
+          }
+        },
+        "latency_seconds": 0.391,
+        "rate_limits": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000"
+        }
+      },
+      "peak_rss_mib": 869.6,
+      "total_seconds": 9.313
+    },
+    {
+      "status": "passed",
+      "runtime": "vercel-container",
+      "region": "fra1",
+      "embedding": {
+        "model": "intfloat/multilingual-e5-small",
+        "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+        "dimensions": 384,
+        "normalized": true,
+        "retrieved_expected_source": true,
+        "load_seconds": 0.0,
+        "encode_seconds": 0.072
+      },
+      "llm": {
+        "provider": "Groq",
+        "model": "openai/gpt-oss-120b",
+        "http_status": 200,
+        "citations_valid": true,
+        "factual_check_passed": true,
+        "finish_reason": "stop",
+        "usage": {
+          "queue_time": 0.218364521,
+          "prompt_tokens": 131,
+          "prompt_time": 0.005287655,
+          "completion_tokens": 50,
+          "completion_time": 0.105351428,
+          "total_tokens": 181,
+          "total_time": 0.110639083,
+          "completion_tokens_details": {
+            "reasoning_tokens": 12
+          }
+        },
+        "latency_seconds": 0.363,
+        "rate_limits": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000"
+        }
+      },
+      "peak_rss_mib": 869.6,
+      "total_seconds": 0.435
+    }
+  ],
+  "source_sha256": {
+    "vercel.json": "7c90da6f18787ab08df4104bd2cc40cf5d5280032932990563bdc71f844edbf9",
+    "probes/vercel/app.py": "becac9af07499605256333c0bf6020421307ef11582118e9003461c02e5aa74d",
+    "probes/vercel/Dockerfile.vercel": "637109e4a84e6abc092483f96db07ab2e632c991fd76895d84058f8dcb59d7d5",
+    "probes/vercel/requirements.lock.txt": "8c964f92b021f6430c89cab90174482e73f39cb698a692ca34fd26343877b9cf"
+  },
+  "status": "passed"
+}

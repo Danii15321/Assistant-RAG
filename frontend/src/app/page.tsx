@@ -15,7 +15,7 @@ export default function Home() {
           <span className="brand-icon" aria-hidden="true">a</span>
           Assistant RAG
         </Link>
-        <span className="badge">Développement local · Étape 7</span>
+        <span className="badge">Démonstration personnelle</span>
       </header>
 
       <section className="hero" aria-labelledby="hero-title">

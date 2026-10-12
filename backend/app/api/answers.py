@@ -41,7 +41,12 @@ def make_answer_service(request: Request) -> AnswerService:
     repository = SearchRepository(engine)
     settings = request.app.state.settings
     return AnswerService(
-        SearchService(repository, QueryJobRepository(engine), settings.search_threshold),
+        SearchService(
+            repository,
+            QueryJobRepository(engine),
+            settings.search_threshold,
+            progress=request.app.state.cloud_worker.query_step if settings.cloud_runtime else None,
+        ),
         GenerationRepository(engine),
         GroqProvider(settings),
         repository.verify_hits,

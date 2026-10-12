@@ -4,7 +4,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response
 from sqlalchemy.exc import SQLAlchemyError
 
-from app.adapters.storage import PrivateStorage
+from app.adapters.storage_factory import make_storage
 from app.api.identity import get_repository, require_identity
 from app.models.document import (
     Document,
@@ -28,7 +28,7 @@ def get_service(request: Request) -> DocumentService:
     try:
         return DocumentService(
             DocumentRepository(request.app.state.engine),
-            PrivateStorage(request.app.state.settings.private_storage_path),
+            make_storage(request.app.state.settings),
             request.app.state.settings,
         )
     except OSError as error:
@@ -69,6 +69,8 @@ def reserve_upload(
 
 @router.put("/uploads/{document_id}/content", status_code=204)
 async def upload_content(document_id: UUID, request: Request, service: Service) -> Response:
+    if request.app.state.settings.cloud_runtime:
+        raise DocumentError(404, "not_found")
     if request.headers.get("origin") != request.app.state.settings.auth_issuer:
         raise HTTPException(403, "Invalid origin")
     header = request.headers.get("authorization", "")

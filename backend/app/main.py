@@ -11,6 +11,7 @@ from app.api.conversations import router as conversations_router
 from app.api.documents import router as documents_router
 from app.api.health import router
 from app.api.identity import router as identity_router
+from app.api.internal import router as internal_router
 from app.api.search import router as search_router
 from app.config import Settings, build_engine
 from app.models.document import DocumentError
@@ -33,9 +34,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             if configuration.auth_issuer and configuration.auth_jwks_url
             else None
         )
+        if configuration.cloud_runtime and engine is not None:
+            from app.worker.cloud import CloudWorker
+
+            app.state.cloud_worker = CloudWorker(engine, configuration)
         try:
             yield
         finally:
+            if configuration.cloud_runtime and engine is not None:
+                app.state.cloud_worker.indexer.close()
             if engine is not None:
                 engine.dispose()
 
@@ -70,6 +77,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             response.headers["cache-control"] = "no-store"
         return response
 
+    app.include_router(internal_router)
     app.include_router(router)
     app.include_router(identity_router)
     app.include_router(documents_router)

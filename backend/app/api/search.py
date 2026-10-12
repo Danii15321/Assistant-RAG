@@ -40,4 +40,7 @@ def search(
         SearchRepository(engine),
         QueryJobRepository(engine),
         request.app.state.settings.search_threshold,
+        progress=request.app.state.cloud_worker.query_step
+        if request.app.state.settings.cloud_runtime
+        else None,
     ).execute(owner_id, identity.session_id, body, active)

@@ -137,3 +137,32 @@ class UploadRepository:
                 ),
                 {"id": document_id, "size": size},
             )
+
+    def complete_external(self, owner: UUID, document_id: UUID, size: int) -> None:
+        """Only server-measured Blob bytes can complete an owner's live reservation."""
+        with self.engine.begin() as connection:
+            row = (
+                connection.execute(
+                    text(
+                        "SELECT d.* FROM documents d WHERE id=:id AND owner_id=:owner "
+                        "AND state='uploading' AND expires_at>now() "
+                        "AND EXISTS (SELECT 1 FROM auth_session s WHERE s.id=d.session_id AND "
+                        's."expiresAt">now() AND s."userId"=(SELECT auth_user_id '
+                        "FROM users WHERE id=d.owner_id)) FOR UPDATE"
+                    ),
+                    {"id": document_id, "owner": owner},
+                )
+                .mappings()
+                .one_or_none()
+            )
+            if row is None:
+                raise DocumentError(404, "not_found")
+            if row["size_bytes"] != size:
+                raise DocumentError(422, "size_mismatch")
+            connection.execute(
+                text(
+                    "UPDATE documents SET stage='uploaded',actual_size=:size,upload_hash=NULL,"
+                    "updated_at=now() WHERE id=:id"
+                ),
+                {"id": document_id, "size": size},
+            )

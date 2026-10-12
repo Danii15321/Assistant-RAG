@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "date": "2026-10-11",
+  "environment": "local",
+  "budget_eur": 0,
+  "llm_calls": 0,
+  "cloud_deployment": false,
+  "cloud_provisioning": false,
+  "tests": {
+    "bootstrap": 2,
+    "backend": 38,
+    "postgresql": 17,
+    "chromium_desktop_mobile": 20,
+    "total": 77
+  },
+  "checks": [
+    "ruff",
+    "ruff-format",
+    "mypy",
+    "eslint",
+    "typescript",
+    "next-production-build",
+    "real-e5-import-three-formats",
+    "real-direct-upload-20MiB",
+    "private-owner-isolation",
+    "additive-migration-and-rollback",
+    "checkpoint-lease-and-delete-fencing"
+  ],
+  "embeddings_report": "index-step4-resident-embeddings.json",
+  "persistence_report": "index-step4-persistence.json",
+  "documents_persisted": 10,
+  "frozen_vercel_prototype_unchanged": true,
+  "secret_values_checked": 5,
+  "files_scanned_for_secrets": 170,
+  "secret_matches": 0,
+  "screenshots": [
+    "step4-desktop.png",
+    "step4-mobile.png"
+  ],
+  "next_stage": "5 - Recherche privée",
+  "deferred": [
+    "cloud-representative-load",
+    "cloud-cold-start",
+    "retrieval-relevance-and-Recall@5"
+  ],
+  "markdown_links_valid": true,
+  "ubuntu_wsl_restarted": true,
+  "after_wsl_restart": {
+    "frontend_http": 200,
+    "api_health_http": 200,
+    "anonymous_documents_http": 401,
+    "ready_test_indexes_retained": 10
+  }
+}

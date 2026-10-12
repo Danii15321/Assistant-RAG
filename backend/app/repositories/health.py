@@ -1,6 +1,6 @@
 from sqlalchemy import Engine, text
 
-SCHEMA_REVISION = "0007_conversations"
+SCHEMA_REVISION = "0008_cloud_wakeups"
 
 
 class DatabaseHealthRepository:

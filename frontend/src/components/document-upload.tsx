@@ -29,9 +29,9 @@ export function DocumentUpload({ onUploaded }: Props) {
           filename: file.name, size_bytes: file.size, content_type: types[extension],
         })).json();
         try {
-          // Short capability in memory, never a session JWT or a token in a URL.
+          // Short upload capability; no session cookie or JWT is sent to storage.
           const upload = await fetch(reservation.upload_url, { method: "PUT", body: file,
-            headers: { authorization: `Bearer ${reservation.upload_token}`, "content-type": types[extension] },
+            headers: { ...(reservation.upload_token ? { authorization: `Bearer ${reservation.upload_token}` } : {}), "content-type": types[extension] },
             credentials: "omit", signal: AbortSignal.timeout(120000), redirect: "error" });
           if (!upload.ok) {
             const body = await upload.json().catch(() => ({}));
@@ -64,6 +64,6 @@ export function DocumentUpload({ onUploaded }: Props) {
     </form>
     {progress && <p role="status">{progress}</p>}
     {error && <p className="form-error" role="alert">{error}</p>}
-    <p className="field-help">Stockage privé local · Extraction sur cette machine · Aucun envoi au LLM pendant l’import.</p>
+    <p className="field-help">Stockage privé · Extraction côté serveur · Aucun envoi au LLM pendant l’import.</p>
   </section>;
 }

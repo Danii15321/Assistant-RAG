@@ -1,0 +1,20 @@
+{
+  "runtime": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "development": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 5,
+    "critical": 0,
+    "total": 5
+  },
+  "development_advisory": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+  "scope": "braces via ESLint tooling; no user patterns are accepted by this build tool; no forced downgrade of Next.js"
+}

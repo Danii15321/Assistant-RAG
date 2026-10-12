@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { appURL } from "./app-url";
 import { auth } from "./auth";
 import { normalizeUsername, usernamePattern } from "./auth-options";
 
@@ -36,7 +37,7 @@ export async function handleAuth(request: Request): Promise<Response> {
   try {
     let body: string | undefined;
     if (request.method === "POST") {
-      if (request.headers.get("origin") !== new URL(process.env.BETTER_AUTH_URL!).origin) {
+      if (request.headers.get("origin") !== new URL(appURL()).origin) {
         return json(403, "Origine refusée.");
       }
       body = await readBody(request);

@@ -50,7 +50,7 @@ export function SearchPanel() {
     <section className="document-list" aria-labelledby="search-form-title">
       <h2 id="search-form-title">Rechercher dans mes documents</h2>
       <p>Retrouvez les passages proches de votre question, puis vérifiez leur contenu.</p>
-      <p className="field-help">La recherche des passages reste locale. La génération envoie votre question et les passages retenus à Groq Free.</p>
+      <p className="field-help">La recherche des passages s’effectue sur le serveur. La génération envoie votre question et les passages retenus à Groq Free.</p>
       {loading ? <p role="status">Chargement des documents…</p> : <form className="search-form" onSubmit={submit}>
         <fieldset disabled={pending || !documents.length}>
           <label htmlFor="search-question">Votre question</label>

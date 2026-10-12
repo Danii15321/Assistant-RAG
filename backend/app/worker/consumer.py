@@ -51,7 +51,8 @@ class Consumer:
             self.repository.finish(job, error="attempts_exhausted")
             return True
         try:
-            units = bounded_extract(self.storage.path(job["document_id"]), job["extension"])
+            with self.storage.open_file(job["document_id"]) as path:
+                units = bounded_extract(path, job["extension"])
             self.repository.finish(job, units)
         except ExtractionError as error:
             self.repository.finish(job, error=error.code)

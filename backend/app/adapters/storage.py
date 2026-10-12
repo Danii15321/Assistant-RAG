@@ -3,6 +3,8 @@
 import hashlib
 import os
 import time
+from collections.abc import Iterator
+from contextlib import contextmanager
 from pathlib import Path
 from uuid import UUID, uuid4
 
@@ -15,6 +17,10 @@ class PrivateStorage:
 
     def path(self, document_id: UUID) -> Path:
         return self.root / str(document_id)
+
+    @contextmanager
+    def open_file(self, document_id: UUID) -> Iterator[Path]:
+        yield self.path(document_id)
 
     def temporary(self) -> Path:
         path = self.root / (str(uuid4()) + ".part")
@@ -32,7 +38,7 @@ class PrivateStorage:
     def metadata(self, document_id: UUID) -> tuple[int, str]:
         digest = hashlib.sha256()
         size = 0
-        with self.path(document_id).open("rb") as stream:
+        with self.open_file(document_id) as path, path.open("rb") as stream:
             for part in iter(lambda: stream.read(1024 * 1024), b""):
                 size += len(part)
                 digest.update(part)

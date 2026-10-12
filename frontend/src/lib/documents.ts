@@ -54,7 +54,7 @@ export function errorMessage(code: unknown): string {
 export async function documentRequest(path: string, method = "GET", data?: object): Promise<Response> {
   const response = await fetch(`/api/v1${path}`, {
     method, cache: "no-store", headers: data ? { "content-type": "application/json" } : undefined,
-    body: data ? JSON.stringify(data) : undefined, signal: AbortSignal.timeout(15000),
+    body: data ? JSON.stringify(data) : undefined, signal: AbortSignal.timeout(70000),
   });
   if (response.status === 401) {
     window.dispatchEvent(new Event("session-expired"));

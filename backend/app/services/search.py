@@ -65,9 +65,11 @@ class SearchService:
         jobs: QueryJobRepository,
         threshold: float,
         timeout: float = 105,
+        progress: Callable[[], None] | None = None,
     ) -> None:
         self.repository, self.jobs = repository, jobs
         self.threshold, self.timeout = threshold, timeout
+        self.progress = progress
 
     def execute(
         self, owner: UUID, session: str, body: SearchRequest, active_session: Callable[[], bool]
@@ -81,6 +83,8 @@ class SearchService:
                 while True:
                     if not active_session():
                         raise DocumentError(401, "session_expired")
+                    if self.progress is not None:
+                        self.progress()
                     row = self.jobs.result(owner, identifier)
                     if row is None:
                         raise DocumentError(503, "search_unavailable")

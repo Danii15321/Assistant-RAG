@@ -1,15 +1,14 @@
 import "server-only";
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
-import { Pool } from "pg";
+import { appURL } from "./app-url";
+import { database } from "./database";
 import { authOptions } from "./auth-options";
 
-const database = new Pool({ connectionString: process.env.AUTH_DATABASE_URL, max: 5,
-  connectionTimeoutMillis: 3000, idleTimeoutMillis: 30000 });
-const baseURL = process.env.BETTER_AUTH_URL;
+const baseURL = appURL();
 const secret = process.env.BETTER_AUTH_SECRET;
 if (!baseURL || !secret || !process.env.AUTH_DATABASE_URL) {
-  throw new Error("Configuration locale de l’authentification manquante.");
+  throw new Error("Configuration de l’authentification manquante.");
 }
 const options = authOptions(database, baseURL, secret);
 export const auth = betterAuth({ ...options, plugins: [...options.plugins, nextCookies()] });

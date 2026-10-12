@@ -1,14 +1,59 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "regions": ["fra1"],
+  "regions": [
+    "fra1"
+  ],
   "services": {
-    "qualification": {
-      "root": "probes/vercel/",
+    "frontend": {
+      "root": "frontend/",
+      "framework": "nextjs",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "backend",
+          "format": "url",
+          "env": "API_INTERNAL_URL"
+        }
+      ],
+      "functions": {
+        "src/app/api/queues/ingestion/route.ts": {
+          "experimentalTriggers": [
+            {
+              "type": "queue/v2beta",
+              "topic": "ingestion",
+              "maxConcurrency": 1,
+              "maxDeliveries": 100
+            }
+          ]
+        }
+      }
+    },
+    "backend": {
+      "root": "backend/",
       "runtime": "container",
-      "entrypoint": "Dockerfile.vercel"
+      "entrypoint": "Dockerfile.vercel",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "frontend",
+          "format": "url",
+          "env": "FRONTEND_INTERNAL_URL"
+        }
+      ]
     }
   },
   "rewrites": [
-    { "source": "/(.*)", "destination": { "service": "qualification" } }
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/internal/reconcile",
+      "schedule": "17 4 * * *"
+    }
   ]
 }

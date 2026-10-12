@@ -56,12 +56,14 @@ class DocumentService:
         document = self.repository.get(owner, document_id)
         if document.state != "uploading":
             return document, False
-        if document.stage != "uploaded":
+        if document.stage != "uploaded" and not self.settings.cloud_runtime:
             raise DocumentError(409, "upload_incomplete")
         try:
             size, digest = self.storage.metadata(document_id)
         except OSError as error:
             raise DocumentError(503, "storage_unavailable") from error
+        if self.settings.cloud_runtime:
+            self.uploads.complete_external(owner, document_id, size)
         return self.repository.finalize(owner, document_id, size, digest)
 
     async def upload(self, document_id: UUID, token: str, request: Request) -> None:

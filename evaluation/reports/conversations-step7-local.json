@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-12",
+  "status": "passed-local",
+  "milestone": 7,
+  "tests": {
+    "bootstrap": 2,
+    "llm_configuration": 2,
+    "backend_unit": 63,
+    "postgres_integration": 37,
+    "chromium_desktop_mobile": 52,
+    "total": 156
+  },
+  "checks": [
+    "ruff",
+    "ruff-format",
+    "mypy-58-source-files",
+    "eslint",
+    "typescript-strict",
+    "next-production-build",
+    "database-migration-and-isolated-rollback",
+    "private-history-and-source-persistence"
+  ],
+  "browser_story": [
+    "username-password-registration",
+    "private-import-and-real-E5-indexation",
+    "document-selection",
+    "external-processing-consent",
+    "answer-and-exact-source",
+    "follow-up",
+    "reload-and-reconnect",
+    "private-list-and-delete",
+    "session-revocation",
+    "source-removal",
+    "idempotency-and-serialization",
+    "lost-response-recovery",
+    "unknown-send-recovery-and-consent-reset"
+  ],
+  "provider": "isolated synthetic HTTP server; UI draft-recovery case uses a simulated response",
+  "real_groq_calls": 0,
+  "cloud_deployment": false,
+  "new_paid_services": 0,
+  "new_dependencies": 0,
+  "follow_up_evaluation": {
+    "unique_cases": [
+      "Oriole city follow-up",
+      "Q28 development Iris overlap"
+    ],
+    "real_E5_and_PostgreSQL": true,
+    "Q28_expected_elements": [
+      "220 tokens on initial question",
+      "40 tokens on follow-up"
+    ],
+    "server_owned_history": true,
+    "groq_quality_evaluated": false,
+    "final_cases_executed": 0,
+    "final_cases_reserved": 10
+  },
+  "schema_revision": "0007_conversations",
+  "limits": {
+    "conversations_per_owner": 50,
+    "exchanges_per_conversation": 100,
+    "conversation_lease_seconds": 210,
+    "history_messages_read_max": 6,
+    "prior_user_questions_used_max": 2
+  },
+  "persistence": {
+    "status": "passed",
+    "environment": "local-test-only",
+    "documents_checked": 36,
+    "conversations_checked": 16,
+    "exchanges_checked": 20,
+    "sources_checked": 10,
+    "available_sources": 6,
+    "deleted_sources": 4,
+    "file_bytes_text_and_vectors_unchanged": true,
+    "private_retrieval_unchanged": true,
+    "generation_counters_unchanged": true,
+    "history_and_sources_unchanged": true,
+    "deleted_source_excerpts_absent": true,
+    "attempts_checked": 1,
+    "history_sha256": "7215091ceca4a01463a24b32e29ad9df4b4bf83a8547e146fc65998c7703642f",
+    "containers_replaced": [
+      "db",
+      "backend-auth-test",
+      "worker-auth-test"
+    ],
+    "cloud_deployment": false
+  },
+  "react_review": [
+    "authenticated server pages",
+    "parallel initial reads",
+    "abort and timer cleanup",
+    "private state reset on expiry",
+    "stable send identifier",
+    "fresh consent after recovery",
+    "preserved explicit selection",
+    "unique citation anchors",
+    "escaped source text",
+    "keyboard focus and responsive layout"
+  ],
+  "proof_files": [
+    "step7-desktop.png",
+    "step7-mobile.png",
+    "conversations-step7-persistence.json",
+    "conversations-step7-initial.json"
+  ],
+  "remaining": [
+    "final reserved quality evaluation",
+    "cloud resource and zero-budget verification",
+    "grouped Vercel qualification and publication"
+  ],
+  "final_audit": {
+    "source_files_scanned": 201,
+    "client_bundles_scanned": 27,
+    "secret_values_checked": 6,
+    "secret_matches": 0,
+    "env_local_unchanged": true,
+    "frozen_corpus_files_unchanged": 7,
+    "local_document_links_checked": 80,
+    "broken_links": 0,
+    "AGENTS_lines": 270,
+    "private_backup_mode": "0600",
+    "main_health_status": 200,
+    "anonymous_conversations_status": 401,
+    "local_services_restored": true,
+    "isolated_test_services_stopped": true
+  }
+}

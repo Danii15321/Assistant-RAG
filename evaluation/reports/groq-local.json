@@ -1,0 +1,26 @@
+{
+  "model": "openai/gpt-oss-120b",
+  "attempts": 1,
+  "status": "completed",
+  "citations_valid": true,
+  "factual_check_passed": true,
+  "http_status": 200,
+  "rate_limits": {
+    "x-ratelimit-limit-requests": "1000",
+    "x-ratelimit-limit-tokens": "8000"
+  },
+  "usage": {
+    "queue_time": 0.193658793,
+    "prompt_tokens": 149,
+    "prompt_time": 0.006575488,
+    "completion_tokens": 48,
+    "completion_time": 0.098809671,
+    "total_tokens": 197,
+    "total_time": 0.105385159,
+    "completion_tokens_details": {
+      "reasoning_tokens": 12
+    }
+  },
+  "finish_reason": "stop",
+  "latency_seconds": 0.4
+}

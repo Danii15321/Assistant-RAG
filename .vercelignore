@@ -14,3 +14,18 @@ probes/vercel/test_probe.py
 
 .secrets/
 .env.llm.tmp
+
+.git/
+.agents/
+.claude/
+skills-lock.json
+.models/
+**/node_modules/
+**/.next/
+**/.next-build/
+**/.mypy_cache/
+**/.ruff_cache/
+**/test-results/
+**/playwright-report/
+backend/tests/
+frontend/tests/

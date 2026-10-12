@@ -258,3 +258,28 @@ def test_concurrent_reservations_and_owner_foreign_keys(context):
             ),
             {"id": doc.id, "owner": owners[1]},
         )
+
+
+def test_external_upload_is_bound_to_owner_session_size_and_expiry(context):
+    engine, owners, repo, storage, service, jobs, worker = context
+    doc, _ = service.reserve(
+        owners[0],
+        "alice",
+        UploadRequest(filename="cloud.txt", content_type="text/plain", size_bytes=5),
+    )
+    for owner, size, status in [(owners[1], 5, 404), (owners[0], 6, 422)]:
+        with pytest.raises(DocumentError) as error:
+            service.uploads.complete_external(owner, doc.id, size)
+        assert error.value.status == status
+    service.uploads.complete_external(owners[0], doc.id, 5)
+    service.uploads.complete_external(owners[0], doc.id, 5)
+    assert repo.get(owners[0], doc.id).stage == "uploaded"
+    with engine.begin() as c:
+        c.execute(text("DELETE FROM auth_session WHERE id='alice'"))
+    with pytest.raises(DocumentError):
+        service.uploads.complete_external(owners[0], doc.id, 5)
+    with engine.begin() as c:
+        c.execute(text("UPDATE documents SET expires_at=now()-interval '1 second'"))
+    jobs.reconcile()
+    with pytest.raises(DocumentError):
+        service.uploads.complete_external(owners[0], doc.id, 5)

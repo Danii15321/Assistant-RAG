@@ -6,7 +6,6 @@
 __pycache__/
 *.pyc
 evaluation/.qa/
-evaluation/reports/*-local.json
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -21,3 +20,9 @@ playwright-report/
 
 .secrets/
 .env.llm.tmp
+.env*
+
+# Local agent tooling installed by the Vercel CLI
+.agents/
+.claude/
+skills-lock.json

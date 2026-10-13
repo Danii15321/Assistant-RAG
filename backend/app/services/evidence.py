@@ -5,7 +5,9 @@ import re
 
 def source_excerpts(text: str) -> dict[str, str]:
     excerpts: list[str] = []
-    for sentence in re.split(r"(?<=[.!?])\s+|\n\s*\n", text):
+    # Keep neighbouring sentences together: pronouns and replacement rules often
+    # refer to facts in the preceding sentence. Paragraph boundaries stay exact.
+    for sentence in re.split(r"\n\s*\n", text):
         sentence = sentence.strip()
         while sentence:
             end = min(400, len(sentence))

@@ -31,7 +31,15 @@ mais le schéma strict envoyé à Groq demande les nouveaux identifiants.
 
 L’API publique, les sources persistées et les interfaces restent compatibles ;
 aucune migration de données ou réindexation n’est nécessaire. Le prompt est
-versionné `grounded-claims-v4` et le budget demeure 2 500 + 600 tokens.
+versionné `grounded-claims-v5` et le budget demeure 2 500 + 600 tokens.
+
+Un diagnostic borné sur Q16 (développement uniquement) a reproduit le rejet :
+une affirmation citait la phrase de remplacement, mais son nombre figurait dans
+la phrase précédente. La version v5 conserve les phrases d'un même paragraphe
+ensemble, toujours dans la limite de 400 caractères. Un test reproduit l'échec
+avant correction et vérifie qu'un nombre absent reste refusé. L'appel réel de
+développement devient valide, mais omet encore d'expliciter la date de remplacement :
+cette réponse reste partielle. Le lot réservé décidera de la conformité globale.
 
 ## Nouvelle validation
 

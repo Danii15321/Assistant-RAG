@@ -48,9 +48,7 @@ export function SearchPanel() {
   }
   return <>
     <section className="document-list" aria-labelledby="search-form-title">
-      <h2 id="search-form-title">Rechercher dans mes documents</h2>
-      <p>Retrouvez les passages proches de votre question, puis vérifiez leur contenu.</p>
-      <p className="field-help">La recherche des passages s’effectue sur le serveur. La génération envoie votre question et les passages retenus à Groq Free.</p>
+      <h2 id="search-form-title" className="visually-hidden">Rechercher dans mes documents</h2>
       {loading ? <p role="status">Chargement des documents…</p> : <form className="search-form" onSubmit={submit}>
         <fieldset disabled={pending || !documents.length}>
           <label htmlFor="search-question">Votre question</label>
@@ -66,7 +64,7 @@ export function SearchPanel() {
           <button type="submit" disabled={!question.trim()}>{pending ? "Recherche en cours…" : "Rechercher les passages"}</button>
           <label className="external-consent"><input type="checkbox" checked={consent}
             onChange={event => setConsent(event.target.checked)} />J’accepte l’envoi de ma question et des passages à Groq pour cette réponse.</label>
-          <p className="field-help">Pour des documents personnels, activez Zero Data Retention dans les réglages Groq. Cette page permet un essai ponctuel ; utilisez « Mes conversations » pour enregistrer vos échanges.</p>
+          <p className="field-help">Essai sans historique. Pour enregistrer les réponses, ouvrez une discussion.</p>
           <button type="button" disabled={!consent || !question.trim()} onClick={() => void run(true)}>Générer une réponse sourcée</button>
         </fieldset>
       </form>}

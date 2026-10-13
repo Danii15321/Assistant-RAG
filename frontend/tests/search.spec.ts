@@ -35,7 +35,9 @@ test("recherche E5 réelle, sélection, sources consultables et isolation", asyn
     const alpha = await upload(page.request, "alpha.txt", facts);
     const beta = await upload(page.request, "beta.txt", "La maquette Bételgeuse est présentée à Bordeaux le 2 janvier 2027.");
     const foreign = await upload(bob, "confidentiel-bob.txt", facts + " Confidentiel Bob.");
-    await page.goto("/library"); await page.getByRole("link", { name: "Rechercher dans mes documents" }).click();
+    await page.goto("/library");
+    if (await page.getByRole("button", { name: "Ouvrir le panneau latéral" }).isVisible()) await page.getByRole("button", { name: "Ouvrir le panneau latéral" }).click();
+    await page.getByRole("link", { name: "Explorer les passages" }).click();
     await page.getByLabel("Votre question").fill(facts);
     await page.getByRole("button", { name: "Rechercher les passages" }).click();
     await expect(page.locator(".search-hit").first()).toBeVisible({ timeout: 120000 });
@@ -62,6 +64,7 @@ test("recherche E5 réelle, sélection, sources consultables et isolation", asyn
     for (const id of [foreign, "00000000-0000-0000-0000-000000000000"]) {
       expect((await page.request.post("/api/v1/search", { headers: { origin: baseURL }, data: { question: facts, document_ids: [id] } })).status()).toBe(404);
     }
+    if (await page.getByRole("button", { name: "Ouvrir le panneau latéral" }).isVisible()) await page.getByRole("button", { name: "Ouvrir le panneau latéral" }).click();
     await page.getByRole("button", { name: "Se déconnecter" }).click();
     await expect(page).toHaveURL(/sign-in/);
     expect((await page.request.post("/api/v1/search", { headers: { origin: baseURL }, data: { question: facts } })).status()).toBe(401);

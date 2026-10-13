@@ -1,4 +1,4 @@
-## Projet : Créer un assistant RAG spécialisé dans une base documentaire
+## My Talking RAG — Faites parler vos documents
 
 ## OBJECTIF
 Construire un assistant permettant à un utilisateur d’importer ses propres documents et de poser des questions dont les réponses s’appuient sur leur contenu
@@ -150,3 +150,57 @@ La démonstration est bornée à 10 tentatives Groq/jour/compte, 50 globalement 
 2/minute. Les tentatives refusées par le contrôle de citations consomment aussi
 le quota ; une telle réponse est affichée comme une erreur et peut être renvoyée
 ultérieurement. Aucun dépassement payant ni déploiement automatique à chaque push.
+
+## Interface conversationnelle
+
+Après connexion, le chat est l’écran principal. Le bouton **+** permet d’ajouter
+un ou plusieurs PDF, DOCX ou TXT directement dans la bibliothèque privée.
+L’interface suit leur préparation, conserve la question en cours et crée la
+conversation au premier envoi. L’historique et la bibliothèque sont accessibles
+dans une barre latérale, repliée en menu sur mobile. Les sources restent vérifiables
+et l’accord d’envoi à Groq est demandé pour chaque réponse.
+
+Cette évolution est publiée sur [Vercel](https://assistant-rag-three.vercel.app)
+depuis le 14 octobre 2026. Connexion, import multiple, brouillon, historique,
+sources, navigation mobile et déconnexion ont été vérifiés en production.
+Voir le [journal de déploiement](docs/deploiement-vercel.md#refonte-conversationnelle--14-octobre-2026).
+
+### Identité et interface inspirée des maquettes (en local)
+
+Nom public : **My Talking RAG**. Logo vectoriel original à deux rubans de citation
+entrelacés, également utilisé pour le favicon. Les cartes sous
+chaque réponse présentent le fichier, son repère et un extrait exact ; les liens
+de citation ouvrent un panneau latéral avec les citations et le passage complet.
+« Voir le document » ouvre son texte extrait dans la bibliothèque privée.
+
+La bibliothèque propose une recherche par nom et les filtres PDF, DOCX et TXT.
+Les paramètres permettent de choisir **Clair**, **Sombre** ou **Système**. Le choix
+est mémorisé un an par un cookie d’apparence sans donnée privée ; aucun jeton
+ou document n’est enregistré durablement dans le navigateur. Le système est suivi par CSS, y
+compris lorsqu’il change, sans flash volontaire d’un autre thème au chargement.
+Aucun sélecteur de modèle ni réglage de recherche n’est exposé. Cette évolution
+reste locale ; la version publique conserve l’identité du précédent déploiement.
+
+Contrôles : lint, TypeScript et build réussis ; 59/60 tests navigateur réussis
+au premier passage, le dernier bloqué par les 100 documents de test accumulés.
+Après réinitialisation de la seule base de test, les 6 tests de recherche
+bureau/mobile passent, couvrant le cas restant. Les 38 tests d’intégration passent
+aussi. Les captures des thèmes, de la bibliothèque et des sources ont été relues.
+
+La navigation locale utilise une barre d’icônes persistante. Le logo ouvre ou
+masque le panneau latéral avec l’historique et le compte ; les raccourcis
+Nouvelle discussion, Documents et Paramètres restent accessibles en mode compact.
+Les libellés apparaissent au survol ou au focus. Le bandeau supérieur a été retiré.
+
+L’accueil local se limite à « Par où commence-t-on ? », la saisie avec le + et
+les contrôles utiles (périmètre documentaire, état et consentement Groq).
+Les titres et textes redondants ont été retirés des autres pages. Les paramètres
+présentent le thème et un volet de confidentialité ; les limites de la bibliothèque
+et l’état du service sur l’accueil public se consultent à la demande.
+
+Vérification de cette simplification : lint, typage et build réussis. Le lot de
+32 tests navigateur a révélé un panneau de sélection recouvrant l’envoi sur mobile
+(31 réussites). Après correction de sa fermeture au changement de focus, les
+8 tests ciblés bureau/mobile passent : import multiple, reprise après erreur,
+conversation complète et import des trois formats. Les captures ont été relues.
+Aucun appel Groq réel ni déploiement pour cette modification.

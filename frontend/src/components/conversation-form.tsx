@@ -1,41 +1,64 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
+import { DocumentUpload } from "@/components/document-upload";
+import { ChatIcon } from "@/components/chat-icon";
 import { type DocumentRecord } from "@/lib/documents";
 
-export function ConversationForm({ documents, busy, onSend, initialSelection = null }: {
+export function ConversationForm({ documents, busy, onSend, onUploaded, initialSelection = null }: {
   documents: DocumentRecord[]; busy: boolean; initialSelection?: string[] | null;
+  onUploaded: () => Promise<void>;
   onSend: (question: string, selection: string[] | null) => Promise<boolean>;
 }) {
   const [question, setQuestion] = useState("");
   const [mode, setMode] = useState(initialSelection === null ? "all" : "selection");
   const [selection, setSelection] = useState<string[]>(initialSelection ?? []);
   const [consent, setConsent] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+  const submitting = useRef(false);
+  const scope = useRef<HTMLDetailsElement>(null);
+  const ready = documents.filter(document => document.state === "ready");
+  const processing = documents.some(document => ["uploading", "queued", "processing"].includes(document.state));
+  const unavailable = selection.some(id => !ready.some(document => document.id === id));
+  const blocked = busy || uploading || processing || !ready.length || !consent || !question.trim() || (mode === "selection" && (!selection.length || unavailable));
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setError("");
-    if (busy || !consent || !question.trim()) return;
-    if (mode === "selection" && !selection.length) { setError("Choisissez au moins un document."); return; }
-    if (await onSend(question, mode === "all" ? null : selection)) { setQuestion(""); setConsent(false); }
+    if (blocked || submitting.current) return;
+    submitting.current = true;
+    if (scope.current) scope.current.open = false;
+    try {
+      if (await onSend(question.trim(), mode === "all" ? null : selection)) { setQuestion(""); setConsent(false); }
+    } catch { setError("L’envoi a échoué. Votre question est conservée."); }
+    finally { submitting.current = false; }
   }
-  return <section className="document-list" aria-labelledby="conversation-form-title">
-    <h2 id="conversation-form-title">Poursuivre la conversation</h2>
-    <p>Posez une question ou un suivi. Les passages sont recherchés à nouveau pour chaque échange.</p>
-    <form className="search-form" onSubmit={event => void submit(event)}>
-      <fieldset disabled={busy}><label htmlFor="chat-question">Votre question</label>
-        <textarea id="chat-question" required maxLength={1000} rows={3} value={question} onChange={event => setQuestion(event.target.value)} />
-        <label htmlFor="chat-scope">Documents à consulter</label>
-        <select id="chat-scope" value={mode} onChange={event => setMode(event.target.value)}>
-          <option value="all">Tous mes documents prêts</option><option value="selection">Choisir mes documents</option>
-        </select>
-        {mode === "selection" && <div className="search-selection">{documents.length ? documents.map(document =>
-          <label key={document.id}><input type="checkbox" checked={selection.includes(document.id)} onChange={event =>
-            setSelection(old => event.target.checked ? [...old, document.id] : old.filter(id => id !== document.id))} />{document.filename}</label>) : <p>Aucun document prêt.</p>}</div>}
-        <label className="external-consent"><input type="checkbox" checked={consent} onChange={event => setConsent(event.target.checked)} />J’accepte l’envoi de ma question, des questions précédentes utiles et des passages à Groq pour cette réponse.</label>
-        <p className="field-help">Groq Free reçoit uniquement le contexte borné nécessaire. Pour des documents personnels, activez Zero Data Retention dans les réglages Groq. Sans passage pertinent, l’assistant s’abstient sans appel.</p>
-        <button type="submit" disabled={!consent || !question.trim() || (mode === "selection" && !selection.length)}>{busy ? "Traitement en cours…" : "Envoyer ma question"}</button>
-      </fieldset>
+  return <div className="composer-dock">
+    <form className="chat-composer" onSubmit={event => void submit(event)}>
+      <div className="composer-input">
+      <DocumentUpload compact disabled={busy} onBusyChange={setUploading} onUploaded={onUploaded} />
+      <label htmlFor="chat-question" className="visually-hidden">Votre question</label>
+      <textarea id="chat-question" disabled={busy} required maxLength={1000} rows={1} value={question}
+        placeholder="Posez votre question…" onChange={event => setQuestion(event.target.value)}
+        onKeyDown={event => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); if (!blocked) event.currentTarget.form?.requestSubmit(); } }} />
+      <button className="send-button" type="submit" disabled={blocked} aria-label="Envoyer ma question" title="Envoyer · Entrée"><ChatIcon name="arrow" /></button>
+      </div>
+      <div className="composer-toolbar">
+        <details ref={scope} className="scope-picker" onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.open = false; }} onKeyDown={event => { if (event.key === "Escape") { event.currentTarget.open = false; event.currentTarget.querySelector("summary")?.focus(); } }}><summary>Documents à consulter</summary><div className="scope-content">
+          <label htmlFor="chat-scope">Périmètre de la réponse</label>
+          <select id="chat-scope" disabled={busy} value={mode} onChange={event => setMode(event.target.value)}>
+            <option value="all">Tous mes documents prêts</option><option value="selection">Choisir mes documents</option>
+          </select>
+          {mode === "selection" && <div className="search-selection">{ready.length ? ready.map(document =>
+            <label key={document.id}><input type="checkbox" disabled={busy} checked={selection.includes(document.id)} onChange={event =>
+              setSelection(old => event.target.checked ? [...old, document.id] : old.filter(id => id !== document.id))} />{document.filename}</label>) : <p>Aucun document prêt.</p>}</div>}
+          {mode === "selection" && unavailable && <p role="alert">Un document sélectionné n’est plus disponible. Revenez à tous les documents ou modifiez la sélection.</p>}
+        </div></details>
+      <p className="composer-status" role="status">{uploading ? "Envoi des documents…" : processing ? "Préparation des documents… Vous pourrez envoyer votre question dès qu’ils seront prêts." : ready.length ? `${ready.length} document${ready.length > 1 ? "s" : ""} prêt${ready.length > 1 ? "s" : ""}` : "Ajoutez votre premier document avec le + · PDF, DOCX ou TXT, 20 Mio max."}{!processing && mode === "selection" && ` · ${selection.length} sélectionné(s)`}</p>
+      </div>
+      <label className="external-consent"><input type="checkbox" disabled={busy} checked={consent} onChange={event => setConsent(event.target.checked)} />J’accepte l’envoi à Groq de ma question, de l’historique utile et des extraits pour cette réponse.</label>
+
     </form>
+    {documents.some(document => document.state === "failed") && <p className="form-error" role="status">Un document n’a pas pu être préparé. Consultez la bibliothèque pour le relancer.</p>}
     {error && <p className="form-error" role="alert">{error}</p>}
-  </section>;
+  </div>;
 }

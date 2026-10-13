@@ -133,3 +133,24 @@ documentaire n’est renvoyée. Ne pas activer Observability Plus pour cette mes
 Les déploiements restent manuels : le dépôt GitHub n’est pas connecté à un
 déploiement automatique à chaque push. Regrouper les changements et vérifier
 les contrôles avant un prochain jalon de publication.
+
+## Refonte conversationnelle — 14 octobre 2026
+
+Publication demandée par le porteur après les contrôles locaux (lint, types,
+build et parcours navigateur bureau/mobile). Déploiement de production
+`dpl_2kCgdcbia7VVGsAEBXM8Bq47DEUK`, statut `READY`, construction et publication
+en environ quatre minutes ; URL stable : <https://assistant-rag-three.vercel.app>.
+Projet et espace vérifiés, plan Hobby confirmé. Aucun changement de schéma,
+de secrets ou de ressources cloud. Aucun commit ni push effectué à ce jalon :
+source issue de `8d4a3aa` avec la refonte locale, empreinte SHA-256 des 24 fichiers
+modifiés avant publication :
+`81dd8572addf6fed4d56fc351e16f30f142744798e8b8443588b2aa062dec68c`.
+
+Contrôles Playwright sur l’URL publique, avec un compte synthétique existant :
+connexion vers le chat, sélection multiple via « + », deux uploads dédupliqués
+(TXT et DOCX), brouillon conservé, consentement obligatoire, historique et
+sources persistants, absence de débordement mobile, menu au clavier et
+déconnexion avec API protégée. Tous réussis. Aucun nouvel appel Groq pour
+ce contrôle ; les réponses consultées proviennent de la qualification antérieure.
+Aucune erreur retournée par les journaux Vercel du nouveau déploiement sur
+la fenêtre de quinze minutes contrôlée après publication.

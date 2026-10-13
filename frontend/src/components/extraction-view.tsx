@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { documentRequest, type DocumentRecord, type ExtractedUnit } from "@/lib/documents";
 
 export function ExtractionView({ document, onClose }: { document: DocumentRecord; onClose: () => void }) {
+  const section = useRef<HTMLElement>(null);
+  useEffect(() => { section.current?.scrollIntoView({ block: "start" }); }, []);
   const [units, setUnits] = useState<ExtractedUnit[]>([]);
   const [offset, setOffset] = useState(0);
   const [error, setError] = useState("");
@@ -17,7 +19,7 @@ export function ExtractionView({ document, onClose }: { document: DocumentRecord
     return () => { active = false; };
   }, [document.id, offset]);
   function navigate(next: number) { setLoading(true); setOffset(next); }
-  return <section className="extraction-card" aria-labelledby="extraction-title">
+  return <section ref={section} className="extraction-card" aria-labelledby="extraction-title">
     <div className="section-top"><h2 id="extraction-title">Texte extrait · {document.filename}</h2>
       <button type="button" onClick={onClose}>Fermer le texte</button></div>
     <p className="field-help">Repères physiques conservés. Le découpage utilise ce texte exact.</p>

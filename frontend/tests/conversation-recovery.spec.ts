@@ -51,7 +51,8 @@ test("vérification d’un envoi inconnu réutilise son UUID et réinitialise l�
   });
   await page.goto(`/conversations/${id}`);
   await page.getByLabel("Votre question").fill(facts);
-  await page.getByLabel("Documents à consulter").selectOption("selection");
+  await page.getByText("Documents à consulter", { exact: true }).click();
+  await page.getByLabel("Périmètre de la réponse").selectOption("selection");
   await page.getByRole("checkbox", { name: "oriole.txt", exact: true }).check();
   await page.getByRole("checkbox", { name: /J’accepte l’envoi/ }).check();
   await page.getByRole("button", { name: "Envoyer ma question" }).click();
@@ -61,6 +62,7 @@ test("vérification d’un envoi inconnu réutilise son UUID et réinitialise l�
   await expect(page.locator(".answer-claims")).toContainText("Lyon", { timeout: 120000 });
   await expect(page.getByRole("checkbox", { name: /J’accepte l’envoi/ })).not.toBeChecked();
   await expect(page.getByLabel("Votre question")).toHaveValue("");
+  await page.getByText("Documents à consulter", { exact: true }).click();
   await expect(page.getByRole("checkbox", { name: "oriole.txt", exact: true })).toBeChecked();
   await expect(page.getByRole("button", { name: "Envoyer ma question" })).toBeDisabled();
   expect(ids).toHaveLength(2); expect(new Set(ids).size).toBe(1);

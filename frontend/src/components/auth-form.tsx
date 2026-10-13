@@ -29,7 +29,7 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
           ? result.message : "Connexion indisponible.");
         return;
       }
-      router.replace("/library");
+      router.replace("/conversations");
       router.refresh();
     } catch { setError("Connexion indisponible. Vérifiez votre connexion et réessayez."); }
     finally { setPending(false); }

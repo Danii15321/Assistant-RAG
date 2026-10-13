@@ -1,4 +1,4 @@
-# Spécification du projet Assistant RAG — V1
+# Spécification du projet My Talking RAG — V1
 
 - **Date :** 13 octobre 2026.
 - **Référence :** [README du projet](../README.md).
@@ -74,26 +74,49 @@ Les PDF sans couche textuelle sont refusés avec une explication. Les pages non 
 
 1. Consulter la page publique et ouvrir l'inscription ou la connexion.
 2. Créer son compte avec `prenom.nom` et un mot de passe, ou se connecter avec ses identifiants.
-3. Accéder à sa bibliothèque et à son historique après connexion.
+3. Arriver directement dans le chat : nouvelle question au centre, conversations dans la barre latérale et accès à la bibliothèque.
 4. Se déconnecter ; les routes métier redeviennent inaccessibles.
 5. Une session expirée ramène à la connexion. Aucune récupération automatique de mot de passe dans la V1 ; intervention manuelle du porteur si nécessaire.
 
 ### Importer
 
-1. Sélectionner un fichier.
+1. Cliquer sur « + » dans le chat et sélectionner un ou plusieurs fichiers ; l’envoi démarre directement. La bibliothèque conserve aussi son formulaire d’import.
 2. Une session authentifiée autorise un upload direct vers le stockage privé ; le serveur vérifie l'objet reçu et crée le travail d'indexation.
 3. L'interface affiche l'état : en attente, en cours, prêt ou en erreur.
-4. Le document prêt devient disponible pour les questions.
-5. En cas d'échec, afficher la cause et permettre une relance lorsque possible.
+4. Les états se mettent à jour dans le chat. Le brouillon reste conservé pendant la préparation ; l’envoi de la question attend la fin des traitements en cours. Seuls les documents prêts sont sélectionnables.
+5. Un fichier invalide est signalé sans interrompre les suivants. En cas d’échec de traitement, proposer de consulter la bibliothèque pour le relancer.
 
 ### Questionner et vérifier
 
-1. Ouvrir une conversation et sélectionner éventuellement les documents.
-2. Poser une question.
+1. Écrire directement une question dans l’écran de chat ; la conversation est créée au premier envoi. Retrouver les conversations existantes dans la barre latérale.
+2. Consulter tous les documents prêts par défaut ou ouvrir « Documents à consulter » pour une sélection. Confirmer l’envoi du contexte utile à Groq pour cette réponse, puis envoyer avec Entrée ou la flèche. Maj + Entrée ajoute une ligne.
 3. Récupérer les passages pertinents, puis générer la réponse.
 4. Afficher la réponse et les citations.
 5. Au clic sur une citation, afficher le fichier, le repère et l'extrait exact.
 6. Distinguer explicitement manque d'information et erreur du service LLM.
+
+### Apparence et sources (évolution locale du 14 octobre 2026)
+
+- L’identité publique devient **My Talking RAG**, avec un symbole original à deux rubans de citation entrelacés.
+- Les sources se présentent en cartes sous la réponse : nom réel du fichier,
+  repère PDF/DOCX/TXT et citation exacte. Le clic sur une carte ou une référence
+  ouvre un panneau avec les extraits cités et le passage complet. Le lien vers
+  le document ouvre le texte extrait privé ; aucune URL publique n’est créée.
+- Les sources supprimées restent signalées, sans extrait ni lien vers le fichier.
+- La bibliothèque permet de filtrer par nom et format pris en charge. Aucune
+  date ni métadonnée absente de l’API n’est fabriquée pour reproduire la maquette.
+- Paramètres : apparence et volet dépliable de confidentialité.
+  Clair, Sombre et Système sont mémorisés par un cookie de préférence d’un an,
+  distinct des sessions ; Système est le choix initial et suit l’OS via CSS.
+- Barre d’icônes repliée par défaut : le logo ouvre le panneau latéral et son historique.
+  Nouvelle discussion, Documents et Paramètres restent accessibles en mode compact,
+  avec des libellés au survol/focus. Aucun badge ni texte de bandeau supérieur.
+- Accueil minimal : « Par où commence-t-on ? », saisie, import +, périmètre, état
+  et consentement explicite. Aucun slogan ni suggestion décorative. Les autres
+  pages privilégient les actions, avec les explications secondaires dépliables.
+- Navigation au clavier, fermeture par Échap et retour du focus pour le panneau.
+  L’affichage fonctionne sur bureau et mobile. Aucun choix de LLM ni curseur de
+  recherche ne sont ajoutés. Cette évolution n’est pas encore déployée.
 
 ### Reprendre
 

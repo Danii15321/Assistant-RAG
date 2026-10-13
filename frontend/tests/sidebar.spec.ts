@@ -1,0 +1,44 @@
+import { test, expect } from "@playwright/test";
+import { Pool } from "pg";
+const db = process.env.AUTH_TEST_DATABASE_URL!;
+if (new URL(db).pathname !== "/assistant_rag_test") throw new Error("Dedicated test database required");
+const pool = new Pool({ connectionString: db, max: 2 });
+test.afterAll(async () => { await pool.end(); });
+test("barre compacte, infobulles, historique et navigation", async ({ page }) => {
+  await pool.query("DELETE FROM auth_rate_limit");
+  expect((await page.request.post("/api/auth/sign-up/username", { headers: { origin: process.env.TEST_BASE_URL! }, data: { username: `rail.t${Date.now()}`, password: "Local sidebar password 2026!" } })).status()).toBe(200);
+  const created = await page.request.post("/api/v1/conversations", { headers: { origin: process.env.TEST_BASE_URL! } });
+  expect(created.status()).toBe(201);
+  const id = (await created.json()).id;
+  await page.goto("/conversations");
+  await expect(page.getByText("Bibliothèque privée", { exact: true })).toHaveCount(0);
+  await expect(page.getByText("Assistant documentaire", { exact: true })).toHaveCount(0);
+  const toggle = page.getByRole("button", { name: "Ouvrir le panneau latéral", exact: true });
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(page.getByRole("heading", { name: "Mes conversations" })).toBeHidden();
+  const newChat = page.getByRole("button", { name: "Nouvelle discussion", exact: true });
+  await expect(newChat).toHaveAttribute("data-tooltip", "Nouvelle discussion");
+  if (test.info().project.name === "desktop") {
+    await newChat.hover();
+    expect(await newChat.evaluate(el => getComputedStyle(el, "::after").display)).not.toBe("none");
+  }
+  await expect(page.getByRole("link", { name: "Documents", exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Paramètres", exact: true })).toBeVisible();
+  await page.getByLabel("Votre question").fill("Brouillon conservé pendant l’ouverture.");
+  await toggle.click();
+  await expect(page.getByRole("heading", { name: "Mes conversations" })).toBeVisible();
+  await expect(page.locator(`.sidebar-history a[href="/conversations/${id}"]`)).toBeVisible();
+  await page.screenshot({ path: test.info().outputPath("sidebar-open.png"), fullPage: true });
+  await page.keyboard.press("Escape");
+  await expect(toggle).toBeFocused();
+  await expect(page.getByLabel("Votre question")).toHaveValue("Brouillon conservé pendant l’ouverture.");
+  await newChat.click();
+  await expect(page.getByLabel("Votre question")).toHaveValue("");
+  await page.screenshot({ path: test.info().outputPath("sidebar-compact.png"), fullPage: true });
+  await page.getByRole("link", { name: "Documents", exact: true }).click();
+  await expect(page).toHaveURL(/\/library$/);
+  await page.getByRole("link", { name: "Paramètres", exact: true }).click();
+  await expect(page).toHaveURL(/\/settings$/);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});

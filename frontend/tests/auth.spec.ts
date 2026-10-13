@@ -37,8 +37,9 @@ test("inscription, compte privé, déconnexion et reconnexion", async ({ page })
   await page.getByLabel("Mot de passe", { exact: true }).fill(password);
   await page.getByLabel("Confirmer le mot de passe").fill(password);
   await page.getByRole("button", { name: "Créer mon compte" }).click();
-  await expect(page).toHaveURL(/\/library$/);
-  await expect(page.getByRole("heading", { name: "Ma bibliothèque" })).toBeVisible();
+  await expect(page).toHaveURL(/\/conversations$/);
+  await expect(page.getByRole("heading", { name: "Par où commence-t-on ?" })).toBeVisible();
+  if (await page.getByRole("button", { name: "Ouvrir le panneau latéral" }).isVisible()) await page.getByRole("button", { name: "Ouvrir le panneau latéral" }).click();
   await expect(page.getByText(username, { exact: true })).toBeVisible();
   const profile = await page.request.get("/api/v1/users/me");
   expect(profile.status()).toBe(200);
@@ -55,7 +56,7 @@ test("inscription, compte privé, déconnexion et reconnexion", async ({ page })
   await page.getByLabel("Nom d’utilisateur").fill(username.toUpperCase());
   await page.getByLabel("Mot de passe", { exact: true }).fill(password);
   await page.getByRole("button", { name: "Se connecter" }).click();
-  await expect(page).toHaveURL(/\/library$/);
+  await expect(page).toHaveURL(/\/conversations$/);
   expect((await (await page.request.get("/api/v1/users/me")).json()).id).toBe(id);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(await page.evaluate(() => Object.values(localStorage))).toEqual([]);

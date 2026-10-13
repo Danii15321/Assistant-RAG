@@ -36,6 +36,7 @@ test("import des trois formats, extraction, indexation réelle, doublon, échec,
   test.setTimeout(300000);
   await account(page.request, "import");
   await page.goto("/library");
+  await page.locator(".library-import > summary").click();
   const files = ["atelier-rag.pdf", "parcours-2026.docx", "reseau.txt"];
   for (const filename of files) {
     await page.getByLabel("Choisir des fichiers").setInputFiles(`/corpus/${filename}`);
@@ -90,6 +91,7 @@ test("import des trois formats, extraction, indexation réelle, doublon, échec,
   await page.screenshot({ path: test.info().outputPath("import-library.png"), fullPage: true });
   await page.reload();
   await expect(page.getByRole("listitem")).toHaveCount(3);
+  if (await page.getByRole("button", { name: "Ouvrir le panneau latéral" }).isVisible()) await page.getByRole("button", { name: "Ouvrir le panneau latéral" }).click();
   await page.getByRole("button", { name: "Se déconnecter" }).click();
     await expect(page).toHaveURL(/sign-in/);
   expect((await page.request.get("/api/v1/documents")).status()).toBe(401);
@@ -139,6 +141,7 @@ test("envoi direct de vingt Mio et refus au-delà de la limite", async ({ page }
   test.setTimeout(300000);
   await account(page.request, "boundary");
   await page.goto("/library");
+  await page.locator(".library-import > summary").click();
   const prefix = Buffer.from("Document de vingt Mio.\n");
   const bytes = Buffer.alloc(20 * 1024 * 1024, 32); prefix.copy(bytes);
   const uploads: string[] = [];

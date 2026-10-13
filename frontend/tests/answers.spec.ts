@@ -35,7 +35,7 @@ test("réponse sourcée réelle dans le navigateur, consentement, source exacte 
   await page.getByRole("checkbox",{name:/J’accepte l’envoi/}).check();await button.click();
   await expect(page.locator(".answer-claims")).toContainText("Le lancement a lieu à Lyon.",{timeout:120000});
   await page.getByRole("link",{name:"[S1]"}).click();
-  await page.getByText("Vérifier la source S1",{exact:true}).click();
+  await expect(page.getByRole("dialog", { name: "Sources de la réponse" })).toBeVisible();
   // The provider selects the server's exact paragraph, including both sentences.
   await expect(page.locator(".answer-source blockquote")).toHaveText(facts);
   await expect(page.locator(".answer-source pre")).toHaveText(facts);

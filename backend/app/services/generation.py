@@ -1,4 +1,5 @@
 import json
+import logging
 import re
 from dataclasses import dataclass
 
@@ -11,6 +12,8 @@ from app.models.document import DocumentError
 from app.models.search import SearchHit, SearchRequest
 from app.services.evidence import source_excerpts
 from app.services.search import query_text
+
+logger = logging.getLogger(__name__)
 
 PROMPT_VERSION = "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600"
 SYSTEM = (
@@ -139,12 +142,14 @@ def validate_answer(raw: str, sources: list[AnswerSource]) -> GeneratedAnswer:
             for evidence in claim.get("evidence", []):
                 if "excerpt_id" in evidence:
                     if set(evidence) != {"source_id", "excerpt_id"}:
+                        logger.warning("Citation rejected: unexpected_fields")
                         raise DocumentError(502, "invalid_citations")
                     try:
                         quote = source_excerpts(allowed[evidence["source_id"]].text)[
                             evidence["excerpt_id"]
                         ]
                     except (KeyError, TypeError):
+                        logger.warning("Citation rejected: unknown_excerpt")
                         raise DocumentError(502, "invalid_citations") from None
                     evidence.pop("excerpt_id")
                     evidence["quote"] = quote
@@ -156,9 +161,11 @@ def validate_answer(raw: str, sources: list[AnswerSource]) -> GeneratedAnswer:
         raise DocumentError(502, "invalid_llm_output")
     for claim in answer.claims:
         if re.search(r"\[S[^\]]*\]|\b\S+\.(?:pdf|docx|txt)\b", claim.text, re.I):
+            logger.warning("Citation rejected: embedded_reference")
             raise DocumentError(502, "invalid_citations")
         for evidence in claim.evidence:
             if evidence.source_id not in allowed:
+                logger.warning("Citation rejected: unknown_source")
                 raise DocumentError(502, "invalid_citations")
             original = allowed[evidence.source_id].text
             # PDF layout can add line breaks. Align whitespace only, then return
@@ -166,9 +173,11 @@ def validate_answer(raw: str, sources: list[AnswerSource]) -> GeneratedAnswer:
             pattern = r"\s+".join(re.escape(word) for word in evidence.quote.split())
             found = re.search(pattern, original)
             if found is None or len(found.group(0)) > 600:
+                logger.warning("Citation rejected: unmatched_quote")
                 raise DocumentError(502, "invalid_citations")
             evidence.quote = found.group(0)
         quoted_numbers = set(re.findall(r"\d+", " ".join(e.quote for e in claim.evidence)))
         if not set(re.findall(r"\d+", claim.text)).issubset(quoted_numbers):
+            logger.warning("Citation rejected: unsupported_number")
             raise DocumentError(502, "invalid_citations")
     return answer

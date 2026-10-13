@@ -154,3 +154,40 @@ déconnexion avec API protégée. Tous réussis. Aucun nouvel appel Groq pour
 ce contrôle ; les réponses consultées proviennent de la qualification antérieure.
 Aucune erreur retournée par les journaux Vercel du nouveau déploiement sur
 la fenêtre de quinze minutes contrôlée après publication.
+
+## My Talking RAG — 14 octobre 2026
+
+Version validée par le porteur puis publiée depuis le commit
+`c0d623d46a5f49ffb222d063e9e4394a793aad4a`, poussé sur `origin/main`.
+Déploiement `dpl_E2WLfpyHd3McxPUxwAbe1NyuRA7Z`, cible Production,
+statut `READY`, construction/publication en environ six minutes.
+URL stable : <https://assistant-rag-three.vercel.app>.
+URL immuable : <https://assistant-cj0bmnjlw-danii15321s-projects.vercel.app>.
+Projet `assistant-rag`, espace `danii15321s-projects`, plan Hobby vérifiés avant
+publication. Aucun changement de schéma, secret, plan ou ressource cloud.
+
+La version regroupe la nouvelle identité/logo, les thèmes Clair/Sombre/Système,
+les cartes et le panneau de sources, la navigation compacte et les pages épurées.
+Lint, typage, build et contrôles locaux documentés dans le README ; le build
+Vercel a aussi compilé et typé le frontend avec succès.
+
+Les huit vérifications Playwright publiques passent avec deux comptes
+synthétiques existants : accueil, sélection/import de deux fichiers déjà présents
+et brouillon conservé, consentement obligatoire, trois thèmes avec persistance,
+filtre documentaire, historique et sources existantes après rechargement,
+navigation mobile/clavier, déconnexion et refus intercompte (`404`). Les captures
+bureau/mobile ont été relues. Aucun nouvel appel LLM : les réponses consultées
+proviennent de la qualification Groq antérieure. Les documents `corrompu.pdf` et
+`scan.pdf` restent volontairement en échec (`invalid_file`, `no_text`).
+
+La lecture des journaux du déploiement sur quinze minutes retourne deux
+avertissements `pg-connection-string` classés « error » par Vercel ; les requêtes
+associées ont réussi (`200`). Ils annoncent une évolution future de la sémantique
+SSL, sans échec constaté lors de cette vérification. Les connexions actuelles
+restent vérifiées ; requalifier les options TLS lors d’une mise à jour de `pg`.
+Aucun service de suivi payant ajouté.
+
+[Preuve synthétique sans secrets](../evaluation/reports/interface-release-2026-10-14.json).
+Rollback du code possible vers `dpl_2kCgdcbia7VVGsAEBXM8Bq47DEUK` ; aucune migration
+n’accompagne cette publication. La documentation de publication est commitée
+séparément du code exécuté. Les déploiements restent manuels.

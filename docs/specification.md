@@ -95,7 +95,7 @@ Les PDF sans couche textuelle sont refusés avec une explication. Les pages non 
 5. Au clic sur une citation, afficher le fichier, le repère et l'extrait exact.
 6. Distinguer explicitement manque d'information et erreur du service LLM.
 
-### Apparence et sources (évolution locale du 14 octobre 2026)
+### Apparence et sources (publication du 14 octobre 2026)
 
 - L’identité publique devient **My Talking RAG**, avec un symbole original à deux rubans de citation entrelacés.
 - Les sources se présentent en cartes sous la réponse : nom réel du fichier,
@@ -116,7 +116,7 @@ Les PDF sans couche textuelle sont refusés avec une explication. Les pages non 
   pages privilégient les actions, avec les explications secondaires dépliables.
 - Navigation au clavier, fermeture par Échap et retour du focus pour le panneau.
   L’affichage fonctionne sur bureau et mobile. Aucun choix de LLM ni curseur de
-  recherche ne sont ajoutés. Cette évolution n’est pas encore déployée.
+  recherche ne sont ajoutés. Cette évolution est publiée sur Vercel (commit `c0d623d`).
 
 ### Reprendre
 

@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-13T23:58:14.105Z",
+  "url": "https://assistant-rag-three.vercel.app",
+  "checks": {
+    "new_identity_and_minimal_home": true,
+    "multi_upload_dedup_draft_and_consent": true,
+    "three_themes_and_persistence": true,
+    "library_filter": true,
+    "persisted_history_sources_and_keyboard": true,
+    "mobile_rail_history_and_new_chat": true,
+    "logout_protects_api": true,
+    "second_account_isolation": true
+  },
+  "real_llm_requests": 0,
+  "deployment_id": "dpl_E2WLfpyHd3McxPUxwAbe1NyuRA7Z",
+  "status": "READY",
+  "commit": "c0d623d46a5f49ffb222d063e9e4394a793aad4a",
+  "target": "production",
+  "runtime_log_review": {
+    "window": "15m",
+    "records_at_error_level": 2,
+    "classification": "pg-connection-string future SSL semantics warning",
+    "associated_http_statuses": [
+      200,
+      200
+    ]
+  }
+}

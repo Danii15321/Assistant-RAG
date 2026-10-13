@@ -165,7 +165,7 @@ depuis le 14 octobre 2026. Connexion, import multiple, brouillon, historique,
 sources, navigation mobile et déconnexion ont été vérifiés en production.
 Voir le [journal de déploiement](docs/deploiement-vercel.md#refonte-conversationnelle--14-octobre-2026).
 
-### Identité et interface inspirée des maquettes (en local)
+### Identité et interface inspirée des maquettes (publiée le 14 octobre 2026)
 
 Nom public : **My Talking RAG**. Logo vectoriel original à deux rubans de citation
 entrelacés, également utilisé pour le favicon. Les cartes sous
@@ -178,8 +178,8 @@ Les paramètres permettent de choisir **Clair**, **Sombre** ou **Système**. Le 
 est mémorisé un an par un cookie d’apparence sans donnée privée ; aucun jeton
 ou document n’est enregistré durablement dans le navigateur. Le système est suivi par CSS, y
 compris lorsqu’il change, sans flash volontaire d’un autre thème au chargement.
-Aucun sélecteur de modèle ni réglage de recherche n’est exposé. Cette évolution
-reste locale ; la version publique conserve l’identité du précédent déploiement.
+Aucun sélecteur de modèle ni réglage de recherche n’est exposé. Cette évolution est publiée sur
+<https://assistant-rag-three.vercel.app>.
 
 Contrôles : lint, TypeScript et build réussis ; 59/60 tests navigateur réussis
 au premier passage, le dernier bloqué par les 100 documents de test accumulés.
@@ -187,12 +187,12 @@ Après réinitialisation de la seule base de test, les 6 tests de recherche
 bureau/mobile passent, couvrant le cas restant. Les 38 tests d’intégration passent
 aussi. Les captures des thèmes, de la bibliothèque et des sources ont été relues.
 
-La navigation locale utilise une barre d’icônes persistante. Le logo ouvre ou
+La navigation utilise une barre d’icônes persistante. Le logo ouvre ou
 masque le panneau latéral avec l’historique et le compte ; les raccourcis
 Nouvelle discussion, Documents et Paramètres restent accessibles en mode compact.
 Les libellés apparaissent au survol ou au focus. Le bandeau supérieur a été retiré.
 
-L’accueil local se limite à « Par où commence-t-on ? », la saisie avec le + et
+L’accueil se limite à « Par où commence-t-on ? », la saisie avec le + et
 les contrôles utiles (périmètre documentaire, état et consentement Groq).
 Les titres et textes redondants ont été retirés des autres pages. Les paramètres
 présentent le thème et un volet de confidentialité ; les limites de la bibliothèque
@@ -203,4 +203,11 @@ Vérification de cette simplification : lint, typage et build réussis. Le lot d
 (31 réussites). Après correction de sa fermeture au changement de focus, les
 8 tests ciblés bureau/mobile passent : import multiple, reprise après erreur,
 conversation complète et import des trois formats. Les captures ont été relues.
-Aucun appel Groq réel ni déploiement pour cette modification.
+Ces contrôles locaux n’ont effectué aucun appel Groq réel.
+
+Publication de cette version : commit `c0d623d`, déploiement Vercel de production
+`dpl_E2WLfpyHd3McxPUxwAbe1NyuRA7Z` (`READY`). Les huit contrôles publics passent :
+identité/accueil, import multiple, thèmes persistants, filtre documentaire,
+historique/sources, navigation mobile, déconnexion et isolation intercomptes.
+La vérification réutilise les réponses de qualification existantes, sans nouvel
+appel Groq. Voir le [journal de publication](docs/deploiement-vercel.md#my-talking-rag--14-octobre-2026).

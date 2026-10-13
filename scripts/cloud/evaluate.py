@@ -61,7 +61,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--url", required=True)
     parser.add_argument("--split", choices=["development", "final"], required=True)
+    parser.add_argument("--case-id")
+    parser.add_argument("--report-suffix", default="")
     args = parser.parse_args()
+    assert not args.case_id or args.split == "development"
+    assert re.fullmatch(r"[a-z0-9-]*", args.report_suffix)
     freeze = REPORTS / "step8-freeze.json"
     if args.split == "final":
         assert freeze.exists(), "Freeze the configuration before final evaluation"
@@ -85,7 +89,10 @@ def main():
     corpus(client, state, state_path)
     cases = [json.loads(line) for line in (ROOT / "evaluation/questions.jsonl").read_text().splitlines()]
     cases = [c for c in cases if c["split"] == args.split and (args.split == "final" or c["id"] in {"Q02", "Q16", "Q21"})]
-    path = REPORTS / ("answers-step8-" + args.split + ".json")
+    if args.case_id:
+        cases = [c for c in cases if c["id"] == args.case_id]
+        assert cases
+    path = REPORTS / ("answers-step8-" + args.split + args.report_suffix + ".json")
     report = json.loads(path.read_text()) if path.exists() else {
         "url": args.url, "split": args.split, "recorded_at": datetime.now(timezone.utc).isoformat(),
         "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),

@@ -56,3 +56,18 @@ def test_excerpt_preserves_the_antecedent_of_a_replacement_rule():
         validate_answer(
             selected(text="La règle de 99 jours remplace celle de 2025."), context.sources
         )
+
+
+def test_long_paragraph_windows_overlap_on_a_complete_sentence():
+    paragraph = (
+        "Présentation : " + "contexte " * 20 + ". "
+        "Chaque passage contient 220 tokens et le chevauchement est de 40 tokens. "
+        "Le modèle produit des vecteurs normalisés : " + "dimension " * 20 + "."
+    )
+    context = build_context(SearchRequest(question="Quel chevauchement ?"), [hit(paragraph)])
+    answer = validate_answer(
+        selected(excerpt="E2", text="Le chevauchement est de 40 tokens."), context.sources
+    )
+    quote = answer.claims[0].evidence[0].quote
+    assert "Chaque passage contient 220 tokens et le chevauchement est de 40 tokens." in quote
+    assert quote in paragraph and len(quote) <= 400

@@ -29,7 +29,12 @@ def source_excerpts(text: str) -> dict[str, str]:
             )
             # Repeat a complete neighbouring sentence only when the next window
             # can also include new text; this guarantees progress and the bound.
-            overlap = previous[-1] if previous else end
+            # A short final tail should retain as much complete paragraph context
+            # as fits, rather than becoming a tiny, ambiguous citation by itself.
+            overlap = next(
+                (boundary for boundary in previous if len(paragraph) - boundary <= 400),
+                previous[-1] if previous else end,
+            )
             start = overlap if following - overlap <= 400 else end
             while start < len(paragraph) and paragraph[start].isspace():
                 start += 1

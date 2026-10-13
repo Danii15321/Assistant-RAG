@@ -71,3 +71,27 @@ def test_long_paragraph_windows_overlap_on_a_complete_sentence():
     quote = answer.claims[0].evidence[0].quote
     assert "Chaque passage contient 220 tokens et le chevauchement est de 40 tokens." in quote
     assert quote in paragraph and len(quote) <= 400
+
+
+def test_short_pdf_tail_keeps_the_relevant_preceding_sentences():
+    # Public CC0 Iris fixture: actual failure captured during browser qualification.
+    paragraph = (
+        "Atelier RAG Iris\nCorpus fictif de test — page 1\nR01\n"
+        "Le RAG combine une recherche de passages documentaires "
+        "et une génération de réponse fondée\n"
+        "sur ces passages.\nR02\n"
+        "Dans l'atelier fictif Iris, un passage contient 220 tokens "
+        "et le chevauchement entre passages voisins\n"
+        "est de 40 tokens.\nR03\n"
+        "Le modèle d'embeddings du cours Iris produit des vecteurs "
+        "de 384 dimensions. Les vecteurs des\n"
+        "questions et des documents sont normalisés."
+    )
+    context = build_context(SearchRequest(question="Quel chevauchement ?"), [hit(paragraph)])
+    answer = validate_answer(
+        selected(excerpt="E2", text="Le chevauchement entre passages est de 40 tokens."),
+        context.sources,
+    )
+    quote = answer.claims[0].evidence[0].quote
+    assert quote.startswith("R02\n") and quote.endswith("sont normalisés.")
+    assert quote in paragraph and len(quote) <= 400

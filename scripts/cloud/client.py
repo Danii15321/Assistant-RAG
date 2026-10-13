@@ -1,6 +1,8 @@
 """Qualification client: private cookies/state, redacted errors, public fixtures only."""
 import http.cookiejar
 import json
+import subprocess
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -66,13 +68,18 @@ class Client:
             raise RuntimeError("Reservation failed: " + str(status) + " " + str(value))
         url = value["upload_url"]
         # Never send application cookies, credentials or OIDC to Blob.
-        try:
-            with urllib.request.urlopen(urllib.request.Request(url, data=raw,
-                headers={"content-type": mime}, method="PUT"), timeout=120) as response:
-                if response.status not in (200, 201, 204):
-                    raise RuntimeError("Direct upload failed")
-        except urllib.error.HTTPError as error:
-            raise RuntimeError("Direct Blob upload failed: " + str(error.code)) from None
+        # curl streams large bodies reliably on WSL; the capability is stdin-only.
+        with tempfile.TemporaryDirectory(prefix="rag-qualification-") as directory:
+            original = Path(directory) / "original"
+            original.write_bytes(raw)
+            original.chmod(0o600)
+            result = subprocess.run([
+                "curl", "--silent", "--config", "-", "--upload-file", str(original),
+                "--header", "Content-Type: " + mime, "--max-time", "120",
+                "--output", "/dev/null", "--write-out", "%{http_code}",
+            ], input="url = " + json.dumps(url) + "\n", text=True, capture_output=True)
+            if result.returncode or result.stdout not in {"200", "201", "204"}:
+                raise RuntimeError("Direct Blob upload failed: " + result.stdout[:3])
         status, document, _ = self.request("POST", "/api/v1/documents", {"upload_id": value["document"]["id"]})
         if status not in (200, 202):
             raise RuntimeError("Finalization failed: " + str(status) + " " + str(document))

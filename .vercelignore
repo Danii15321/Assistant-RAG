@@ -7,7 +7,9 @@
 .pytest_cache/
 evaluation/
 docs/
-scripts/
+/scripts/
+backend/scripts/*
+!backend/scripts/prepare_cloud_model.py
 AGENTS.md
 README.md
 probes/vercel/test_probe.py
@@ -23,6 +25,7 @@ skills-lock.json
 **/node_modules/
 **/.next/
 **/.next-build/
+**/*.tsbuildinfo
 **/.mypy_cache/
 **/.ruff_cache/
 **/test-results/

@@ -45,8 +45,11 @@ Les secrets se renseignent par stdin, jamais avec `--value` dans un historique.
 | `GROQ_API_KEY` | Secret uniquement en Production |
 | `LLM_FREE_PLAN_CONFIRMED` | `true` uniquement après vérification du compte Free |
 
-`API_INTERNAL_URL` et `FRONTEND_INTERNAL_URL` sont injectées par les bindings
-Vercel ; ne pas les remplacer par localhost ou par une autre Preview.
+`API_INTERNAL_URL` est injectée par le binding Vercel de l’interface vers le
+serveur. Les bindings circulaires sont interdits : le serveur joint les routes
+de l’interface via `APP_PUBLIC_URL` ou l’URL de sa propre Preview (`VERCEL_URL`),
+avec son jeton OIDC Vercel et le secret interne pour Blob. Aucun de ces secrets
+n’est transmis lors du téléchargement direct d’un original Blob.
 Aucune variable privée ne porte le préfixe `NEXT_PUBLIC_`.
 
 ## Procédure de publication
@@ -90,3 +93,18 @@ Les exports locaux gratuits doivent inclure les originaux Blob et un `pg_dump`
 au format custom, ainsi qu’un manifeste SHA-256. Les conserver hors Git, droits
 0700 pour le répertoire et 0600 pour les fichiers. Ne pas activer de snapshot
 planifié payant. Tester la restauration sur une base locale isolée.
+
+L’outil `node scripts/cloud/backup.mjs production` exporte la base Neon et les
+originaux dans `evaluation/.qa/backups/` (ignoré par Git), puis restaure le dump
+dans un conteneur PostgreSQL 18/pgvector temporaire, sans port exposé. Il compare
+les nombres de lignes et les empreintes du contenu, vecteurs compris, puis
+supprime uniquement ce conteneur de restauration. Le résultat public ne contient
+aucun original, mot de passe, cookie ou URL signée. Exécuter sans écritures
+concurrentes ; une différence pendant l’export invalide l’essai.
+
+L’outil lit `evaluation/.qa/production.env`, obtenu par `vercel env pull` pour
+l’environnement explicitement choisi, et utilise les dépendances installées dans
+`frontend/`. Docker et le bundle de certificats système Ubuntu sont nécessaires.
+Il ne restaure jamais de données dans Neon. La restauration des octets Blob reste
+une opération de récupération à préparer séparément ; l’export les conserve avec
+leurs UUID et leurs empreintes SHA-256.

@@ -35,12 +35,7 @@ class Settings(BaseSettings):
     @model_validator(mode="after")
     def cloud_configuration(self) -> "Settings":
         if self.cloud_runtime:
-            if not (
-                self.frontend_internal_url
-                and self.internal_worker_secret
-                and self.blob_host
-                and self.database_url_unpooled
-            ):
+            if not (self.internal_worker_secret and self.blob_host and self.database_url_unpooled):
                 raise ValueError("Incomplete cloud configuration")
             if not self.blob_host.endswith(".private.blob.vercel-storage.com"):
                 raise ValueError("A private Blob store is required")
@@ -51,6 +46,9 @@ class Settings(BaseSettings):
             if "-pooler." in self.database_url:
                 raise ValueError("Worker requires a direct database endpoint")
             self.auth_issuer = self.app_public_url or "https://" + os.environ["VERCEL_URL"]
+            # Vercel rejects circular bindings. Reach the frontend through this
+            # deployment's own origin; requests carry the scoped runtime OIDC token.
+            self.frontend_internal_url = self.auth_issuer
             self.auth_jwks_url = self.frontend_internal_url.rstrip("/") + "/api/auth/jwks"
             self.private_storage_path = Path("/tmp/assistant-rag-private")
         return self

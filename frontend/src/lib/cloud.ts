@@ -41,7 +41,7 @@ export async function wakeWorker(reconcile = false): Promise<void> {
 }
 
 export async function runWorker(reconcile: boolean): Promise<void> {
-  const response = await fetch(`${process.env.API_INTERNAL_URL}/internal/work`, {
+  const response = await fetch(new URL("/internal/work", process.env.API_INTERNAL_URL), {
     method: "POST", headers: { authorization: `Bearer ${process.env.INTERNAL_WORKER_SECRET}`,
       "x-reconcile": reconcile ? "1" : "0" }, cache: "no-store", redirect: "error",
     signal: AbortSignal.timeout(250000),

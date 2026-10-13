@@ -12,6 +12,14 @@ QA = ROOT / "evaluation/.qa"
 REPORTS = ROOT / "evaluation/reports"
 
 
+class SameOriginRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, request, response, code, message, headers, newurl):
+        source, target = urlparse(request.full_url), urlparse(newurl)
+        if (source.scheme, source.netloc) != (target.scheme, target.netloc):
+            raise RuntimeError("Cross-origin redirect refused; credentials remain scoped")
+        return super().redirect_request(request, response, code, message, headers, newurl)
+
+
 class Client:
     def __init__(self, base, account, oidc=None):
         parsed = urlparse(base)
@@ -19,10 +27,11 @@ class Client:
             raise ValueError("Qualification requires a Vercel HTTPS deployment")
         self.base, self.account, self.oidc = base.rstrip("/"), account, oidc
         self.cookies = http.cookiejar.CookieJar()
-        self.opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(self.cookies))
+        self.opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(self.cookies), SameOriginRedirect())
 
-    def request(self, method, path, data=None, *, origin=None):
+    def request(self, method, path, data=None, *, origin=None, extra_headers=None):
         headers = {"content-type": "application/json", "origin": origin or self.base}
+        headers.update(extra_headers or {})
         if self.oidc:
             headers["x-vercel-trusted-oidc-idp-token"] = self.oidc
         request = urllib.request.Request(self.base + path,

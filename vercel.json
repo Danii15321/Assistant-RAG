@@ -31,15 +31,7 @@
     "backend": {
       "root": "backend/",
       "runtime": "container",
-      "entrypoint": "Dockerfile.vercel",
-      "bindings": [
-        {
-          "type": "service",
-          "service": "frontend",
-          "format": "url",
-          "env": "FRONTEND_INTERNAL_URL"
-        }
-      ]
+      "entrypoint": "Dockerfile.vercel"
     }
   },
   "rewrites": [

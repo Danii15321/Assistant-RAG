@@ -11,9 +11,13 @@ ni comptes ni stockage durable. Le budget reste strictement nul.
 
 - Un projet Vercel Hobby `assistant-rag`, région `fra1`, deux Services : Next.js
   et FastAPI dans une image contenant E5 CPU à sa révision figée.
-- Seul Next.js est exposé. Les bindings relient les services du même déploiement.
+- Seul Next.js est exposé. Un binding relie Next.js au serveur du même déploiement.
   FastAPI vérifie toujours le JWT et la session ; les opérations internes exigent
   un secret distinct de l’authentification utilisateur.
+- Vercel refuse les bindings circulaires. Le serveur joint les routes de clés
+  publiques et de stockage de Next.js par l’origine du déploiement, avec un jeton
+  OIDC Vercel pour franchir la protection Preview. Les routes Blob exigent aussi
+  le secret interne. Les jetons ne sont jamais envoyés à l’hôte des originaux.
 - Deux ressources Neon **Free**, deux stores Blob **privés**, secrets de session,
   de traitement et de cron distincts pour Preview et Production. Groq est activé
   uniquement en Production. Le local conserve ses volumes et sa configuration.

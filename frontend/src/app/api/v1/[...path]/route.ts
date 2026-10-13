@@ -50,7 +50,7 @@ async function forward(request: Request): Promise<Response> {
       body = Buffer.concat(chunks).toString("utf8");
       headers.set("content-type", "application/json");
     }
-    const upstream = await fetch(`${process.env.API_INTERNAL_URL ?? "http://127.0.0.1:8000"}${url.pathname}${url.search}`, {
+    const upstream = await fetch(new URL(url.pathname + url.search, process.env.API_INTERNAL_URL ?? "http://127.0.0.1:8000"), {
       method: request.method, body, headers, cache: "no-store", redirect: "error", signal: AbortSignal.timeout(answer || conversationMessage ? 175000 : search ? 115000 : cloudEnabled() ? 60000 : 6000),
     });
     const bytes = upstream.status === 204 ? null : await upstream.arrayBuffer();
@@ -63,7 +63,16 @@ async function forward(request: Request): Promise<Response> {
     }
     return new Response(bytes, { status: upstream.status,
       headers: { "content-type": "application/json", ...privateHeaders } });
-  } catch {
+  } catch (error) {
+    // Log only bounded error categories, never URLs, tokens or request content.
+    const category = error instanceof Error ? error.name : "UnknownError";
+    const cause = error instanceof Error && error.cause && typeof error.cause === "object" && "code" in error.cause ? String(error.cause.code) : "unknown";
+    console.error("API bridge failed", {
+      category: /^[A-Za-z]{1,40}$/.test(category) ? category : "Error",
+      cause: /^[A-Z_0-9]{1,40}$/.test(cause) ? cause : "unknown",
+      bindingConfigured: !!process.env.API_INTERNAL_URL,
+      redirectRejected: error instanceof Error && error.cause instanceof Error && /redirect/i.test(error.cause.message),
+    });
     return Response.json({ code: "service_unavailable" }, { status: 503, headers: privateHeaders });
   }
 }

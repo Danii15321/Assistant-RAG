@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy.exc import SQLAlchemyError
 
+from app.adapters.cloud_identity import request_oidc
 from app.api.answers import router as answers_router
 from app.api.conversations import router as conversations_router
 from app.api.documents import router as documents_router
@@ -29,7 +30,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             TokenVerifier(
                 configuration.auth_issuer,
                 configuration.auth_audience,
-                TrustedKeySource(configuration.auth_jwks_url),
+                TrustedKeySource(
+                    configuration.auth_jwks_url,
+                    cloud_runtime=configuration.cloud_runtime,
+                ),
             )
             if configuration.auth_issuer and configuration.auth_jwks_url
             else None
@@ -72,7 +76,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def private_cache_control(
         request: Request, call_next: Callable[[Request], Awaitable[Response]]
     ) -> Response:
-        response = await call_next(request)
+        token = request_oidc.set(
+            request.headers.get("x-vercel-oidc-token") if configuration.cloud_runtime else None
+        )
+        try:
+            response = await call_next(request)
+        finally:
+            request_oidc.reset(token)
         if request.url.path.startswith("/api/v1/"):
             response.headers["cache-control"] = "no-store"
         return response

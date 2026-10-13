@@ -8,6 +8,7 @@ from uuid import UUID
 
 import httpx
 
+from app.adapters.cloud_identity import deployment_headers
 from app.adapters.storage import PrivateStorage
 
 
@@ -35,11 +36,12 @@ class BlobStorage(PrivateStorage):
 
     def control(self, method: str, path: str, body: object = None) -> httpx.Response:
         try:
+            headers = {"authorization": "Bearer " + self.secret, **deployment_headers()}
             with self.http() as client:
                 result = client.request(
                     method,
                     self.bridge.rstrip("/") + "/api/internal/blob/" + path,
-                    headers={"authorization": "Bearer " + self.secret},
+                    headers=headers,
                     json=body,
                 )
             result.raise_for_status()

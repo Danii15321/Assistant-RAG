@@ -73,3 +73,30 @@ def test_blob_bounds_body_and_removes_partial_file(tmp_path):
 def test_cloud_config_rejects_partial_configuration():
     with pytest.raises(ValueError):
         Settings(cloud_runtime=True)
+
+
+def test_cloud_uses_own_public_origin_without_circular_binding(monkeypatch):
+    monkeypatch.setenv("VERCEL_URL", "own-preview.vercel.app")
+    config = Settings(
+        cloud_runtime=True,
+        internal_worker_secret="test-secret",
+        blob_host="unit.private.blob.vercel-storage.com",
+        database_url_unpooled="postgresql://user:password@db.example/db",
+    )
+    assert config.frontend_internal_url == "https://own-preview.vercel.app"
+    assert config.auth_jwks_url == "https://own-preview.vercel.app/api/auth/jwks"
+
+
+def test_oidc_is_scoped_to_control_request(tmp_path, monkeypatch):
+    monkeypatch.setenv("VERCEL_OIDC_TOKEN", "synthetic-oidc")
+
+    def handler(request):
+        if request.url.host == "frontend.internal":
+            assert request.headers["x-vercel-trusted-oidc-idp-token"] == "synthetic-oidc"
+            return httpx.Response(
+                200, json={"url": "https://unit.private.blob.vercel-storage.com/x"}
+            )
+        assert "x-vercel-trusted-oidc-idp-token" not in request.headers
+        return httpx.Response(200, content=b"private")
+
+    assert storage(tmp_path, handler).metadata(uuid4())[0] == 7

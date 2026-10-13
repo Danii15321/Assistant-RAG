@@ -1,10 +1,23 @@
 from collections.abc import Callable
 from dataclasses import dataclass
+from functools import lru_cache
 
 import jwt
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 from jwt import PyJWKClient
 from jwt.exceptions import PyJWKClientConnectionError, PyJWKClientError, PyJWTError
+
+from app.adapters.cloud_identity import deployment_headers
+
+
+@lru_cache(maxsize=8)
+def cloud_key_client(url: str, oidc: str) -> PyJWKClient:
+    return PyJWKClient(
+        url,
+        timeout=10,
+        lifespan=300,
+        headers={"x-vercel-trusted-oidc-idp-token": oidc} if oidc else {},
+    )
 
 
 class InvalidIdentity(Exception):
@@ -22,16 +35,26 @@ class VerifiedIdentity:
 
 
 class TrustedKeySource:
-    def __init__(self, url: str) -> None:
+    def __init__(self, url: str, cloud_runtime: bool = False) -> None:
+        self.url, self.cloud_runtime = url, cloud_runtime
         self.client = PyJWKClient(url, timeout=3, lifespan=300)
 
     def __call__(self, token: str) -> Ed25519PublicKey:
         try:
-            key = self.client.get_signing_key_from_jwt(token).key
+            client = (
+                cloud_key_client(
+                    self.url, deployment_headers().get("x-vercel-trusted-oidc-idp-token", "")
+                )
+                if self.cloud_runtime
+                else self.client
+            )
+            key = client.get_signing_key_from_jwt(token).key
             if not isinstance(key, Ed25519PublicKey):
                 raise InvalidIdentity
             return key
         except PyJWKClientConnectionError as error:
+            raise IdentityUnavailable from error
+        except OSError as error:
             raise IdentityUnavailable from error
         except PyJWKClientError as error:
             raise InvalidIdentity from error

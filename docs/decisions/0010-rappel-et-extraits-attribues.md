@@ -54,3 +54,24 @@ Les identifiants prouvent la traçabilité, pas la fidélité sémantique. La re
 affirmations, l’abstention hors corpus, les quotas et les performances restent
 obligatoires. Abaisser le seuil peut augmenter le nombre d’appels Groq ; les
 plafonds partagés ne sont ni augmentés ni réinitialisés pour les essais.
+
+## Correction v7 après le parcours navigateur
+
+Le lot réservé v5 a atteint les objectifs et sa grille a été validée par le
+porteur. Le parcours navigateur sur le corpus **de développement Iris** a ensuite
+révélé des rejets supplémentaires. Un diagnostic synthétique a capturé une
+affirmation correcte (« 40 tokens ») avec E2, alors que la coupe à 400 caractères
+avait laissé ce nombre dans E1. Le journal cloud confirme `unsupported_number`.
+
+La v7 termine les fenêtres longues aux fins de phrases lorsque possible et
+répète une ou plusieurs phrases complètes si la fenêtre suivante peut aussi progresser. Une courte fin de paragraphe conserve autant de contexte complet que permet la borne. La version intermédiaire v6 ne conservait pas assez de contexte pour le cas PDF exact ; la v7 le couvre dans un test permanent et valide hors ligne la sortie réellement rejetée.
+Les extraits restent exacts et bornés à 400 caractères. Les contrôles de nombres,
+d'identifiants, de propriétaire et de contenu restent intacts. Le test de cette
+frontière échoue avant correction et passe ensuite. Aucun réglage n'utilise les
+résultats du lot réservé.
+
+La répétition du lot v2 sur v7 est explicitement une **régression sur un lot déjà
+ouvert**, pas une nouvelle mesure aveugle. Elle utilise le second compte de
+qualification existant, ses propres copies et son quota encore intact. Le compte
+du premier passage conserve ses dix appels ; aucune limite n'est contournée ou
+effacée. Les paramètres et résultats v5 restent publiés séparément.

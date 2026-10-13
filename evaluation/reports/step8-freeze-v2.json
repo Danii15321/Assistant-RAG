@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-13T20:26:13.378528+00:00",
+  "commit": "3c13dea7d2c511f31317be7f5b07ff7f261ae5d7",
+  "deployment": "https://assistant-cs1bs737s-danii15321s-projects.vercel.app",
+  "url": "https://assistant-rag-three.vercel.app",
+  "questions_sha256": "9d8135d40968fecd1975cba56438b22e7f06a6845dbff89f8a764a847ca334e9",
+  "files": {
+    "evaluation/holdout-v2/questions.jsonl": "9d8135d40968fecd1975cba56438b22e7f06a6845dbff89f8a764a847ca334e9",
+    "evaluation/holdout-v2/manifest.json": "8ee3ee9381e62975b2461a371dc2329911bb998db780a70911a322c8e05a94a6",
+    "evaluation/holdout-v2/reference_passages.json": "9132053c05312d210c1c029b14156e6a1bb607754f306fdbce07c870058781c2",
+    "backend/app/services/generation.py": "520f93787962cfcd5d1b99bfd305b64f2cd61abe1abd271400f99c38faa16d03",
+    "backend/app/services/evidence.py": "2f999464b5ce40ffcb1fcdc3cee2e82faa7274bb3dc0cc12b8f33f46279640f3",
+    "backend/app/services/search.py": "6655fe47f27e48550f6aed5c758fe7bd65bf7669ae21a9e726df26561223cb0d",
+    "backend/app/services/embeddings.py": "a72e85b2aba0a5cebad54fd04cea502082bd53ef597257cc9270950c16ef2ced",
+    "backend/app/config.py": "43b04c8ad946fe1ea5968814b2e3d1f4708f3697427213e7019fceff33c1ad04"
+  },
+  "configuration": {
+    "embedding": "intfloat/multilingual-e5-small",
+    "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+    "chunk_tokens": 300,
+    "overlap_tokens": 50,
+    "top_k": 5,
+    "threshold": 0.81,
+    "context_tokens": 1500,
+    "llm": "openai/gpt-oss-120b",
+    "prompt": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+    "temperature": 0,
+    "input_budget": 2500,
+    "completion_budget": 600
+  },
+  "development_limitation": "Q16 is valid and answers both retention durations, but omits explicit replacement date. Remaining partial response is recorded. No tuning on this new reserved set.",
+  "dataset_provenance": "Four synthetic CC0 documents and ten held-out questions prepared before v5. Same agent authored the fixtures; not an external human blind audit."
+}

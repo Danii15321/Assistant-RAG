@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-13T19:44:59.628867+00:00",
+  "url": "https://assistant-rag-three.vercel.app",
+  "checks": {
+    "logout": true,
+    "old_cookie_revoked": true,
+    "expired_session": true,
+    "private_original": true,
+    "immediate_exclusion": true,
+    "repeat_delete": true,
+    "durable_cleanup": true
+  },
+  "expiry_method": "Expire only the synthetic qualification account's database sessions; preserve its client cookie"
+}

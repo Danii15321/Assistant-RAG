@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-13T19:47:17.081954+00:00",
+  "commit": "7d7e6fe6562260f53a6152f67c4447ee8340a95b",
+  "deployment": "https://assistant-3hrhcuk41-danii15321s-projects.vercel.app",
+  "url": "https://assistant-rag-three.vercel.app",
+  "questions_sha256": "82deb03a5c3fc5781bc2f7c6dbb170f3a4fc667d6ee6e275dabeae0128669ebe",
+  "files": {
+    "evaluation/questions.jsonl": "82deb03a5c3fc5781bc2f7c6dbb170f3a4fc667d6ee6e275dabeae0128669ebe",
+    "evaluation/manifest.json": "736703a5e3dd7086ac333991e600f917a9f6290c00c34ded0299ea507a297448",
+    "evaluation/reference_passages.json": "7f90cf9b83a2c0a7bc209ab451169afe4c389263b40668c4e80f465ca9a19000",
+    "backend/app/services/generation.py": "044d1470bfb277345bbb409496a5e8b8cf4e75096eaeada03af2a553c875a17a",
+    "backend/app/services/search.py": "6655fe47f27e48550f6aed5c758fe7bd65bf7669ae21a9e726df26561223cb0d",
+    "backend/app/services/embeddings.py": "a72e85b2aba0a5cebad54fd04cea502082bd53ef597257cc9270950c16ef2ced",
+    "backend/app/config.py": "0c096e673fea4d2ddb9cd0881fa51636d9e707a3a5ec998e04aa4c9d397995e9"
+  },
+  "configuration": {
+    "embedding": "intfloat/multilingual-e5-small",
+    "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+    "chunk_tokens": 300,
+    "overlap_tokens": 50,
+    "top_k": 5,
+    "threshold": 0.84,
+    "context_tokens": 1500,
+    "llm": "openai/gpt-oss-120b",
+    "prompt": "grounded-claims-v3",
+    "temperature": 0,
+    "input_budget": 2500,
+    "completion_budget": 600
+  },
+  "development_limitation": "Q16 now states which policy replaces the previous one, but still omits the exact effective date in claim text. No further tuning; final set remains untouched before this freeze."
+}

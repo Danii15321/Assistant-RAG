@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-13T20:34:37.355406+00:00",
+  "dataset": "holdout-v2",
+  "freeze": "step8-freeze-v2.json",
+  "source": "answers-step8-final-v2.json",
+  "reviewer": "Codex analysis reviewed and confirmed by the project owner",
+  "human_review": {
+    "status": "validated",
+    "by": "project owner",
+    "date": "2026-10-13T20:36:30.240917+00:00",
+    "statement": "Je valide la grille après lecture"
+  },
+  "metrics": {
+    "recall_macro": {
+      "numerator": 8,
+      "denominator": 8,
+      "percent": 100.0
+    },
+    "recall_micro": {
+      "numerator": 10,
+      "denominator": 10,
+      "percent": 100.0
+    },
+    "accuracy": {
+      "numerator": 8,
+      "denominator": 8,
+      "percent": 100.0
+    },
+    "reference_validity": {
+      "numerator": 15,
+      "denominator": 15,
+      "percent": 100.0
+    },
+    "citation_fidelity": {
+      "numerator": 13,
+      "denominator": 13,
+      "percent": 100.0
+    },
+    "citation_coverage": {
+      "numerator": 13,
+      "denominator": 13,
+      "percent": 100.0
+    },
+    "abstention": {
+      "numerator": 2,
+      "denominator": 2,
+      "percent": 100.0
+    }
+  },
+  "technical_failures": 0,
+  "claims": 13,
+  "evidence": 15,
+  "notes": [
+    "H04 includes a supported but unrequested comparison.",
+    "PDF citations may cover the full small page.",
+    "First final evaluation retained separately; not tuned on either final set.",
+    "Agent-authored synthetic corpus; small sample, not independent external audit."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-13T20:47:45.010Z",
+  "before": {
+    "documents": {
+      "count": 22,
+      "digest": "0fd09eecb075f1b17a4559a5d676a45c"
+    },
+    "extracted_units": {
+      "count": 62,
+      "digest": "12b2da18b439e5e5aae82e5de456f812"
+    },
+    "index_chunks": {
+      "count": 23,
+      "digest": "b8b1499e182a4a43f7b1c337f23dd88a"
+    },
+    "conversations": {
+      "count": 1,
+      "digest": "48b2b9962d0dff2403f195eab7d6923b"
+    },
+    "conversation_exchanges": {
+      "count": 5,
+      "digest": "b10bcddba8cf12e9e32464a373b3ca98"
+    },
+    "conversation_sources": {
+      "count": 1,
+      "digest": "68375b2666758ad6e5684996f20f5268"
+    }
+  },
+  "after": {
+    "documents": {
+      "count": 22,
+      "digest": "0fd09eecb075f1b17a4559a5d676a45c"
+    },
+    "extracted_units": {
+      "count": 62,
+      "digest": "12b2da18b439e5e5aae82e5de456f812"
+    },
+    "index_chunks": {
+      "count": 23,
+      "digest": "b8b1499e182a4a43f7b1c337f23dd88a"
+    },
+    "conversations": {
+      "count": 1,
+      "digest": "48b2b9962d0dff2403f195eab7d6923b"
+    },
+    "conversation_exchanges": {
+      "count": 5,
+      "digest": "b10bcddba8cf12e9e32464a373b3ca98"
+    },
+    "conversation_sources": {
+      "count": 1,
+      "digest": "68375b2666758ad6e5684996f20f5268"
+    }
+  },
+  "checked_at": "2026-10-13T20:54:42.535Z",
+  "passed": true,
+  "before_deployment": "assistant-cs1bs737s",
+  "after_deployment": "assistant-pw9cak7tn"
+}

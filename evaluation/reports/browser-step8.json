@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-13T21:11:58.517Z",
+  "url": "https://assistant-rag-three.vercel.app",
+  "checks": {
+    "login": true,
+    "browser_direct_upload_and_deduplication": true,
+    "two_real_answers": true,
+    "source_visible": true,
+    "rejected_answer_remains_in_history": true,
+    "reload": true,
+    "mobile_no_overflow": true,
+    "no_local_storage": true,
+    "logout": true,
+    "conversation_isolation": true
+  },
+  "uploads": [
+    {
+      "host": "vercel.com",
+      "path": "/api/blob/",
+      "selected_bytes": 4129,
+      "credentials": false
+    },
+    {
+      "host": "vercel.com",
+      "path": "/api/blob/",
+      "selected_bytes": 37117,
+      "credentials": false
+    },
+    {
+      "host": "vercel.com",
+      "path": "/api/blob/",
+      "selected_bytes": 709,
+      "credentials": false
+    },
+    {
+      "host": "vercel.com",
+      "path": "/api/blob/",
+      "selected_bytes": 20971520,
+      "credentials": false
+    }
+  ],
+  "generations": [
+    {
+      "question": "Quelle est la taille des passages dans l'atelier Iris ?",
+      "elapsed_ms": 2355.410046,
+      "state": "answered",
+      "provider_called": true,
+      "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+      "server_ms": 781.84
+    },
+    {
+      "question": "Et quel chevauchement utilise cet atelier ?",
+      "elapsed_ms": 13408.970613,
+      "state": "answered",
+      "provider_called": true,
+      "prompt_version": "grounded-claims-v7|sentence-overlap-excerpts|harmony-budget2500|completion600",
+      "server_ms": 14134.82
+    }
+  ],
+  "initial_failure": {
+    "count": 5,
+    "code": "invalid_citations",
+    "retained_in_history": true,
+    "action": "Five rejected exchanges retained, including one unintended repeat from the old browser runner. The runner now waits for loaded history. The v7 follow-up succeeds."
+  },
+  "technical_failures": [
+    {
+      "question": "Et quel chevauchement utilise cet atelier ?",
+      "elapsed_ms": 1843.957773,
+      "state": "failed",
+      "observed_at": "2026-10-13T20:54:51.532Z"
+    }
+  ],
+  "real_generation_requests": 7,
+  "visual_review": "Desktop 1280x900 and mobile 390x844 screenshots inspected: readable layout, visible error history, cited answers and consent; no horizontal overflow."
+}

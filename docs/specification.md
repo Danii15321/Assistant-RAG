@@ -1,8 +1,8 @@
 # Spécification du projet Assistant RAG — V1
 
-- **Date :** 12 octobre 2026.
+- **Date :** 13 octobre 2026.
 - **Référence :** [README du projet](../README.md).
-- **Statut :** étapes 0 à 5 validées le 11 octobre, puis étapes 6 et 7 validées techniquement en local le 12 octobre 2026 : réponses sourcées, quotas, conversations et historique privés. La qualité Groq reste partiellement qualifiée sur trois cas de développement ; le lot final, la qualification cloud et la publication restent à l’étape 8, au jalon Vercel regroupé.
+- **Statut :** étapes 0 à 8 achevées ; application publique sur Vercel, appels Groq réels et contrôles d’exploitation vérifiés. Le nouveau lot réservé obtient 100 % de Recall@5, 8/8 réponses complètes et 2/2 abstentions. Le porteur a validé la grille de qualité le 13 octobre 2026. Voir [le rapport de publication](etape-8-publication.md) pour les contrôles, les incidents conservés et les limites. La non-régression finale v7 obtient 7/8 réponses complètes, 15/15 références valides et 2/2 abstentions.
 - **Convention :** les exigences du README et les demandes explicites du porteur de projet sont obligatoires. Les décisions sont consignées dans [ADR 0001](decisions/0001-groq-et-architecture-v1.md) et [ADR 0002 — budget zéro](decisions/0002-budget-zero-et-authentification.md), pour le budget, et [ADR 0003 — identifiants locaux](decisions/0003-identifiants-locaux.md) pour l’identité actuelle ; une décision ne prouve pas sa validation en production.
 - **Périmètre confirmé :** authentification et hébergement public sur Vercel dès la V1, avec des données privées par utilisateur.
 - **Budget et finalité :** **0 €** pour le développement et la démonstration publique, tous services compris ; projet personnel destiné au CV, sans objectif commercial. Offres gratuites uniquement et URL `vercel.app`.
@@ -167,7 +167,7 @@ La suppression exclut immédiatement le document de la recherche, puis retire le
 
 - Encoder la question et rechercher par similarité cosinus dans pgvector.
 - Appliquer propriétaire et sélection documentaire dans la requête avant de choisir les meilleurs résultats ; aucune recherche globale suivie d’un filtrage a posteriori.
-- **Top-k = 5** par défaut, 1 à 10 demandé ; seuil **0,84** calibré sur les vingt cas de développement. Cinquante candidats avant déduplication, contexte de passages borné à 1 500 tokens ; voir [ADR 0006](decisions/0006-recherche-privee-et-seuil.md).
+- **Top-k = 5** par défaut, 1 à 10 demandé ; seuil **0,81** recalibré sur les vingt cas de développement pour privilégier le rappel (100 % sur ce lot ; voir [ADR 0010](decisions/0010-rappel-et-extraits-attribues.md)). Cinquante candidats avant déduplication, contexte de passages borné à 1 500 tokens ; voir [ADR 0006](decisions/0006-recherche-privee-et-seuil.md).
 - Retirer les doublons et limiter la redondance due au chevauchement.
 - Respecter un budget de contexte réservant de la place aux instructions, à l'historique et à la réponse.
 - Commencer avec une recherche vectorielle exacte ; ajouter un index approximatif si les mesures le justifient.
@@ -385,7 +385,7 @@ Documents prêts, vecteurs et conversations survivent aux redéploiements Vercel
 
 ### Capacité et performance
 
-Cible du pilote : **50 documents, 100 Mio d'originaux et 10 000 passages par utilisateur** ; plafonds globaux **100 documents, 600 Mio et 20 000 passages**, un import simultané. Arrêter les nouveaux imports à 600 Mio de base réellement occupée. Toutes les limites s'appliquent simultanément et restent à confirmer sur le compte. Sur une configuration Vercel de référence documentée, modèle chargé, viser une recherche p95 inférieure à **2 secondes** et une réponse complète p95 inférieure à **20 secondes**, hors attente de quota. Mesurer au moins 30 requêtes et publier les conditions ; ces valeurs sont des objectifs, pas des performances acquises.
+Cible du pilote : **50 documents, 100 Mio d'originaux et 10 000 passages par utilisateur** ; plafonds globaux **100 documents, 600 Mio et 20 000 passages**, un import simultané. En production, le stockage des originaux est limité à 400 Mio (100 Mio en Preview). Arrêter l’indexation à 400 Mio de base réellement occupée : le plan Neon Marketplace provisionné annonce 0,5 Go. Les réservations d’upload contrôlent également la taille de la base avec leur plafond d’environnement. Toutes les limites s'appliquent simultanément et restent à confirmer sur le compte. Sur une configuration Vercel de référence documentée, modèle chargé, viser une recherche p95 inférieure à **2 secondes** et une réponse complète p95 inférieure à **20 secondes**, hors attente de quota. Mesurer au moins 30 requêtes et publier les conditions ; ces valeurs sont des objectifs, pas des performances acquises.
 
 Mesurer l'import séparément. Publier aussi les latences à froid, le chargement du modèle et les conditions de concurrence ; ne pas mélanger ces mesures avec les objectifs à chaud. La phase fournisseur locale est bornée à 55 secondes avec un timeout réseau de
 15 secondes ; la recherche E5 préalable peut durer jusqu’à 105 secondes à froid.
@@ -641,26 +641,28 @@ certifiée par ce petit échantillon ; la validation finale reste à l’étape 
 
 **Validation :** parcours complet avec deux comptes sur production sans machine locale, persistance après redéploiement et critères ci-dessous. Corriger ou faire accepter tout écart avant de déclarer la V1 conforme.
 
+**État au 13 octobre 2026 :** étape achevée. Publication, qualité du lot réservé, parcours navigateur, performances, sauvegarde et persistance vérifiés. La non-régression v7 atteint les seuils avec 7/8 réponses complètes et aucune erreur technique. [Rapport détaillé](etape-8-publication.md) et [revue humaine](revue-qualite-etape-8.md). Le premier lot final en échec reste conservé ; aucun réglage n’a utilisé le nouveau lot réservé. Sa répétition v7 est explicitement une non-régression sur des cas déjà ouverts, analysée par l’agent ; la validation humaine concerne le lot indépendant v5.
+
 ## 12. Critères de livraison
 
-- [ ] Les sept fonctionnalités du README et F08/F09 sont démontrables.
-- [ ] Inscription `prenom.nom`/mot de passe, connexion, déconnexion et expiration fonctionnent ; absence de récupération automatique documentée.
-- [ ] Deux comptes ne peuvent accéder aux données privées de l'autre.
-- [ ] La production HTTPS Vercel réalise le parcours complet sans machine locale active.
-- [ ] Les fichiers privés de 20 Mio sont importés sans dépasser le payload des fonctions.
-- [ ] Preview et Production ont données et secrets isolés.
-- [ ] PDF textuel, DOCX et TXT passent le parcours complet.
-- [ ] Les fichiers invalides ou trop volumineux sont traités proprement.
-- [ ] Les citations sont valides et les extraits vérifiables.
-- [ ] Le manque d'information déclenche une abstention explicite.
-- [ ] La sélection documentaire est respectée à chaque question.
-- [ ] Documents, vecteurs et conversations persistent après redémarrage et redéploiement Vercel.
-- [ ] Reprise, relance et suppression maintiennent des données cohérentes.
-- [ ] L'API fonctionne sur l'offre gratuite et les quotas sont gérés.
-- [ ] Les tests passent et les objectifs d'évaluation sont atteints sur le lot réservé.
-- [ ] Performances, limites et conditions de reproduction sont publiées.
-- [ ] Installation locale, Vercel, migrations, sauvegardes, coûts et rollback sont documentés sans secret dans le dépôt.
-- [ ] Développement et démonstration restent à 0 € : plans gratuits vérifiés, URL `vercel.app`, aucune dépense/add-on et opérations suspendues au quota.
+- [x] Les sept fonctionnalités du README et F08/F09 sont démontrables.
+- [x] Inscription `prenom.nom`/mot de passe, connexion, déconnexion et expiration fonctionnent ; absence de récupération automatique documentée.
+- [x] Deux comptes ne peuvent accéder aux données privées de l'autre.
+- [x] La production HTTPS Vercel réalise le parcours complet sans machine locale active.
+- [x] Les fichiers privés de 20 Mio sont importés sans dépasser le payload des fonctions.
+- [x] Preview et Production ont données et secrets isolés.
+- [x] PDF textuel, DOCX et TXT passent le parcours complet.
+- [x] Les fichiers invalides ou trop volumineux sont traités proprement.
+- [x] Les citations sont valides et les extraits vérifiables.
+- [x] Le manque d'information déclenche une abstention explicite.
+- [x] La sélection documentaire est respectée à chaque question.
+- [x] Documents, vecteurs et conversations persistent après redémarrage et redéploiement Vercel.
+- [x] Reprise, relance et suppression maintiennent des données cohérentes.
+- [x] L'API fonctionne sur l'offre gratuite et les quotas sont gérés.
+- [x] Les tests passent et les objectifs d'évaluation sont atteints sur le lot réservé.
+- [x] Performances, limites et conditions de reproduction sont publiées.
+- [x] Installation locale, Vercel, migrations, sauvegardes, coûts et rollback sont documentés sans secret dans le dépôt.
+- [x] Développement et démonstration restent à 0 € : plans gratuits vérifiés, URL `vercel.app`, aucune dépense/add-on et opérations suspendues au quota.
 
 ## 13. Exigences confirmées et validations par étape
 
@@ -668,12 +670,12 @@ certifiée par ce petit échantillon ; la validation finale reste à l’étape 
 | --- | --- | --- |
 | Utilisation | Vercel public, comptes authentifiés, bibliothèque privée par compte | Exigence confirmée |
 | Fournisseur et modèle LLM | Groq Free, `openai/gpt-oss-120b` | Appels réels réussis localement et depuis Vercel ; Free confirmé dans Billing ; en-têtes 1 000 requêtes/jour et 8 000 tokens/minute |
-| Embeddings | E5 small, révision figée dans ADR 0001, CPU, 384 dimensions | Lots 300 tokens qualifiés à l’étape 4 ; Recall@5 de développement 82,4 % à l’étape 5 ; charge cloud différée |
-| Limites | 50 documents/100 Mio/10 000 passages par compte ; 20 Mio par fichier ; plafonds globaux du rapport | Limites d’import et de passages appliquées localement ; quotas cloud à confirmer |
-| Découpage et recherche | 300/50 tokens, top-k 5, seuil 0,84, contexte 1 500 tokens | Indexation et recherche qualifiées localement ; Recall@5 de développement 82,4 %, dix cas finaux réservés |
+| Embeddings | E5 small, révision figée dans ADR 0001, CPU, 384 dimensions | Lots 300 tokens qualifiés à l’étape 4 ; Recall@5 de développement 82,4 % à l’étape 5 ; charge cloud mesurée à l’étape 8 |
+| Limites | 50 documents/100 Mio/10 000 passages par compte ; 20 Mio par fichier ; plafonds globaux du rapport | Limites et quotas partagés qualifiés ; Production 400 Mio, Preview 100 Mio, Neon Free 0,5 Go |
+| Découpage et recherche | 300/50 tokens, top-k 5, seuil 0,81, contexte 1 500 tokens | Recall@5 100 % sur développement et nouveau lot réservé ; premier lot en échec conservé |
 | Authentification et Vercel public | Obligatoires dès V1 | Exigence confirmée |
-| Fournisseur d'identité | Better Auth open source + `prenom.nom`/mot de passe ; tables locales, Neon Free au jalon Vercel | Choix confirmé ; étape 2 validée en local, qualification publique différée |
-| Infrastructure | Services, Container, Queues, Blob privé, Neon PostgreSQL/pgvector | Services/Container déployés sur Hobby ; base, Blob, file et coûts réels à qualifier |
+| Fournisseur d'identité | Better Auth open source + `prenom.nom`/mot de passe ; PostgreSQL local et Neon Free | Inscription, connexion, révocation, expiration et isolation qualifiées en production |
+| Infrastructure | Services, Container, Queues, Blob privé, Neon PostgreSQL/pgvector | Services/Container/Queues, Neon Free et Blob privé qualifiés sur Hobby ; limites et coûts documentés |
 | Budget et finalité | 0 €, projet CV personnel non commercial, offres gratuites uniquement | Exigence confirmée ; contrôles au provisionnement et à la publication |
 
 ## 14. Évolutions après V1

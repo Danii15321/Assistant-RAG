@@ -1,0 +1,1 @@
+{"status": 200, "metrics": {"resident_mib": 970.11, "model_loaded": true, "embedding": {"initially_loaded": false, "first_ms": 9789.27, "warm_ms": 31.33}}, "http_ms": 15122.32}

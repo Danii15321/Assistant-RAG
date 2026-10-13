@@ -112,3 +112,24 @@ l’environnement explicitement choisi, et utilise les dépendances installées 
 Il ne restaure jamais de données dans Neon. La restauration des octets Blob reste
 une opération de récupération à préparer séparément ; l’export les conserve avec
 leurs UUID et leurs empreintes SHA-256.
+
+## Mesures et qualification bornée
+
+Les résultats sont consignés dans `evaluation/reports/` et résumés dans
+[le rapport de publication](etape-8-publication.md). Les scripts cloud utilisent
+uniquement des comptes synthétiques et le corpus CC0. Un marqueur privé réserve
+chaque appel réel avant envoi ; réconcilier un appel interrompu avec l’historique
+et le compteur partagé avant toute reprise. Ne pas supprimer un marqueur pour
+relancer aveuglément, ni réinitialiser les quotas.
+
+`python3 scripts/cloud/summarize_performance.py` consolide les mesures déjà
+enregistrées, sans appel réseau. Les versions de prompt, erreurs et démarrages
+à froid sont conservés ; ce cumul ne vaut pas trente appels sur le seul prompt
+final. `python3 scripts/cloud/metrics.py --url https://assistant-rag-three.vercel.app --environment production --embedding` sollicite une sonde interne authentifiée :
+phrase fixe, premier puis second encodage, RSS ponctuelle du processus et de son
+encodeur. La clé provient du fichier privé de qualification ; aucune donnée
+documentaire n’est renvoyée. Ne pas activer Observability Plus pour cette mesure.
+
+Les déploiements restent manuels : le dépôt GitHub n’est pas connecté à un
+déploiement automatique à chaque push. Regrouper les changements et vérifier
+les contrôles avant un prochain jalon de publication.

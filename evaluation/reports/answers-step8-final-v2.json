@@ -1,0 +1,949 @@
+{
+  "url": "https://assistant-rag-three.vercel.app",
+  "split": "final",
+  "recorded_at": "2026-10-13T20:27:35.312900+00:00",
+  "commit": "3c13dea7d2c511f31317be7f5b07ff7f261ae5d7",
+  "cases": [
+    {
+      "id": "H01",
+      "split": "final",
+      "category": "factual",
+      "question": "Dans quelle ville se trouve la médiathèque Aurore et quand ouvre-t-elle le samedi ?",
+      "history": [],
+      "document_ids": null,
+      "expected_state": "answered",
+      "relevant_passage_ids": [
+        "A1"
+      ],
+      "expected_elements": [
+        "Dijon",
+        "9 heures",
+        "13 heures"
+      ],
+      "status": "completed",
+      "search": {
+        "status": "matches",
+        "hits": [
+          {
+            "document_id": "e8642a44-9c7f-4911-82ce-36d461e1e39a",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "aurore.pdf",
+            "text": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place.",
+            "token_count": 92,
+            "kind": "page",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 368,
+            "score": 0.9026117382877045
+          }
+        ],
+        "threshold": 0.81,
+        "top_k": 5,
+        "context_tokens": 92,
+        "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+        "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+        "elapsed_ms": 994.81
+      },
+      "search_http_ms": 1096.73,
+      "recall": [
+        {
+          "reference": "A1",
+          "covered": true
+        }
+      ],
+      "http_status": 200,
+      "response": {
+        "state": "answered",
+        "answer": "La médiathèque Aurore se trouve à Dijon et ouvre le samedi de 9 h à 13 h. [S1]",
+        "claims": [
+          {
+            "text": "La médiathèque Aurore se trouve à Dijon et ouvre le samedi de 9 h à 13 h.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place."
+              }
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "document_id": "e8642a44-9c7f-4911-82ce-36d461e1e39a",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "aurore.pdf",
+            "text": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place.",
+            "token_count": 92,
+            "kind": "page",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 368,
+            "score": 0.9026117382877045,
+            "source_id": "S1"
+          }
+        ],
+        "provider_called": true,
+        "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+        "elapsed_ms": 1729.63
+      },
+      "answer_http_ms": 1793.18
+    },
+    {
+      "id": "H02",
+      "split": "final",
+      "category": "factual",
+      "question": "Sur quel port écoute le service HTTPS du laboratoire Sillage ?",
+      "history": [],
+      "document_ids": null,
+      "expected_state": "answered",
+      "relevant_passage_ids": [
+        "N1"
+      ],
+      "expected_elements": [
+        "10443"
+      ],
+      "status": "completed",
+      "search": {
+        "status": "matches",
+        "hits": [
+          {
+            "document_id": "52eaac3e-5cc8-495c-9b45-800674a5aef3",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "sillage.txt",
+            "text": "Le service HTTPS du laboratoire Sillage écoute sur le port 10443. Les postes de démonstration utilisent un réseau isolé.",
+            "token_count": 30,
+            "kind": "line",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 120,
+            "score": 0.9277427921755106
+          }
+        ],
+        "threshold": 0.81,
+        "top_k": 5,
+        "context_tokens": 30,
+        "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+        "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+        "elapsed_ms": 11121.15
+      },
+      "search_http_ms": 10398.07,
+      "recall": [
+        {
+          "reference": "N1",
+          "covered": true
+        }
+      ],
+      "http_status": 200,
+      "response": {
+        "state": "answered",
+        "answer": "Le service HTTPS du laboratoire Sillage écoute sur le port 10443. [S1]",
+        "claims": [
+          {
+            "text": "Le service HTTPS du laboratoire Sillage écoute sur le port 10443.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "Le service HTTPS du laboratoire Sillage écoute sur le port 10443. Les postes de démonstration utilisent un réseau isolé."
+              }
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "document_id": "52eaac3e-5cc8-495c-9b45-800674a5aef3",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "sillage.txt",
+            "text": "Le service HTTPS du laboratoire Sillage écoute sur le port 10443. Les postes de démonstration utilisent un réseau isolé.",
+            "token_count": 30,
+            "kind": "line",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 120,
+            "score": 0.9277427921755106,
+            "source_id": "S1"
+          }
+        ],
+        "provider_called": true,
+        "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+        "elapsed_ms": 1188.18
+      },
+      "answer_http_ms": 1309.69
+    },
+    {
+      "id": "H03",
+      "split": "final",
+      "category": "factual",
+      "question": "Qui assure la coordination du programme Lys ?",
+      "history": [],
+      "document_ids": null,
+      "expected_state": "answered",
+      "relevant_passage_ids": [
+        "L1"
+      ],
+      "expected_elements": [
+        "Nora Perrin"
+      ],
+      "status": "completed",
+      "search": {
+        "status": "matches",
+        "hits": [
+          {
+            "document_id": "50b5ffce-4621-4b58-a373-ac55e354e36b",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2027.docx",
+            "text": "Programme Lys 2027 : la coordination est assurée par Nora Perrin.\n\nLes équipes du projet Lys comportent quatre personnes au maximum.\n\nLe projet Lys doit être remis le 23 avril 2027. Le dossier contient un rapport de huit pages maximum et une affiche au format PDF.\n\nLa politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026.",
+            "token_count": 86,
+            "kind": "paragraph",
+            "start_number": 1,
+            "end_number": 4,
+            "start_offset": 0,
+            "end_offset": 394,
+            "score": 0.8914345632273543
+          },
+          {
+            "document_id": "800e74ec-d421-4fb0-ba75-8e147f37bc2e",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2026.txt",
+            "text": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise. Cette règle a été remplacée le 14 février 2027.",
+            "token_count": 30,
+            "kind": "line",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 127,
+            "score": 0.812088238112199
+          }
+        ],
+        "threshold": 0.81,
+        "top_k": 5,
+        "context_tokens": 116,
+        "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+        "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+        "elapsed_ms": 182.19
+      },
+      "search_http_ms": 348.52,
+      "recall": [
+        {
+          "reference": "L1",
+          "covered": true
+        }
+      ],
+      "http_status": 200,
+      "response": {
+        "state": "answered",
+        "answer": "La coordination du programme Lys est assurée par Nora Perrin. [S1]",
+        "claims": [
+          {
+            "text": "La coordination du programme Lys est assurée par Nora Perrin.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "Programme Lys 2027 : la coordination est assurée par Nora Perrin."
+              }
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "document_id": "50b5ffce-4621-4b58-a373-ac55e354e36b",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2027.docx",
+            "text": "Programme Lys 2027 : la coordination est assurée par Nora Perrin.\n\nLes équipes du projet Lys comportent quatre personnes au maximum.\n\nLe projet Lys doit être remis le 23 avril 2027. Le dossier contient un rapport de huit pages maximum et une affiche au format PDF.\n\nLa politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026.",
+            "token_count": 86,
+            "kind": "paragraph",
+            "start_number": 1,
+            "end_number": 4,
+            "start_offset": 0,
+            "end_offset": 394,
+            "score": 0.8914345632273543,
+            "source_id": "S1"
+          }
+        ],
+        "provider_called": true,
+        "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+        "elapsed_ms": 839.99
+      },
+      "answer_http_ms": 1951.27
+    },
+    {
+      "id": "H04",
+      "split": "final",
+      "category": "multi_hop",
+      "question": "Combien de personnes peuvent composer une équipe Lys et que faut-il remettre à quelle date ?",
+      "history": [],
+      "document_ids": null,
+      "expected_state": "answered",
+      "relevant_passage_ids": [
+        "L2",
+        "L3"
+      ],
+      "expected_elements": [
+        "quatre maximum",
+        "23 avril 2027",
+        "rapport huit pages maximum",
+        "affiche PDF"
+      ],
+      "status": "completed",
+      "search": {
+        "status": "matches",
+        "hits": [
+          {
+            "document_id": "50b5ffce-4621-4b58-a373-ac55e354e36b",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2027.docx",
+            "text": "Programme Lys 2027 : la coordination est assurée par Nora Perrin.\n\nLes équipes du projet Lys comportent quatre personnes au maximum.\n\nLe projet Lys doit être remis le 23 avril 2027. Le dossier contient un rapport de huit pages maximum et une affiche au format PDF.\n\nLa politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026.",
+            "token_count": 86,
+            "kind": "paragraph",
+            "start_number": 1,
+            "end_number": 4,
+            "start_offset": 0,
+            "end_offset": 394,
+            "score": 0.882744140461438
+          },
+          {
+            "document_id": "800e74ec-d421-4fb0-ba75-8e147f37bc2e",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2026.txt",
+            "text": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise. Cette règle a été remplacée le 14 février 2027.",
+            "token_count": 30,
+            "kind": "line",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 127,
+            "score": 0.8182701224604245
+          }
+        ],
+        "threshold": 0.81,
+        "top_k": 5,
+        "context_tokens": 116,
+        "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+        "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+        "elapsed_ms": 187.32
+      },
+      "search_http_ms": 380.2,
+      "recall": [
+        {
+          "reference": "L2",
+          "covered": true
+        },
+        {
+          "reference": "L3",
+          "covered": true
+        }
+      ],
+      "http_status": 200,
+      "response": {
+        "state": "answered",
+        "answer": "Une équipe Lys peut comporter au maximum quatre personnes. [S1]\n\nLe projet Lys doit être remis le 23 avril 2027 avec un rapport de huit pages maximum et une affiche au format PDF. [S1]\n\nLa politique Lys 2026 (15 jours de conservation) a été remplacée le 14 février 2027 par la politique Lys 2027 (65 jours). [S1] [S2]",
+        "claims": [
+          {
+            "text": "Une équipe Lys peut comporter au maximum quatre personnes.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "Les équipes du projet Lys comportent quatre personnes au maximum."
+              }
+            ]
+          },
+          {
+            "text": "Le projet Lys doit être remis le 23 avril 2027 avec un rapport de huit pages maximum et une affiche au format PDF.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "Le projet Lys doit être remis le 23 avril 2027. Le dossier contient un rapport de huit pages maximum et une affiche au format PDF."
+              }
+            ]
+          },
+          {
+            "text": "La politique Lys 2026 (15 jours de conservation) a été remplacée le 14 février 2027 par la politique Lys 2027 (65 jours).",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "La politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026."
+              },
+              {
+                "source_id": "S2",
+                "quote": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise. Cette règle a été remplacée le 14 février 2027."
+              }
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "document_id": "50b5ffce-4621-4b58-a373-ac55e354e36b",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2027.docx",
+            "text": "Programme Lys 2027 : la coordination est assurée par Nora Perrin.\n\nLes équipes du projet Lys comportent quatre personnes au maximum.\n\nLe projet Lys doit être remis le 23 avril 2027. Le dossier contient un rapport de huit pages maximum et une affiche au format PDF.\n\nLa politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026.",
+            "token_count": 86,
+            "kind": "paragraph",
+            "start_number": 1,
+            "end_number": 4,
+            "start_offset": 0,
+            "end_offset": 394,
+            "score": 0.882744140461438,
+            "source_id": "S1"
+          },
+          {
+            "document_id": "800e74ec-d421-4fb0-ba75-8e147f37bc2e",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2026.txt",
+            "text": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise. Cette règle a été remplacée le 14 février 2027.",
+            "token_count": 30,
+            "kind": "line",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 127,
+            "score": 0.8182701224604245,
+            "source_id": "S2"
+          }
+        ],
+        "provider_called": true,
+        "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+        "elapsed_ms": 2712.82
+      },
+      "answer_http_ms": 3708.67
+    },
+    {
+      "id": "H05",
+      "split": "final",
+      "category": "multi_hop",
+      "question": "Quelle conservation des fichiers est prévue par les politiques Lys 2026 et 2027, et quand la nouvelle remplace-t-elle l’ancienne ?",
+      "history": [],
+      "document_ids": null,
+      "expected_state": "answered",
+      "relevant_passage_ids": [
+        "L4",
+        "V1"
+      ],
+      "expected_elements": [
+        "65 jours",
+        "15 jours",
+        "14 février 2027",
+        "la politique 2027 remplace celle de 2026"
+      ],
+      "status": "completed",
+      "search": {
+        "status": "matches",
+        "hits": [
+          {
+            "document_id": "800e74ec-d421-4fb0-ba75-8e147f37bc2e",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2026.txt",
+            "text": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise. Cette règle a été remplacée le 14 février 2027.",
+            "token_count": 30,
+            "kind": "line",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 127,
+            "score": 0.9149794255190921
+          },
+          {
+            "document_id": "50b5ffce-4621-4b58-a373-ac55e354e36b",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2027.docx",
+            "text": "Programme Lys 2027 : la coordination est assurée par Nora Perrin.\n\nLes équipes du projet Lys comportent quatre personnes au maximum.\n\nLe projet Lys doit être remis le 23 avril 2027. Le dossier contient un rapport de huit pages maximum et une affiche au format PDF.\n\nLa politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026.",
+            "token_count": 86,
+            "kind": "paragraph",
+            "start_number": 1,
+            "end_number": 4,
+            "start_offset": 0,
+            "end_offset": 394,
+            "score": 0.8984053730964661
+          }
+        ],
+        "threshold": 0.81,
+        "top_k": 5,
+        "context_tokens": 116,
+        "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+        "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+        "elapsed_ms": 172.92
+      },
+      "search_http_ms": 353.6,
+      "recall": [
+        {
+          "reference": "L4",
+          "covered": true
+        },
+        {
+          "reference": "V1",
+          "covered": true
+        }
+      ],
+      "http_status": 200,
+      "response": {
+        "state": "answered",
+        "answer": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise. [S1]\n\nLa politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. [S2]\n\nLa nouvelle politique du 14 février 2027 a remplacé la politique Lys 2026 à cette même date. [S1] [S2]",
+        "claims": [
+          {
+            "text": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise. Cette règle a été remplacée le 14 février 2027."
+              }
+            ]
+          },
+          {
+            "text": "La politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise.",
+            "evidence": [
+              {
+                "source_id": "S2",
+                "quote": "La politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026."
+              }
+            ]
+          },
+          {
+            "text": "La nouvelle politique du 14 février 2027 a remplacé la politique Lys 2026 à cette même date.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise. Cette règle a été remplacée le 14 février 2027."
+              },
+              {
+                "source_id": "S2",
+                "quote": "La politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026."
+              }
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "document_id": "800e74ec-d421-4fb0-ba75-8e147f37bc2e",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2026.txt",
+            "text": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise. Cette règle a été remplacée le 14 février 2027.",
+            "token_count": 30,
+            "kind": "line",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 127,
+            "score": 0.9149794255190921,
+            "source_id": "S1"
+          },
+          {
+            "document_id": "50b5ffce-4621-4b58-a373-ac55e354e36b",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2027.docx",
+            "text": "Programme Lys 2027 : la coordination est assurée par Nora Perrin.\n\nLes équipes du projet Lys comportent quatre personnes au maximum.\n\nLe projet Lys doit être remis le 23 avril 2027. Le dossier contient un rapport de huit pages maximum et une affiche au format PDF.\n\nLa politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026.",
+            "token_count": 86,
+            "kind": "paragraph",
+            "start_number": 1,
+            "end_number": 4,
+            "start_offset": 0,
+            "end_offset": 394,
+            "score": 0.8984053730964661,
+            "source_id": "S2"
+          }
+        ],
+        "provider_called": true,
+        "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+        "elapsed_ms": 1001.75
+      },
+      "answer_http_ms": 1987.21
+    },
+    {
+      "id": "H06",
+      "split": "final",
+      "category": "factual",
+      "question": "Quel jour et à quelles heures ont lieu les ateliers Aurore ?",
+      "history": [],
+      "document_ids": null,
+      "expected_state": "answered",
+      "relevant_passage_ids": [
+        "A4"
+      ],
+      "expected_elements": [
+        "mercredi",
+        "15 heures",
+        "17 heures"
+      ],
+      "status": "completed",
+      "search": {
+        "status": "matches",
+        "hits": [
+          {
+            "document_id": "e8642a44-9c7f-4911-82ce-36d461e1e39a",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "aurore.pdf",
+            "text": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place.",
+            "token_count": 92,
+            "kind": "page",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 368,
+            "score": 0.8751875236518682
+          }
+        ],
+        "threshold": 0.81,
+        "top_k": 5,
+        "context_tokens": 92,
+        "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+        "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+        "elapsed_ms": 170.96
+      },
+      "search_http_ms": 350.32,
+      "recall": [
+        {
+          "reference": "A4",
+          "covered": true
+        }
+      ],
+      "http_status": 200,
+      "response": {
+        "state": "answered",
+        "answer": "Les ateliers Aurore ont lieu le mercredi de 15 h à 17 h. [S1]",
+        "claims": [
+          {
+            "text": "Les ateliers Aurore ont lieu le mercredi de 15 h à 17 h.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place."
+              }
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "document_id": "e8642a44-9c7f-4911-82ce-36d461e1e39a",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "aurore.pdf",
+            "text": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place.",
+            "token_count": 92,
+            "kind": "page",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 368,
+            "score": 0.8751875236518682,
+            "source_id": "S1"
+          }
+        ],
+        "provider_called": true,
+        "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+        "elapsed_ms": 673.43
+      },
+      "answer_http_ms": 1728.81
+    },
+    {
+      "id": "H07",
+      "split": "final",
+      "category": "follow_up",
+      "question": "Et combien de places assises propose-t-elle ?",
+      "history": [
+        {
+          "role": "user",
+          "content": "Quelle est la salle de lecture de la médiathèque Aurore ?"
+        },
+        {
+          "role": "assistant",
+          "content": "La salle porte le numéro C245."
+        }
+      ],
+      "document_ids": null,
+      "expected_state": "answered",
+      "relevant_passage_ids": [
+        "A2"
+      ],
+      "expected_elements": [
+        "18"
+      ],
+      "status": "completed",
+      "search": {
+        "status": "matches",
+        "hits": [
+          {
+            "document_id": "e8642a44-9c7f-4911-82ce-36d461e1e39a",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "aurore.pdf",
+            "text": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place.",
+            "token_count": 92,
+            "kind": "page",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 368,
+            "score": 0.878383569621062
+          }
+        ],
+        "threshold": 0.81,
+        "top_k": 5,
+        "context_tokens": 92,
+        "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+        "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+        "elapsed_ms": 1105.05
+      },
+      "search_http_ms": 1246.37,
+      "recall": [
+        {
+          "reference": "A2",
+          "covered": true
+        }
+      ],
+      "http_status": 200,
+      "response": {
+        "state": "answered",
+        "answer": "La salle de lecture Aurore (numéro C245) propose 18 places assises. [S1]",
+        "claims": [
+          {
+            "text": "La salle de lecture Aurore (numéro C245) propose 18 places assises.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place."
+              }
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "document_id": "e8642a44-9c7f-4911-82ce-36d461e1e39a",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "aurore.pdf",
+            "text": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place.",
+            "token_count": 92,
+            "kind": "page",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 368,
+            "score": 0.878383569621062,
+            "source_id": "S1"
+          }
+        ],
+        "provider_called": true,
+        "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+        "elapsed_ms": 1120.63
+      },
+      "answer_http_ms": 2280.8
+    },
+    {
+      "id": "H08",
+      "split": "final",
+      "category": "factual",
+      "question": "Quelles conditions faut-il remplir pour emprunter à Aurore et combien de temps dure un prêt ?",
+      "history": [],
+      "document_ids": null,
+      "expected_state": "answered",
+      "relevant_passage_ids": [
+        "A3"
+      ],
+      "expected_elements": [
+        "adhérent",
+        "carte",
+        "deux semaines"
+      ],
+      "status": "completed",
+      "search": {
+        "status": "matches",
+        "hits": [
+          {
+            "document_id": "e8642a44-9c7f-4911-82ce-36d461e1e39a",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "aurore.pdf",
+            "text": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place.",
+            "token_count": 92,
+            "kind": "page",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 368,
+            "score": 0.8560371398925781
+          }
+        ],
+        "threshold": 0.81,
+        "top_k": 5,
+        "context_tokens": 92,
+        "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+        "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+        "elapsed_ms": 165.31
+      },
+      "search_http_ms": 332.98,
+      "recall": [
+        {
+          "reference": "A3",
+          "covered": true
+        }
+      ],
+      "http_status": 200,
+      "response": {
+        "state": "answered",
+        "answer": "Pour emprunter à Aurore, il faut être adhérent et présenter sa carte. [S1]\n\nChaque prêt dure deux semaines. [S1]",
+        "claims": [
+          {
+            "text": "Pour emprunter à Aurore, il faut être adhérent et présenter sa carte.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place."
+              }
+            ]
+          },
+          {
+            "text": "Chaque prêt dure deux semaines.",
+            "evidence": [
+              {
+                "source_id": "S1",
+                "quote": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place."
+              }
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "document_id": "e8642a44-9c7f-4911-82ce-36d461e1e39a",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "aurore.pdf",
+            "text": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place.",
+            "token_count": 92,
+            "kind": "page",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 368,
+            "score": 0.8560371398925781,
+            "source_id": "S1"
+          }
+        ],
+        "provider_called": true,
+        "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+        "elapsed_ms": 12416.08
+      },
+      "answer_http_ms": 18418.49
+    },
+    {
+      "id": "H09",
+      "split": "final",
+      "category": "out_of_corpus",
+      "question": "Quel est le numéro de téléphone de la personne qui coordonne Lys ?",
+      "history": [],
+      "document_ids": null,
+      "expected_state": "insufficient_context",
+      "relevant_passage_ids": [],
+      "expected_elements": [
+        "information absente"
+      ],
+      "status": "completed",
+      "search": {
+        "status": "matches",
+        "hits": [
+          {
+            "document_id": "50b5ffce-4621-4b58-a373-ac55e354e36b",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "lys-2027.docx",
+            "text": "Programme Lys 2027 : la coordination est assurée par Nora Perrin.\n\nLes équipes du projet Lys comportent quatre personnes au maximum.\n\nLe projet Lys doit être remis le 23 avril 2027. Le dossier contient un rapport de huit pages maximum et une affiche au format PDF.\n\nLa politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026.",
+            "token_count": 86,
+            "kind": "paragraph",
+            "start_number": 1,
+            "end_number": 4,
+            "start_offset": 0,
+            "end_offset": 394,
+            "score": 0.8556007318972729
+          }
+        ],
+        "threshold": 0.81,
+        "top_k": 5,
+        "context_tokens": 86,
+        "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+        "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+        "elapsed_ms": 171.5
+      },
+      "search_http_ms": 405.85,
+      "recall": [],
+      "http_status": 200,
+      "response": {
+        "state": "insufficient_context",
+        "answer": "Les passages consultés ne contiennent pas la réponse à cette question.",
+        "claims": [],
+        "sources": [],
+        "provider_called": true,
+        "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+        "elapsed_ms": 735.41
+      },
+      "answer_http_ms": 1920.0
+    },
+    {
+      "id": "H10",
+      "split": "final",
+      "category": "out_of_corpus",
+      "question": "Quelle température fera-t-il demain à la médiathèque Aurore ?",
+      "history": [],
+      "document_ids": null,
+      "expected_state": "insufficient_context",
+      "relevant_passage_ids": [],
+      "expected_elements": [
+        "information absente"
+      ],
+      "status": "completed",
+      "search": {
+        "status": "matches",
+        "hits": [
+          {
+            "document_id": "e8642a44-9c7f-4911-82ce-36d461e1e39a",
+            "generation": 1,
+            "ordinal": 1,
+            "filename": "aurore.pdf",
+            "text": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13\nheures.\nLa salle de lecture Aurore porte le numéro C245. Elle propose 18 places\nassises.\nLes prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt\ndure deux semaines.\nLes ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les\ninscriptions se font sur place.",
+            "token_count": 92,
+            "kind": "page",
+            "start_number": 1,
+            "end_number": 1,
+            "start_offset": 0,
+            "end_offset": 368,
+            "score": 0.8785218596458435
+          }
+        ],
+        "threshold": 0.81,
+        "top_k": 5,
+        "context_tokens": 92,
+        "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+        "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+        "elapsed_ms": 165.71
+      },
+      "search_http_ms": 805.95,
+      "recall": [],
+      "http_status": 200,
+      "response": {
+        "state": "insufficient_context",
+        "answer": "Les passages consultés ne contiennent pas la réponse à cette question.",
+        "claims": [],
+        "sources": [],
+        "provider_called": true,
+        "prompt_version": "grounded-claims-v5|paragraph-excerpts|harmony-budget2500|completion600",
+        "elapsed_ms": 461.47
+      },
+      "answer_http_ms": 759.86
+    }
+  ],
+  "review_status": "requires-fidelity-review"
+}

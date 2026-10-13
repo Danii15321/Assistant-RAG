@@ -1,0 +1,28 @@
+{
+  "status": 200,
+  "url": "https://assistant-rag-three.vercel.app/sign-in",
+  "application_login": true,
+  "vercel_sso": false,
+  "local_services_running": false,
+  "note": "Checked with no Vercel or application credential; docker ps contained only unrelated Synapse containers.",
+  "local_services_during_final_evaluation": {
+    "frontend": "stopped",
+    "backend": "stopped",
+    "worker": "stopped",
+    "frontend-auth-test": "stopped",
+    "backend-auth-test": "stopped",
+    "worker-auth-test": "stopped",
+    "llm-test": "stopped"
+  },
+  "final_verification_at": "2026-10-13T21:21:42.122556+00:00",
+  "final_deployment": "https://assistant-9abzrrm14-danii15321s-projects.vercel.app",
+  "runtime_commit": "12fad41698b099f3daf98dabcccd120a7ed57174",
+  "local_running_containers_at_final_verification": [],
+  "public_http_status": 200,
+  "authenticated_cloud_search_without_local_services": {
+    "status": 200,
+    "hits": 1,
+    "http_ms": 1289.48,
+    "llm_calls": 0
+  }
+}

@@ -133,5 +133,20 @@ des services. Aucun déploiement Vercel ni appel Groq réel supplémentaire.
 [Parcours et preuves](docs/etape-7-conversations-locales.md) ·
 [Choix de la persistance](docs/decisions/0008-conversations-privees-et-reprise.md).
 
-La prochaine étape est la qualification finale et la préparation de la publication,
-avec les dix cas réservés et les contrôles de budget au jalon Vercel regroupé.
+**Étape 8 achevée : application publiée sur [Vercel](https://assistant-rag-three.vercel.app).**
+Inscription par nom d’utilisateur/mot de passe, imports privés, E5 et appels
+Groq réels fonctionnent dans le cloud. Le nouveau lot réservé atteint 100 %
+de Recall@5, 8/8 réponses complètes et 2/2 abstentions ; la grille des citations
+a été relue et validée par le porteur. Le premier lot en échec reste publié.
+Le correctif final passe la non-régression : 7/8 réponses complètes (87,5 %),
+15/15 références valides et 2/2 abstentions, sans erreur technique. Le parcours
+bureau/mobile, l’isolation, la persistance après redéploiement, les sauvegardes
+et les performances sont vérifiés. Les limites et conditions sont publiées.
+[Rapport de publication](docs/etape-8-publication.md) ·
+[Grille de qualité](docs/revue-qualite-etape-8.md) ·
+[Exploitation, budget et sauvegardes](docs/deploiement-vercel.md).
+
+La démonstration est bornée à 10 tentatives Groq/jour/compte, 50 globalement et
+2/minute. Les tentatives refusées par le contrôle de citations consomment aussi
+le quota ; une telle réponse est affichée comme une erreur et peut être renvoyée
+ultérieurement. Aucun dépassement payant ni déploiement automatique à chaque push.

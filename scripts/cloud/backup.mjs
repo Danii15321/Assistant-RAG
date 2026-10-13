@@ -39,7 +39,7 @@ const pool = new Pool({ connectionString: env.DATABASE_URL_UNPOOLED, max: 1 });
 const tables = ["documents", "extracted_units", "index_chunks", "conversations", "conversation_exchanges", "conversation_sources", "auth_user"];
 const counts = {};
 const digests = {};
-const digestQuery = table => `SELECT md5(coalesce(string_agg(t::text, E'\\n' ORDER BY t::text),'')) AS digest FROM ${table} t`;
+const digestQuery = table => `SELECT md5(coalesce(string_agg(t::text, E'\\n' ORDER BY t::text COLLATE "C"),'')) AS digest FROM ${table} t`;
 try {
   for (const table of tables) {
     // Fixed allowlist; missing table is a schema mismatch, never silently skipped.
@@ -81,10 +81,10 @@ try {
   for (const table of tables) {
     const count = Number(docker(["exec", container, "psql", "-U", "postgres", "-d", "assistant_rag_restore_test",
       "-Atc", `SELECT count(*) FROM ${table}`]).trim());
-    if (count !== counts[table]) throw new Error("Restore count mismatch");
+    if (count !== counts[table]) throw new Error("Restore count mismatch: " + table);
     const digest = docker(["exec", container, "psql", "-U", "postgres", "-d", "assistant_rag_restore_test",
       "-Atc", digestQuery(table)]).trim();
-    if (digest !== digests[table]) throw new Error("Restore content mismatch (or writes during backup)");
+    if (digest !== digests[table]) throw new Error("Restore content mismatch (or writes during backup): " + table);
   }
 } finally {
   if (started) docker(["rm", "--force", "--volumes", container]);

@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-13T20:41:33.942728+00:00",
+  "python": {
+    "unit": {
+      "passed": 80,
+      "command": "docker compose run --rm --no-deps backend pytest -q -m \"not integration\"",
+      "note": "Includes exact captured Iris sentence-boundary regression for v7."
+    },
+    "integration": {
+      "passed": 38,
+      "command": "docker compose run --rm --no-deps backend python scripts/test_database.py"
+    },
+    "ruff": "passed",
+    "mypy": "passed"
+  },
+  "frontend": {
+    "lint": "passed",
+    "types": "passed",
+    "browser_unique_cases": 52,
+    "evidence": "Initial v4 run: 48/52; exact-excerpt expectation and fake-provider fixture corrected, 24 answer/conversation cases rerun and passed; after v5 paragraph change, 10 answer cases rerun and passed. No test disabled.",
+    "production_build": "Vercel v7 build passed"
+  },
+  "scope": "Local tests use a dedicated isolated PostgreSQL database and a fake provider. No real Groq call in ordinary suites."
+}

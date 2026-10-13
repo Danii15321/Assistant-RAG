@@ -1,0 +1,192 @@
+{
+  "date": "2026-10-13T19:55:36.052590+00:00",
+  "reviewer": "Codex (agent), not human; human review pending",
+  "frozen_configuration": "step8-freeze.json",
+  "total_cases": 10,
+  "metrics": {
+    "recall_at_5": {
+      "covered_question_equivalents": 5,
+      "answerable_questions": 8,
+      "percent": 62.5,
+      "target_percent": 80
+    },
+    "accuracy": {
+      "correct": 4,
+      "answerable": 8,
+      "percent": 50,
+      "target_percent": 80
+    },
+    "validity_published_citations": {
+      "valid": 5,
+      "total": 5,
+      "percent": 100,
+      "target_percent": 100
+    },
+    "fidelity_published_claims_agent_review": {
+      "justified": 5,
+      "total": 5,
+      "percent": 100,
+      "target_percent": 90
+    },
+    "coverage_published_claims_agent_review": {
+      "cited": 5,
+      "total": 5,
+      "percent": 100,
+      "target_percent": 90
+    },
+    "abstention_out_of_corpus": {
+      "correct": 2,
+      "total": 2,
+      "percent": 100,
+      "target_percent": 80
+    },
+    "technical_errors": {
+      "total": 1,
+      "requests": 10,
+      "code": "invalid_citations"
+    }
+  },
+  "cases": [
+    {
+      "id": "Q03",
+      "expected": "answered",
+      "actual": "insufficient_context",
+      "http_status": 200,
+      "correct_answer": false,
+      "recall": [
+        {
+          "reference": "R02",
+          "covered": false
+        }
+      ],
+      "note": "Abstention injustifiée : information présente, recherche sans passage retenu."
+    },
+    {
+      "id": "Q07",
+      "expected": "answered",
+      "actual": "answered",
+      "http_status": 200,
+      "correct_answer": true,
+      "recall": [
+        {
+          "reference": "R06",
+          "covered": true
+        }
+      ],
+      "note": "Conforme aux éléments attendus dans la grille (analyse par agent)."
+    },
+    {
+      "id": "Q10",
+      "expected": "answered",
+      "actual": "answered",
+      "http_status": 200,
+      "correct_answer": true,
+      "recall": [
+        {
+          "reference": "P03",
+          "covered": true
+        }
+      ],
+      "note": "Conforme aux éléments attendus dans la grille (analyse par agent)."
+    },
+    {
+      "id": "Q12",
+      "expected": "answered",
+      "actual": "answered",
+      "http_status": 200,
+      "correct_answer": true,
+      "recall": [
+        {
+          "reference": "N03",
+          "covered": true
+        }
+      ],
+      "note": "Conforme aux éléments attendus dans la grille (analyse par agent)."
+    },
+    {
+      "id": "Q15",
+      "expected": "answered",
+      "actual": "invalid_citations",
+      "http_status": 502,
+      "correct_answer": false,
+      "recall": [
+        {
+          "reference": "P06",
+          "covered": true
+        }
+      ],
+      "note": "Sortie rejetée par le validateur, pas une abstention."
+    },
+    {
+      "id": "Q17",
+      "expected": "answered",
+      "actual": "insufficient_context",
+      "http_status": 200,
+      "correct_answer": false,
+      "recall": [
+        {
+          "reference": "R06",
+          "covered": false
+        },
+        {
+          "reference": "R08",
+          "covered": false
+        }
+      ],
+      "note": "Abstention injustifiée : information présente, recherche sans passage retenu."
+    },
+    {
+      "id": "Q19",
+      "expected": "answered",
+      "actual": "insufficient_context",
+      "http_status": 200,
+      "correct_answer": false,
+      "recall": [
+        {
+          "reference": "P03",
+          "covered": false
+        },
+        {
+          "reference": "P05",
+          "covered": false
+        }
+      ],
+      "note": "Abstention injustifiée : information présente, recherche sans passage retenu."
+    },
+    {
+      "id": "Q22",
+      "expected": "insufficient_context",
+      "actual": "insufficient_context",
+      "http_status": 200,
+      "correct_answer": true,
+      "recall": [],
+      "note": "Conforme aux éléments attendus dans la grille (analyse par agent)."
+    },
+    {
+      "id": "Q24",
+      "expected": "insufficient_context",
+      "actual": "insufficient_context",
+      "http_status": 200,
+      "correct_answer": true,
+      "recall": [],
+      "note": "Conforme aux éléments attendus dans la grille (analyse par agent)."
+    },
+    {
+      "id": "Q30",
+      "expected": "answered",
+      "actual": "answered",
+      "http_status": 200,
+      "correct_answer": true,
+      "recall": [
+        {
+          "reference": "P05",
+          "covered": true
+        }
+      ],
+      "note": "Conforme aux éléments attendus dans la grille (analyse par agent)."
+    }
+  ],
+  "v1_quality_targets_met": false,
+  "no_retuning_after_final": true,
+  "invalid_case_replayed": false
+}

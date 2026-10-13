@@ -1,0 +1,184 @@
+{
+  "url": "https://assistant-rag-three.vercel.app",
+  "date": "2026-10-13T20:12:17.058943+00:00",
+  "search": [
+    {
+      "http_status": 200,
+      "elapsed_ms": 1422.72,
+      "server_ms": 145.84
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 1262.75,
+      "server_ms": 165.08
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 320.86,
+      "server_ms": 158.75
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 305.43,
+      "server_ms": 148.79
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 310.36,
+      "server_ms": 152.18
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 307.21,
+      "server_ms": 156.93
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 299.17,
+      "server_ms": 145.94
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 317.63,
+      "server_ms": 152.53
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 314.21,
+      "server_ms": 154.27
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 297.3,
+      "server_ms": 144.6
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 317.95,
+      "server_ms": 147.14
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 310.19,
+      "server_ms": 162.22
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 292.99,
+      "server_ms": 142.71
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 308.74,
+      "server_ms": 154.54
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 305.73,
+      "server_ms": 153.45
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 303.18,
+      "server_ms": 144.53
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 297.93,
+      "server_ms": 147.71
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 398.22,
+      "server_ms": 169.3
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 298.67,
+      "server_ms": 140.03
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 295.07,
+      "server_ms": 144.29
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 315.35,
+      "server_ms": 155.26
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 286.39,
+      "server_ms": 144.32
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 311.28,
+      "server_ms": 157.0
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 314.39,
+      "server_ms": 159.46
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 291.6,
+      "server_ms": 139.01
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 291.11,
+      "server_ms": 145.21
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 328.77,
+      "server_ms": 161.46
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 279.43,
+      "server_ms": 139.11
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 297.33,
+      "server_ms": 143.96
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 323.39,
+      "server_ms": 149.95
+    }
+  ],
+  "answer": [],
+  "warmups": [
+    {
+      "account": 0,
+      "http_status": 200,
+      "elapsed_ms": 9999.85
+    },
+    {
+      "account": 1,
+      "http_status": 200,
+      "elapsed_ms": 347.35
+    },
+    {
+      "account": 2,
+      "http_status": 200,
+      "elapsed_ms": 770.64
+    }
+  ],
+  "concurrent_search": [
+    {
+      "http_status": 200,
+      "elapsed_ms": 554.48
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 305.55
+    }
+  ]
+}

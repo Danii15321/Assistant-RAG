@@ -1,0 +1,185 @@
+{
+  "date": "2026-10-13T20:32:40.490414+00:00",
+  "vercel": {
+    "plan": "hobby",
+    "status": "active",
+    "trial": null,
+    "git_auto_deploy": false
+  },
+  "resources": [
+    {
+      "name": "assistant-rag-preview",
+      "type": "blob",
+      "billingState": "active",
+      "usageQuotaExceeded": false,
+      "size": 21019009,
+      "count": 7,
+      "region": "fra1",
+      "access": "private",
+      "metadata": null,
+      "billingPlan": null
+    },
+    {
+      "name": "assistant-rag-preview",
+      "type": "integration",
+      "billingState": "active",
+      "usageQuotaExceeded": false,
+      "size": null,
+      "count": null,
+      "region": null,
+      "access": null,
+      "metadata": {
+        "region": "fra1",
+        "auth": false
+      },
+      "billingPlan": {
+        "id": "free_v3",
+        "type": "subscription",
+        "name": "Free",
+        "scope": "installation",
+        "description": "Neon’s generous free tier, no credit card required.",
+        "paymentMethodRequired": false,
+        "cost": "Free",
+        "details": [
+          {
+            "label": "Storage",
+            "value": "0.5 GB per project"
+          },
+          {
+            "label": "Maximum projects",
+            "value": "100"
+          },
+          {
+            "label": "Sizes up to",
+            "value": "2 CU, 8 GB RAM"
+          },
+          {
+            "label": "Compute time",
+            "value": "100 CU-hours per project"
+          }
+        ],
+        "quote": [
+          {
+            "line": "Storage",
+            "amount": "0.5 GB per project"
+          },
+          {
+            "line": "Maximum projects",
+            "amount": "100"
+          },
+          {
+            "line": "Sizes up to",
+            "amount": "2 CU, 8 GB RAM"
+          },
+          {
+            "line": "Compute time",
+            "amount": "100 CU-hours per project"
+          }
+        ],
+        "effectiveDate": "2021-01-01T00:00:00Z"
+      }
+    },
+    {
+      "name": "assistant-rag-production",
+      "type": "blob",
+      "billingState": "active",
+      "usageQuotaExceeded": false,
+      "size": 21106330,
+      "count": 22,
+      "region": "fra1",
+      "access": "private",
+      "metadata": null,
+      "billingPlan": null
+    },
+    {
+      "name": "assistant-rag-production",
+      "type": "integration",
+      "billingState": "active",
+      "usageQuotaExceeded": false,
+      "size": null,
+      "count": null,
+      "region": null,
+      "access": null,
+      "metadata": {
+        "region": "fra1",
+        "auth": false
+      },
+      "billingPlan": {
+        "id": "free_v3",
+        "type": "subscription",
+        "name": "Free",
+        "scope": "installation",
+        "description": "Neon’s generous free tier, no credit card required.",
+        "paymentMethodRequired": false,
+        "cost": "Free",
+        "details": [
+          {
+            "label": "Storage",
+            "value": "0.5 GB per project"
+          },
+          {
+            "label": "Maximum projects",
+            "value": "100"
+          },
+          {
+            "label": "Sizes up to",
+            "value": "2 CU, 8 GB RAM"
+          },
+          {
+            "label": "Compute time",
+            "value": "100 CU-hours per project"
+          }
+        ],
+        "quote": [
+          {
+            "line": "Storage",
+            "amount": "0.5 GB per project"
+          },
+          {
+            "line": "Maximum projects",
+            "amount": "100"
+          },
+          {
+            "line": "Sizes up to",
+            "amount": "2 CU, 8 GB RAM"
+          },
+          {
+            "line": "Compute time",
+            "amount": "100 CU-hours per project"
+          }
+        ],
+        "effectiveDate": "2021-01-01T00:00:00Z"
+      }
+    }
+  ],
+  "groq": {
+    "plan": "Free",
+    "evidence": "User confirmed Billing displays Free; real calls succeed, no billing tier returned by API"
+  },
+  "paid_addons_activated": false,
+  "automatic_paid_fallback": false,
+  "public_domain": "assistant-rag-three.vercel.app",
+  "usage_observed_at": "2026-10-13T21:16:45.413172+00:00",
+  "database_and_original_usage": {
+    "production": {
+      "database_bytes": 9871360,
+      "documents": 26,
+      "original_bytes": 21108688
+    },
+    "preview": {
+      "database_bytes": 9338880,
+      "documents": 7,
+      "original_bytes": 21019009
+    }
+  },
+  "usage_note": "SQL database size and registered original bytes. Resource API inventory above is an earlier snapshot; not a live billing dashboard or aggregate Vercel compute consumption.",
+  "groq_daily_usage": {
+    "observed_at": "2026-10-13T21:22:15.642Z",
+    "attempts": 48,
+    "reserved_tokens": 148800,
+    "global_limit": 50,
+    "remaining": 2,
+    "resets_at": "2026-10-14T00:00:00Z",
+    "counters_unchanged": true
+  }
+}

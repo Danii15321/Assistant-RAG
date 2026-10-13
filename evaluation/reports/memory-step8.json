@@ -1,0 +1,21 @@
+{
+  "measurement": "RSS of API and E5 subprocess after two fixed synthetic encodings; not a continuous peak-memory measurement",
+  "vercel_observability": "Unavailable on Hobby for this query; no paid add-on activated",
+  "deployment": "assistant-pw9cak7tn",
+  "region": "fra1",
+  "memory_limit_mib": 2048,
+  "cpu": 1,
+  "probe": {
+    "status": 200,
+    "metrics": {
+      "resident_mib": 970.11,
+      "model_loaded": true,
+      "embedding": {
+        "initially_loaded": false,
+        "first_ms": 9789.27,
+        "warm_ms": 31.33
+      }
+    },
+    "http_ms": 15122.32
+  }
+}

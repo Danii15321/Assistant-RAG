@@ -1,0 +1,18 @@
+{
+  "fixture": "Iris development PDF",
+  "provider_output_captured_under": "v5",
+  "raw_claim": {
+    "text": "Dans l'atelier Iris, le chevauchement entre passages voisins est de 40 tokens.",
+    "evidence": [
+      {
+        "source_id": "S1",
+        "excerpt_id": "E2"
+      }
+    ]
+  },
+  "old_selected_excerpt": "documents sont normalisés.",
+  "new_exact_quote": "R02\nDans l'atelier fictif Iris, un passage contient 220 tokens et le chevauchement entre passages voisins\nest de 40 tokens.\nR03\nLe modèle d'embeddings du cours Iris produit des vecteurs de 384 dimensions. Les vecteurs des\nquestions et des documents sont normalisés.",
+  "validated_under": "grounded-claims-v7|sentence-overlap-excerpts|harmony-budget2500|completion600",
+  "new_provider_calls": 0,
+  "result": "The previously rejected synthetic completion validates against the corrected exact sentence windows. Unsupported numbers remain rejected by unit tests."
+}

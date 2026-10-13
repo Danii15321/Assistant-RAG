@@ -1,0 +1,115 @@
+{
+  "environment": "production",
+  "date": "2026-10-13T20:48:27.034Z",
+  "counts": {
+    "documents": 22,
+    "extracted_units": 62,
+    "index_chunks": 23,
+    "conversations": 1,
+    "conversation_exchanges": 5,
+    "conversation_sources": 1,
+    "auth_user": 8
+  },
+  "digests": {
+    "documents": "0fd09eecb075f1b17a4559a5d676a45c",
+    "extracted_units": "12b2da18b439e5e5aae82e5de456f812",
+    "index_chunks": "b8b1499e182a4a43f7b1c337f23dd88a",
+    "conversations": "48b2b9962d0dff2403f195eab7d6923b",
+    "conversation_exchanges": "b10bcddba8cf12e9e32464a373b3ca98",
+    "conversation_sources": "68375b2666758ad6e5684996f20f5268",
+    "auth_user": "8280996892b09ff16018bec8e1b3e1c5"
+  },
+  "originals": [
+    {
+      "bytes": 101,
+      "sha256": "17c9d50cb78fad011a30fb96f2a80bb4c4ec5a0841574ad4c920949cfec9c59b"
+    },
+    {
+      "bytes": 375,
+      "sha256": "bbab280d419c8aea5aa37bdadc15156aeafab8872341ab1bcea61b7fdcca2d1b"
+    },
+    {
+      "bytes": 1027,
+      "sha256": "17247386a7b3529103ade12a3064660c59f68ee7b36c1627f7883fc02e64196d"
+    },
+    {
+      "bytes": 20971520,
+      "sha256": "7a283b4bdbf144407ba3d4dd690e993781241421da56e8a373a077ee4eb56ea2"
+    },
+    {
+      "bytes": 125,
+      "sha256": "f585b02845b26f62f1750e713c100bf375fc02bf33bae05c172bad552c13d2e5"
+    },
+    {
+      "bytes": 37117,
+      "sha256": "853b07481bbcc67071629ad20f9327583894570d35d30f295b23fcc6a06fe645"
+    },
+    {
+      "bytes": 4129,
+      "sha256": "2465a0a39f0b1a68eba66c76fbfd121c16ffc53fa31eac15f20c3ea23201ed0d"
+    },
+    {
+      "bytes": 4129,
+      "sha256": "2465a0a39f0b1a68eba66c76fbfd121c16ffc53fa31eac15f20c3ea23201ed0d"
+    },
+    {
+      "bytes": 4129,
+      "sha256": "2465a0a39f0b1a68eba66c76fbfd121c16ffc53fa31eac15f20c3ea23201ed0d"
+    },
+    {
+      "bytes": 101,
+      "sha256": "17c9d50cb78fad011a30fb96f2a80bb4c4ec5a0841574ad4c920949cfec9c59b"
+    },
+    {
+      "bytes": 134,
+      "sha256": "606bfe1401abed269c472b14913327699fb1fe3b75f30a0838cf68ff9c36f3be"
+    },
+    {
+      "bytes": 37117,
+      "sha256": "853b07481bbcc67071629ad20f9327583894570d35d30f295b23fcc6a06fe645"
+    },
+    {
+      "bytes": 5127,
+      "sha256": "6b3c5f0c47e5fe909268b6ad58d714f1f1c6ad5da27a60741f09ec07dcfa8991"
+    },
+    {
+      "bytes": 709,
+      "sha256": "4aef4b897eba4e5b74c5ce1d6cd3e877f1ef94be15c1a825d4c9771a3055c716"
+    },
+    {
+      "bytes": 375,
+      "sha256": "bbab280d419c8aea5aa37bdadc15156aeafab8872341ab1bcea61b7fdcca2d1b"
+    },
+    {
+      "bytes": 32,
+      "sha256": "df8088e6de6e266de2bcf72a2d1c9e8eee38b393c651184826be82da2877b65d"
+    },
+    {
+      "bytes": 709,
+      "sha256": "4aef4b897eba4e5b74c5ce1d6cd3e877f1ef94be15c1a825d4c9771a3055c716"
+    },
+    {
+      "bytes": 709,
+      "sha256": "4aef4b897eba4e5b74c5ce1d6cd3e877f1ef94be15c1a825d4c9771a3055c716"
+    },
+    {
+      "bytes": 1072,
+      "sha256": "93b8c71fa3cf57deed92acffec4f3fe2d2f8fc1d54e13bf8583ae05f4df4e1c1"
+    },
+    {
+      "bytes": 101,
+      "sha256": "17c9d50cb78fad011a30fb96f2a80bb4c4ec5a0841574ad4c920949cfec9c59b"
+    },
+    {
+      "bytes": 375,
+      "sha256": "bbab280d419c8aea5aa37bdadc15156aeafab8872341ab1bcea61b7fdcca2d1b"
+    },
+    {
+      "bytes": 37117,
+      "sha256": "853b07481bbcc67071629ad20f9327583894570d35d30f295b23fcc6a06fe645"
+    }
+  ],
+  "dump_sha256": "595c6b9763423465f19c72b81ccae6eeff98f3f5c126ed346b41a28814d30f0b",
+  "restore": "passed",
+  "restore_target": "isolated local PostgreSQL 18; no exposed port"
+}

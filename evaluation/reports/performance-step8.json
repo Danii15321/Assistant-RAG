@@ -1,0 +1,277 @@
+{
+  "url": "https://assistant-rag-three.vercel.app",
+  "date": "2026-10-13T19:42:25.324417+00:00",
+  "search": [
+    {
+      "http_status": 200,
+      "elapsed_ms": 379.38,
+      "server_ms": 149.85
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 306.96,
+      "server_ms": 150.95
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 299.86,
+      "server_ms": 151.98
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 299.36,
+      "server_ms": 152.91
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 310.48,
+      "server_ms": 158.19
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 319.64,
+      "server_ms": 155.93
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 301.6,
+      "server_ms": 153.77
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 368.44,
+      "server_ms": 159.45
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 297.83,
+      "server_ms": 149.84
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 351.18,
+      "server_ms": 166.09
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 317.07,
+      "server_ms": 167.12
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 313.57,
+      "server_ms": 156.88
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 307.55,
+      "server_ms": 156.22
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 303.18,
+      "server_ms": 160.82
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 319.44,
+      "server_ms": 168.45
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 326.7,
+      "server_ms": 158.11
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 310.71,
+      "server_ms": 158.31
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 341.79,
+      "server_ms": 157.29
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 395.76,
+      "server_ms": 171.76
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 332.9,
+      "server_ms": 158.29
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 325.33,
+      "server_ms": 167.43
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 325.26,
+      "server_ms": 150.8
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 324.29,
+      "server_ms": 166.45
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 370.76,
+      "server_ms": 207.28
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 313.48,
+      "server_ms": 170.87
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 301.79,
+      "server_ms": 160.77
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 314.48,
+      "server_ms": 154.54
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 489.58,
+      "server_ms": 161.64
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 1207.17,
+      "server_ms": 1103.72
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 303.5,
+      "server_ms": 152.71
+    }
+  ],
+  "answer": [
+    {
+      "status": "completed",
+      "account": 0,
+      "http_status": 200,
+      "elapsed_ms": 1335.36,
+      "state": "answered",
+      "provider_called": true,
+      "server_ms": 1254.14
+    },
+    {
+      "status": "completed",
+      "account": 0,
+      "http_status": 200,
+      "elapsed_ms": 2059.25,
+      "state": "answered",
+      "provider_called": true,
+      "server_ms": 918.71
+    },
+    {
+      "status": "completed",
+      "account": 0,
+      "http_status": 200,
+      "elapsed_ms": 10666.99,
+      "state": "answered",
+      "provider_called": true,
+      "server_ms": 11411.06
+    },
+    {
+      "status": "completed",
+      "account": 0,
+      "http_status": 200,
+      "elapsed_ms": 2106.97,
+      "state": "answered",
+      "provider_called": true,
+      "server_ms": 970.65
+    },
+    {
+      "status": "completed",
+      "account": 0,
+      "http_status": 429,
+      "elapsed_ms": 1359.12,
+      "state": null,
+      "provider_called": null,
+      "server_ms": null
+    },
+    {
+      "status": "completed",
+      "account": 0,
+      "http_status": 200,
+      "elapsed_ms": 1276.34,
+      "state": "answered",
+      "code": null,
+      "provider_called": true,
+      "server_ms": 919.21
+    }
+  ],
+  "warmups": [
+    {
+      "account": 0,
+      "http_status": 200,
+      "elapsed_ms": 1281.11
+    },
+    {
+      "account": 1,
+      "http_status": 200,
+      "elapsed_ms": 1102.61
+    },
+    {
+      "account": 2,
+      "http_status": 200,
+      "elapsed_ms": 350.88
+    },
+    {
+      "account": 0,
+      "http_status": 200,
+      "elapsed_ms": 10757.71
+    },
+    {
+      "account": 1,
+      "http_status": 200,
+      "elapsed_ms": 278.55
+    },
+    {
+      "account": 2,
+      "http_status": 200,
+      "elapsed_ms": 320.34
+    },
+    {
+      "account": 0,
+      "http_status": 200,
+      "elapsed_ms": 334.31
+    },
+    {
+      "account": 1,
+      "http_status": 200,
+      "elapsed_ms": 324.92
+    },
+    {
+      "account": 2,
+      "http_status": 200,
+      "elapsed_ms": 304.53
+    }
+  ],
+  "concurrent_search": [
+    {
+      "http_status": 200,
+      "elapsed_ms": 499.88
+    },
+    {
+      "http_status": 200,
+      "elapsed_ms": 300.6
+    }
+  ],
+  "quota_incident": {
+    "http_status": 429,
+    "successful_calls_before": 4,
+    "provider_attempts_for_rejected_request": 0,
+    "verification": "Read-only PostgreSQL inspection: 13 total attempts = 4 development + 5 final + 4 performance; no blocked_until or active lease. Waited for the minute window; no counter reset.",
+    "correction": "Pace next request 35 seconds after completion, instead of 33 seconds after request start."
+  }
+}

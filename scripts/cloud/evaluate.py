@@ -14,12 +14,14 @@ from datetime import datetime, timezone
 
 from client import Client, QA, REPORTS, ROOT, save_private
 
+DATASET = ROOT / "evaluation"
+
 
 def corpus(client, state, state_path):
-    for fixture in json.loads((ROOT / "evaluation/manifest.json").read_text())["documents"]:
+    for fixture in json.loads((DATASET / "manifest.json").read_text())["documents"]:
         if fixture["expected"] != "accepted":
             continue
-        path = ROOT / "evaluation" / fixture["file"]
+        path = DATASET / fixture["file"]
         if fixture["id"] not in state["documents"]:
             raw = path.read_bytes()
             assert hashlib.sha256(raw).hexdigest() == fixture["sha256"]
@@ -32,7 +34,7 @@ def corpus(client, state, state_path):
 
 
 def recall(client, ids, case, hits):
-    annotations = {row["id"]: row for row in json.loads((ROOT / "evaluation/reference_passages.json").read_text())}
+    annotations = {row["id"]: row for row in json.loads((DATASET / "reference_passages.json").read_text())}
     found = []
     for identifier in case["relevant_passage_ids"]:
         annotation = annotations[identifier]
@@ -58,20 +60,31 @@ def recall(client, ids, case, hits):
 
 
 def main():
+    global DATASET
     parser = argparse.ArgumentParser()
     parser.add_argument("--url", required=True)
     parser.add_argument("--split", choices=["development", "final"], required=True)
     parser.add_argument("--case-id")
     parser.add_argument("--report-suffix", default="")
+    parser.add_argument("--dataset", choices=["original", "holdout-v2"], default="original")
+    parser.add_argument("--regression-v7", action="store_true")
     args = parser.parse_args()
     assert not args.case_id or args.split == "development"
     assert re.fullmatch(r"[a-z0-9-]*", args.report_suffix)
-    freeze = REPORTS / "step8-freeze.json"
+    if args.regression_v7:
+        assert args.dataset == "holdout-v2" and args.split == "final"
+    tag = "-v2" if args.dataset == "holdout-v2" else ""
+    if tag:
+        DATASET = DATASET / "holdout-v2"
+    run_tag = tag + ("-regression-v7" if args.regression_v7 else "")
+    freeze = REPORTS / ("step8-freeze" + run_tag + ".json")
     if args.split == "final":
         assert freeze.exists(), "Freeze the configuration before final evaluation"
         frozen = json.loads(freeze.read_text())
-        assert frozen["questions_sha256"] == hashlib.sha256((ROOT / "evaluation/questions.jsonl").read_bytes()).hexdigest()
-    state_path = QA / ("evaluation-" + args.split + ".json")
+        assert frozen["questions_sha256"] == hashlib.sha256((DATASET / "questions.jsonl").read_bytes()).hexdigest()
+    state_path = QA / ("evaluation-" + args.split + run_tag + ".json")
+    if args.regression_v7:
+        assert state_path.exists(), "Use the existing second qualification account within its untouched quota"
     if state_path.exists():
         state = json.loads(state_path.read_text())
         assert state["url"] == args.url
@@ -87,12 +100,12 @@ def main():
         state["registered"] = True
         save_private(state_path, state)
     corpus(client, state, state_path)
-    cases = [json.loads(line) for line in (ROOT / "evaluation/questions.jsonl").read_text().splitlines()]
+    cases = [json.loads(line) for line in (DATASET / "questions.jsonl").read_text().splitlines()]
     cases = [c for c in cases if c["split"] == args.split and (args.split == "final" or c["id"] in {"Q02", "Q16", "Q21"})]
     if args.case_id:
         cases = [c for c in cases if c["id"] == args.case_id]
         assert cases
-    path = REPORTS / ("answers-step8-" + args.split + args.report_suffix + ".json")
+    path = REPORTS / ("answers-step8-" + args.split + run_tag + args.report_suffix + ".json")
     report = json.loads(path.read_text()) if path.exists() else {
         "url": args.url, "split": args.split, "recorded_at": datetime.now(timezone.utc).isoformat(),
         "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
@@ -111,12 +124,14 @@ def main():
         report["cases"].append(row)
         path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
         # One request every 33 seconds; never clear or bypass shared production counters.
-        until = state.get("last_request", 0) + 33
+        until = state.get("last_request", 0) + 35
         while time.time() < until:
             time.sleep(min(1, until - time.time()))
         state["last_request"] = time.time()
         save_private(state_path, state)
         status, answer, elapsed = client.request("POST", "/api/v1/answers", {**body, "allow_external_processing": True})
+        state["last_request"] = time.time()
+        save_private(state_path, state)
         row.update(status="completed" if status == 200 else "failed", http_status=status,
                    response=answer, answer_http_ms=elapsed)
         path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")

@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     user_storage_bytes: int = Field(default=100 * 1024 * 1024, gt=0)
     global_storage_bytes: int = Field(default=600 * 1024 * 1024, gt=0)
     embedding_path: Path = Path("/opt/models/e5")
-    search_threshold: float = Field(default=0.84, ge=-1, le=1)
+    search_threshold: float = Field(default=0.81, ge=-1, le=1)
     groq_api_key: SecretStr | None = Field(default=None, repr=False)
     groq_api_key_file: Path = Path("/run/secrets/llm/groq_api_key")
     llm_free_plan_confirmed: bool = False

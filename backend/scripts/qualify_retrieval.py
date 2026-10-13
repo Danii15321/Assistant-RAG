@@ -189,14 +189,14 @@ def main() -> None:
         if not valid:
             raise RuntimeError("Recall@5 objective is not met")
         threshold, result = max(
-            valid, key=lambda v: (v[1]["out_of_corpus_no_match"], v[1]["recall_at_5"], v[0])
+            valid, key=lambda v: (v[1]["recall_at_5"], v[1]["out_of_corpus_no_match"], v[0])
         )
         report = {
             "status": "passed",
             "split": "development",
             "final_cases_evaluated": 0,
             "threshold": threshold,
-            "threshold_selection": "maximize negative rejection then Recall@5 then threshold, "
+            "threshold_selection": "maximize Recall@5 then negative rejection then threshold, "
             "requiring Recall@5 >= 0.8",
             "threshold_grid": [
                 {

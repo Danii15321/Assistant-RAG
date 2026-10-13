@@ -1,0 +1,82 @@
+[
+  {
+    "id": "A1",
+    "document_id": "aurore",
+    "locator": {
+      "page": 1
+    },
+    "text": "La médiathèque Aurore se trouve à Dijon. Elle ouvre le samedi de 9 heures à 13 heures."
+  },
+  {
+    "id": "A2",
+    "document_id": "aurore",
+    "locator": {
+      "page": 1
+    },
+    "text": "La salle de lecture Aurore porte le numéro C245. Elle propose 18 places assises."
+  },
+  {
+    "id": "A3",
+    "document_id": "aurore",
+    "locator": {
+      "page": 1
+    },
+    "text": "Les prêts Aurore sont réservés aux adhérents munis de leur carte. Chaque prêt dure deux semaines."
+  },
+  {
+    "id": "A4",
+    "document_id": "aurore",
+    "locator": {
+      "page": 1
+    },
+    "text": "Les ateliers Aurore ont lieu le mercredi de 15 heures à 17 heures. Les inscriptions se font sur place."
+  },
+  {
+    "id": "L1",
+    "document_id": "lys-2027",
+    "locator": {
+      "paragraph": 1
+    },
+    "text": "Programme Lys 2027 : la coordination est assurée par Nora Perrin."
+  },
+  {
+    "id": "L2",
+    "document_id": "lys-2027",
+    "locator": {
+      "paragraph": 2
+    },
+    "text": "Les équipes du projet Lys comportent quatre personnes au maximum."
+  },
+  {
+    "id": "L3",
+    "document_id": "lys-2027",
+    "locator": {
+      "paragraph": 3
+    },
+    "text": "Le projet Lys doit être remis le 23 avril 2027. Le dossier contient un rapport de huit pages maximum et une affiche au format PDF."
+  },
+  {
+    "id": "L4",
+    "document_id": "lys-2027",
+    "locator": {
+      "paragraph": 4
+    },
+    "text": "La politique Lys du 14 février 2027 conserve les fichiers pendant 65 jours après la remise. Elle remplace la politique Lys 2026."
+  },
+  {
+    "id": "N1",
+    "document_id": "sillage",
+    "locator": {
+      "line": 1
+    },
+    "text": "Le service HTTPS du laboratoire Sillage écoute sur le port 10443. Les postes de démonstration utilisent un réseau isolé."
+  },
+  {
+    "id": "V1",
+    "document_id": "lys-2026",
+    "locator": {
+      "line": 1
+    },
+    "text": "La politique Lys 2026 conservait les fichiers pendant 15 jours après la remise. Cette règle a été remplacée le 14 février 2027."
+  }
+]

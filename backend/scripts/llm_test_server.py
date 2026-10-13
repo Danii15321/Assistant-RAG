@@ -47,13 +47,25 @@ async def generate(request: Request) -> JSONResponse:
             {"error": "synthetic quota"}, status_code=429, headers={"retry-after": "60"}
         )
     sources = json.loads(payload["messages"][-1]["content"].split("SOURCES\n", 1)[1])
+
+    def excerpt_id(source: dict[str, Any], needle: str) -> str:
+        return str(
+            next(
+                (item["id"] for item in source["excerpts"] if needle in item["text"]),
+                source["excerpts"][0]["id"],
+            )
+        )
+
     content = {
         "state": "answered",
         "claims": [
             {
                 "text": "Le lancement a lieu à Lyon.",
                 "evidence": [
-                    {"source_id": "S99" if mode == "invalid" else sources[0]["id"], "quote": "Lyon"}
+                    {
+                        "source_id": "S99" if mode == "invalid" else sources[0]["id"],
+                        "excerpt_id": excerpt_id(sources[0], "Lyon"),
+                    }
                 ],
             }
         ],
@@ -63,7 +75,7 @@ async def generate(request: Request) -> JSONResponse:
             "chevauchement" in payload["messages"][-1]["content"].split("SOURCES\n", 1)[0].lower()
         )
         quote = "40 tokens" if follow_up else "220 tokens"
-        source = next(item for item in sources if quote in item["text"])
+        source = next(item for item in sources if any(quote in e["text"] for e in item["excerpts"]))
         content = {
             "state": "answered",
             "claims": [
@@ -71,7 +83,9 @@ async def generate(request: Request) -> JSONResponse:
                     "text": f"Le chevauchement est de {quote}."
                     if follow_up
                     else f"La taille des passages est de {quote}.",
-                    "evidence": [{"source_id": source["id"], "quote": quote}],
+                    "evidence": [
+                        {"source_id": source["id"], "excerpt_id": excerpt_id(source, quote)}
+                    ],
                 }
             ],
         }

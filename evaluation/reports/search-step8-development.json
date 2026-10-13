@@ -1,0 +1,1054 @@
+{
+  "status": "passed",
+  "split": "development",
+  "final_cases_evaluated": 0,
+  "threshold": 0.81,
+  "threshold_selection": "maximize Recall@5 then negative rejection then threshold, requiring Recall@5 >= 0.8",
+  "threshold_grid": [
+    {
+      "threshold": 0.65,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.655,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.66,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.665,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.67,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.675,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.68,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.685,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.69,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.695,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.7,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.705,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.71,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.715,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.72,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.725,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.73,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.735,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.74,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.745,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.75,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.755,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.76,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.765,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.77,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.775,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.78,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.785,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.79,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.795,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.8,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.805,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.81,
+      "recall_at_5": 1.0,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.815,
+      "recall_at_5": 0.9411764705882353,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.82,
+      "recall_at_5": 0.9411764705882353,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.825,
+      "recall_at_5": 0.8823529411764706,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.83,
+      "recall_at_5": 0.8823529411764706,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.835,
+      "recall_at_5": 0.8235294117647058,
+      "out_of_corpus_no_match": 0
+    },
+    {
+      "threshold": 0.84,
+      "recall_at_5": 0.8235294117647058,
+      "out_of_corpus_no_match": 1
+    },
+    {
+      "threshold": 0.845,
+      "recall_at_5": 0.7647058823529411,
+      "out_of_corpus_no_match": 2
+    },
+    {
+      "threshold": 0.85,
+      "recall_at_5": 0.6470588235294118,
+      "out_of_corpus_no_match": 2
+    },
+    {
+      "threshold": 0.855,
+      "recall_at_5": 0.5882352941176471,
+      "out_of_corpus_no_match": 2
+    },
+    {
+      "threshold": 0.86,
+      "recall_at_5": 0.47058823529411764,
+      "out_of_corpus_no_match": 2
+    },
+    {
+      "threshold": 0.865,
+      "recall_at_5": 0.4117647058823529,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.87,
+      "recall_at_5": 0.4117647058823529,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.875,
+      "recall_at_5": 0.4117647058823529,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.88,
+      "recall_at_5": 0.23529411764705882,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.885,
+      "recall_at_5": 0.11764705882352941,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.89,
+      "recall_at_5": 0.11764705882352941,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.895,
+      "recall_at_5": 0.11764705882352941,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.9,
+      "recall_at_5": 0.11764705882352941,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.905,
+      "recall_at_5": 0.11764705882352941,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.91,
+      "recall_at_5": 0.058823529411764705,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.915,
+      "recall_at_5": 0.058823529411764705,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.92,
+      "recall_at_5": 0.058823529411764705,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.925,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.93,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.935,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.94,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.945,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.95,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.955,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.96,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.965,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.97,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.975,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.98,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.985,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.99,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 0.995,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    },
+    {
+      "threshold": 1.0,
+      "recall_at_5": 0.0,
+      "out_of_corpus_no_match": 3
+    }
+  ],
+  "metrics": {
+    "recall_at_5": 1.0,
+    "answerable_questions": 17,
+    "relevant_annotations_found": 20,
+    "relevant_annotations_total": 20,
+    "out_of_corpus_questions": 3,
+    "out_of_corpus_no_match": 0,
+    "cases": [
+      {
+        "id": "Q01",
+        "category": "factual",
+        "expected": [
+          "R01"
+        ],
+        "recovered": [
+          "R01"
+        ],
+        "returned": 1,
+        "max_score": 0.8125658631324768,
+        "sources": [
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.812566
+          }
+        ]
+      },
+      {
+        "id": "Q02",
+        "category": "factual",
+        "expected": [
+          "R02"
+        ],
+        "recovered": [
+          "R02"
+        ],
+        "returned": 5,
+        "max_score": 0.8570073843002319,
+        "sources": [
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.857007
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.841181
+          },
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.834502
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.823354
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.823098
+          }
+        ]
+      },
+      {
+        "id": "Q04",
+        "category": "factual",
+        "expected": [
+          "R03"
+        ],
+        "recovered": [
+          "R03"
+        ],
+        "returned": 3,
+        "max_score": 0.8530473709106445,
+        "sources": [
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.853047
+          },
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.834446
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.813555
+          }
+        ]
+      },
+      {
+        "id": "Q05",
+        "category": "factual",
+        "expected": [
+          "R04"
+        ],
+        "recovered": [
+          "R04"
+        ],
+        "returned": 5,
+        "max_score": 0.8423269485040352,
+        "sources": [
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.842327
+          },
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.837092
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.834011
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.827106
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.823409
+          }
+        ]
+      },
+      {
+        "id": "Q06",
+        "category": "factual",
+        "expected": [
+          "R05"
+        ],
+        "recovered": [
+          "R05"
+        ],
+        "returned": 5,
+        "max_score": 0.8566509570687454,
+        "sources": [
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.856651
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.837712
+          },
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.83607
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.82955
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.821873
+          }
+        ]
+      },
+      {
+        "id": "Q08",
+        "category": "factual",
+        "expected": [
+          "P01"
+        ],
+        "recovered": [
+          "P01"
+        ],
+        "returned": 5,
+        "max_score": 0.9241137595041085,
+        "sources": [
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.924114
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.847555
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.820075
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.818729
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.813142
+          }
+        ]
+      },
+      {
+        "id": "Q09",
+        "category": "factual",
+        "expected": [
+          "P02"
+        ],
+        "recovered": [
+          "P02"
+        ],
+        "returned": 1,
+        "max_score": 0.8243699774521618,
+        "sources": [
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.82437
+          }
+        ]
+      },
+      {
+        "id": "Q11",
+        "category": "factual",
+        "expected": [
+          "N02"
+        ],
+        "recovered": [
+          "N02"
+        ],
+        "returned": 1,
+        "max_score": 0.8848474162998895,
+        "sources": [
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.884847
+          }
+        ]
+      },
+      {
+        "id": "Q13",
+        "category": "factual",
+        "expected": [
+          "N04"
+        ],
+        "recovered": [
+          "N04"
+        ],
+        "returned": 5,
+        "max_score": 0.8780272152391415,
+        "sources": [
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.878027
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.855323
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.848851
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.838431
+          },
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.836917
+          }
+        ]
+      },
+      {
+        "id": "Q14",
+        "category": "factual",
+        "expected": [
+          "R09"
+        ],
+        "recovered": [
+          "R09"
+        ],
+        "returned": 5,
+        "max_score": 0.8776371551968378,
+        "sources": [
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.877637
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.86099
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.850749
+          },
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.844038
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.82954
+          }
+        ]
+      },
+      {
+        "id": "Q16",
+        "category": "multi_hop",
+        "expected": [
+          "P04",
+          "A01"
+        ],
+        "recovered": [
+          "P04",
+          "A01"
+        ],
+        "returned": 2,
+        "max_score": 0.8473847003349856,
+        "sources": [
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.847385
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.846176
+          }
+        ]
+      },
+      {
+        "id": "Q18",
+        "category": "multi_hop",
+        "expected": [
+          "N03",
+          "N04"
+        ],
+        "recovered": [
+          "N03",
+          "N04"
+        ],
+        "returned": 2,
+        "max_score": 0.8827034304914829,
+        "sources": [
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.882703
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.820948
+          }
+        ]
+      },
+      {
+        "id": "Q20",
+        "category": "multi_hop",
+        "expected": [
+          "R07",
+          "R08"
+        ],
+        "recovered": [
+          "R07",
+          "R08"
+        ],
+        "returned": 2,
+        "max_score": 0.8641419410705566,
+        "sources": [
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.864142
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.820307
+          }
+        ]
+      },
+      {
+        "id": "Q21",
+        "category": "out_of_corpus",
+        "expected": [],
+        "recovered": [],
+        "returned": 5,
+        "max_score": 0.8648453435393979,
+        "sources": [
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.864845
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.839893
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.833658
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.828412
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.828061
+          }
+        ]
+      },
+      {
+        "id": "Q23",
+        "category": "out_of_corpus",
+        "expected": [],
+        "recovered": [],
+        "returned": 5,
+        "max_score": 0.835496723651886,
+        "sources": [
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.835497
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.828948
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.828384
+          },
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.821753
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.821102
+          }
+        ]
+      },
+      {
+        "id": "Q25",
+        "category": "out_of_corpus",
+        "expected": [],
+        "recovered": [],
+        "returned": 1,
+        "max_score": 0.8446332904915056,
+        "sources": [
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.844633
+          }
+        ]
+      },
+      {
+        "id": "Q26",
+        "category": "follow_up",
+        "expected": [
+          "P01"
+        ],
+        "recovered": [
+          "P01"
+        ],
+        "returned": 5,
+        "max_score": 0.9081573541070624,
+        "sources": [
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.908157
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.848403
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.842025
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.833177
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.829521
+          }
+        ]
+      },
+      {
+        "id": "Q27",
+        "category": "follow_up",
+        "expected": [
+          "N01"
+        ],
+        "recovered": [
+          "N01"
+        ],
+        "returned": 5,
+        "max_score": 0.8499402493274079,
+        "sources": [
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.84994
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.822115
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.820299
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.81926
+          },
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.81683
+          }
+        ]
+      },
+      {
+        "id": "Q28",
+        "category": "follow_up",
+        "expected": [
+          "R02"
+        ],
+        "recovered": [
+          "R02"
+        ],
+        "returned": 5,
+        "max_score": 0.8422570824623108,
+        "sources": [
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.842257
+          },
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.8272
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.822707
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.819286
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.819045
+          }
+        ]
+      },
+      {
+        "id": "Q29",
+        "category": "follow_up",
+        "expected": [
+          "P06"
+        ],
+        "recovered": [
+          "P06"
+        ],
+        "returned": 5,
+        "max_score": 0.8761950878864422,
+        "sources": [
+          {
+            "filename": "parcours-2026.docx",
+            "ordinal": 1,
+            "score": 0.876195
+          },
+          {
+            "filename": "politique-2025.txt",
+            "ordinal": 1,
+            "score": 0.86462
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 2,
+            "score": 0.851729
+          },
+          {
+            "filename": "reseau.txt",
+            "ordinal": 1,
+            "score": 0.850264
+          },
+          {
+            "filename": "atelier-rag.pdf",
+            "ordinal": 1,
+            "score": 0.844833
+          }
+        ]
+      }
+    ]
+  },
+  "corpus": [
+    {
+      "document": "atelier-rag",
+      "units": 3,
+      "chunks": 2
+    },
+    {
+      "document": "parcours-2026",
+      "units": 7,
+      "chunks": 1
+    },
+    {
+      "document": "reseau",
+      "units": 5,
+      "chunks": 1
+    },
+    {
+      "document": "politique-2025",
+      "units": 2,
+      "chunks": 1
+    }
+  ],
+  "annotations_mapped": 22,
+  "index_version": "canonical-v1|split-v1:300:50|intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|384|prefix-v1|l2",
+  "search_version": "cosine-exact-v1|candidates50|overlap0.8|budget1500|user-history-v1",
+  "corpus_index_seconds": 16.292,
+  "warm_query_seconds": {
+    "count": 20,
+    "median": 0.028,
+    "p95": 0.037
+  },
+  "corpus_sha256": {
+    "politique-2025.txt": "bbab280d419c8aea5aa37bdadc15156aeafab8872341ab1bcea61b7fdcca2d1b",
+    "reseau.txt": "4aef4b897eba4e5b74c5ce1d6cd3e877f1ef94be15c1a825d4c9771a3055c716",
+    "atelier-rag.pdf": "2465a0a39f0b1a68eba66c76fbfd121c16ffc53fa31eac15f20c3ea23201ed0d",
+    "parcours-2026.docx": "853b07481bbcc67071629ad20f9327583894570d35d30f295b23fcc6a06fe645"
+  },
+  "evaluation_database": "assistant_rag_evaluation",
+  "llm_calls": 0,
+  "cloud_deployment": false,
+  "cost_eur": 0
+}

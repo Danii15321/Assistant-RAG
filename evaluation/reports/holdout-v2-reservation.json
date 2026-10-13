@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-13T20:02:57.130724+00:00",
+  "questions": 10,
+  "files": {
+    "evaluation/holdout-v2/corpus/aurore.pdf": "93b8c71fa3cf57deed92acffec4f3fe2d2f8fc1d54e13bf8583ae05f4df4e1c1",
+    "evaluation/holdout-v2/corpus/lys-2026.txt": "606bfe1401abed269c472b14913327699fb1fe3b75f30a0838cf68ff9c36f3be",
+    "evaluation/holdout-v2/corpus/lys-2027.docx": "17247386a7b3529103ade12a3064660c59f68ee7b36c1627f7883fc02e64196d",
+    "evaluation/holdout-v2/corpus/sillage.txt": "f585b02845b26f62f1750e713c100bf375fc02bf33bae05c172bad552c13d2e5",
+    "evaluation/holdout-v2/manifest.json": "8ee3ee9381e62975b2461a371dc2329911bb998db780a70911a322c8e05a94a6",
+    "evaluation/holdout-v2/questions.jsonl": "9d8135d40968fecd1975cba56438b22e7f06a6845dbff89f8a764a847ca334e9",
+    "evaluation/holdout-v2/reference_passages.json": "9132053c05312d210c1c029b14156e6a1bb607754f306fdbce07c870058781c2"
+  },
+  "opened_for_calibration": false
+}

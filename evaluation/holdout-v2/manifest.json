@@ -1,0 +1,31 @@
+{
+  "license": "CC0-1.0",
+  "provenance": "New synthetic facts and wording, random values; no user document. Reserved after initial holdout failure and never used to select parameters. Authored by the same agent, not an external human benchmark.",
+  "created_at": "2026-10-13T20:02:57.130724+00:00",
+  "documents": [
+    {
+      "id": "aurore",
+      "file": "corpus/aurore.pdf",
+      "expected": "accepted",
+      "sha256": "93b8c71fa3cf57deed92acffec4f3fe2d2f8fc1d54e13bf8583ae05f4df4e1c1"
+    },
+    {
+      "id": "lys-2026",
+      "file": "corpus/lys-2026.txt",
+      "expected": "accepted",
+      "sha256": "606bfe1401abed269c472b14913327699fb1fe3b75f30a0838cf68ff9c36f3be"
+    },
+    {
+      "id": "lys-2027",
+      "file": "corpus/lys-2027.docx",
+      "expected": "accepted",
+      "sha256": "17247386a7b3529103ade12a3064660c59f68ee7b36c1627f7883fc02e64196d"
+    },
+    {
+      "id": "sillage",
+      "file": "corpus/sillage.txt",
+      "expected": "accepted",
+      "sha256": "f585b02845b26f62f1750e713c100bf375fc02bf33bae05c172bad552c13d2e5"
+    }
+  ]
+}

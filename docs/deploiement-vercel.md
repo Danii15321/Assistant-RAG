@@ -1,7 +1,7 @@
 # Déploiement Vercel — Assistant RAG
 
 L’application utilise le projet `assistant-rag` de `danii15321s-projects`.
-URL de production prévue : <https://assistant-rag-three.vercel.app>.
+URL de production publique : <https://assistant-rag-three.vercel.app>.
 Consulter le rapport de l’étape 8 avant de considérer une qualification acquise.
 
 ## Ressources et budget
@@ -21,7 +21,11 @@ Inclusions publiées au 12 octobre 2026 : Blob 1 Go, 10 Go de transfert,
 2 000 opérations avancées et 10 000 simples ; Queues un million d’opérations ;
 compute 4 heures CPU actives, 360 Go-heures mémoire, un million d’invocations.
 Les quotas Vercel sont partagés avec les autres projets de l’espace. Neon Free
-annonce 100 CU-heures et 1 Go de base par projet, 5 Go de transfert réseau.
+annonce 100 CU-heures. Le plan Marketplace `free_v3` réellement provisionné
+indique **0,5 Go de base par projet**, même si la page commerciale générale
+présente d'autres inclusions : retenir la limite du compte. L'indexation s'arrête
+à 400 Mio de base occupée pour garder une marge ; les uploads Preview s'arrêtent
+dès 100 Mio. Le transfert réseau gratuit annoncé est de 5 Go.
 À limite atteinte, attendre le renouvellement ou réduire l’usage ; ne pas changer
 de plan. Vérifier de nouveau les offres avant tout nouveau provisionnement.
 

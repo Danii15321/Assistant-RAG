@@ -7,6 +7,7 @@ from sqlalchemy import Engine, text
 
 from app.adapters.storage_factory import make_storage
 from app.config import Settings
+from app.models.document import DocumentError
 from app.repositories.indexes import IndexRepository
 from app.repositories.jobs import JobRepository
 from app.repositories.query_jobs import QueryJobRepository
@@ -62,3 +63,26 @@ class CloudWorker:
 
     def reconcile(self) -> None:
         self.storage.collect_orphans(self.jobs.reconcile())
+
+    def profile_embeddings(self) -> dict[str, object]:
+        """Explicit internal probe with fixed synthetic input and normal CPU exclusion."""
+        if not self.lock.acquire(blocking=False):
+            raise DocumentError(429, "generation_busy")
+        try:
+            with cpu_guard(self.engine) as acquired:
+                if not acquired:
+                    raise DocumentError(429, "generation_busy")
+                encoder = self.indexer.encoder
+                loaded = encoder.process is not None and encoder.process.poll() is None
+                durations = []
+                for _ in range(2):
+                    started = time.monotonic()
+                    encoder.encode(["Qualification E5 sans document utilisateur."], "query")
+                    durations.append(round((time.monotonic() - started) * 1000, 2))
+                return {
+                    "initially_loaded": loaded,
+                    "first_ms": durations[0],
+                    "warm_ms": durations[1],
+                }
+        finally:
+            self.lock.release()

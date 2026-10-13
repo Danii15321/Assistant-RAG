@@ -120,7 +120,8 @@ class IndexRepository:
                 raise DocumentError(429, "passage_quota")
             if (
                 connection.execute(text("SELECT pg_database_size(current_database())")).scalar_one()
-                >= 600 * 1024 * 1024
+                # The provisioned Marketplace Free plan reports 0.5 GB per project.
+                >= 400 * 1024 * 1024
             ):
                 raise DocumentError(429, "storage_quota")
             connection.execute(

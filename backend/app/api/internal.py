@@ -35,6 +35,11 @@ def work(request: Request) -> dict[str, bool]:
 @router.get("/metrics")
 def metrics(request: Request) -> dict[str, object]:
     authorize(request)
+    profile = (
+        request.app.state.cloud_worker.profile_embeddings()
+        if request.query_params.get("probe") == "embedding"
+        else None
+    )
     process = request.app.state.cloud_worker.indexer.encoder.process
     paths = [Path("/proc/self/status")]
     if process is not None and process.poll() is None:
@@ -48,6 +53,8 @@ def metrics(request: Request) -> dict[str, object]:
         "resident_mib": round(kib / 1024, 2),
         "model_loaded": len(paths) == 2,
     }
+    if profile is not None:
+        result["embedding"] = profile
     if request.query_params.get("probe") == "identity":
         settings = request.app.state.settings
         result["identity_origin"] = urlparse(settings.auth_jwks_url).hostname

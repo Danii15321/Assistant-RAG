@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-14T13:12:13.117995+00:00",
+  "url": "https://assistant-rag-three.vercel.app",
+  "deployment_id": "dpl_Bz4YsavyH5JhVBeU2KvqFezmfXEb",
+  "immutable_url": "https://assistant-hj24qm8di-danii15321s-projects.vercel.app",
+  "status": "READY",
+  "source": "working tree with uncommitted OpenAI feature and correction",
+  "base_commit": "0ac5d530f0192b8223e541f0d1003868be73e9fe",
+  "schema": "0010_generation_token_capacity",
+  "budget": {
+    "total_limit_microusd": 1000000,
+    "local_reservations_imported_microusd": 10000,
+    "publication_checks_reserved_microusd": 130000,
+    "remaining_microusd": 860000,
+    "local_enabled": false,
+    "local_counter_locked": true,
+    "preview_enabled": false
+  },
+  "checks": {
+    "unit_tests": 99,
+    "postgresql_tests": 44,
+    "browser": {
+      "new_identity_and_minimal_home": true,
+      "default_groq_and_openai_choice": true,
+      "multi_upload_dedup_draft_and_consent": true,
+      "three_themes_and_persistence": true,
+      "library_filter": true,
+      "persisted_history_sources_and_keyboard": true,
+      "mobile_rail_history_and_new_chat": true,
+      "logout_protects_api": true,
+      "second_account_isolation": true
+    },
+    "lint_types_build": true,
+    "preserved_existing_data": true,
+    "runtime_5xx_found": 0
+  },
+  "openai_calls": [
+    {
+      "date": "2026-10-14T13:09:39.709868+00:00",
+      "model": "gpt-6-luna",
+      "http": 200,
+      "state": "answered",
+      "error_code": null,
+      "provider_called": true,
+      "sources": 1,
+      "contains_expected_ports": true,
+      "elapsed_ms": 15040.4,
+      "remaining_microusd": 980000,
+      "idempotent_replay_without_charge": true
+    },
+    {
+      "date": "2026-10-14T13:10:29.245981+00:00",
+      "model": "gpt-6.1-sol",
+      "http": 200,
+      "state": "answered",
+      "error_code": null,
+      "provider_called": true,
+      "sources": 1,
+      "contains_expected_ports": true,
+      "elapsed_ms": 15820.94,
+      "remaining_microusd": 860000,
+      "idempotent_replay_without_charge": true
+    }
+  ]
+}

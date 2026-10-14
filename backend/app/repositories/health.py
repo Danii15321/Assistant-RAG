@@ -1,6 +1,6 @@
 from sqlalchemy import Engine, text
 
-SCHEMA_REVISION = "0008_cloud_wakeups"
+SCHEMA_REVISION = "0010_generation_token_capacity"
 
 
 class DatabaseHealthRepository:

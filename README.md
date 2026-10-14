@@ -20,6 +20,10 @@ Next.js  ·  FastAPI  ·  LangChain  ·  PostgreSQL  ·  pgvector  ·  Sentence 
 ### CONTRAINTE 
 Budget strict de **0 €** pour le développement et la démonstration publique,
 tous services compris. Projet personnel destiné au **CV**, sans objectif commercial.
+Exception autorisée le 14 octobre 2026 : OpenAI sur Vercel après transfert du
+budget local, plafond prudent total de **1 USD** incluant les essais antérieurs.
+Groq reste le défaut ; OpenAI local est désactivé.
+Voir [ADR 0011](docs/decisions/0011-openai-local-plafond-un-dollar.md).
 
 ## CADRAGE V1
 
@@ -178,7 +182,7 @@ Les paramètres permettent de choisir **Clair**, **Sombre** ou **Système**. Le 
 est mémorisé un an par un cookie d’apparence sans donnée privée ; aucun jeton
 ou document n’est enregistré durablement dans le navigateur. Le système est suivi par CSS, y
 compris lorsqu’il change, sans flash volontaire d’un autre thème au chargement.
-Aucun sélecteur de modèle ni réglage de recherche n’est exposé. Cette évolution est publiée sur
+Le sélecteur de modèle est ajouté par l’évolution OpenAI décrite ci-dessous. Cette évolution est publiée sur
 <https://assistant-rag-three.vercel.app>.
 
 Contrôles : lint, TypeScript et build réussis ; 59/60 tests navigateur réussis
@@ -211,3 +215,21 @@ identité/accueil, import multiple, thèmes persistants, filtre documentaire,
 historique/sources, navigation mobile, déconnexion et isolation intercomptes.
 La vérification réutilise les réponses de qualification existantes, sans nouvel
 appel Groq. Voir le [journal de publication](docs/deploiement-vercel.md#my-talking-rag--14-octobre-2026).
+
+
+## OpenAI sur Vercel
+
+Groq reste sélectionné par défaut. GPT-6 Luna et GPT-6.1 Sol sont proposés sur
+choix explicite, avec consentement avant envoi des extraits. Aucun fallback payant.
+Le budget global est limité à **1 USD**, essais locaux antérieurs inclus.
+Les réservations prudentes sont de 0,01 USD par tentative Luna et 0,12 USD par
+Sol ; elles ne représentent pas la facture réelle. Les échecs restent comptés.
+
+Après transfert, OpenAI est désactivé en local et dans les previews. Le compteur
+local est verrouillé ; ne pas le remettre à zéro. La clé Vercel est un secret
+serveur de production, jamais un paramètre public du frontend.
+[Configuration et rollback](docs/decisions/0011-openai-local-plafond-un-dollar.md).
+
+La migration `0010_generation_token_capacity` corrige la contrainte SQL qui
+empêchait les appels OpenAI. Le modèle choisi est conservé à la réouverture de
+la discussion, même après un échec. Une nouvelle discussion démarre sur Groq.

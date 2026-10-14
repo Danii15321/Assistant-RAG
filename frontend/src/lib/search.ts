@@ -1,3 +1,4 @@
+import { type ModelChoice } from "@/lib/models";
 import { errorMessage } from "@/lib/documents";
 
 export type SearchHit = {
@@ -30,15 +31,16 @@ export async function searchDocuments(question: string, documentIds: string[] | 
 }
 
 export type AnswerResult = {
+  model?: ModelChoice;
   state: "answered" | "insufficient_context"; answer: string;
   claims: { text: string; evidence: { source_id: string; quote: string }[] }[];
   sources: (Omit<SearchHit, "document_id"> & { document_id: string | null; source_id: string; status?: "available" | "deleted" })[]; provider_called: boolean;
 };
-export async function generateAnswer(question: string, documentIds: string[] | null, signal: AbortSignal): Promise<AnswerResult> {
+export async function generateAnswer(question: string, documentIds: string[] | null, signal: AbortSignal, model: ModelChoice = "groq"): Promise<AnswerResult> {
   let response: Response;
   try { response = await fetch("/api/v1/answers", {
     method: "POST", cache: "no-store", headers: { "content-type": "application/json" },
-    body: JSON.stringify({ question, document_ids: documentIds, allow_external_processing: true }),
+    body: JSON.stringify({ question, document_ids: documentIds, allow_external_processing: true, model }),
     signal: AbortSignal.any([signal, AbortSignal.timeout(180000)]),
   }); } catch (failure) {
     if (signal.aborted) throw failure;

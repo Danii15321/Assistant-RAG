@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { modelLabels } from "@/lib/models";
 import { BrandLogo } from "@/components/brand-logo";
 import { ChatIcon } from "@/components/chat-icon";
 import { SourceDrawer, sourceLocation, sourceQuotes } from "@/components/source-drawer";
@@ -9,7 +10,7 @@ import { type AnswerResult } from "@/lib/search";
 export function AnswerResults({ result, prefix = "answer" }: { result: AnswerResult; prefix?: string }) {
   const [selected, setSelected] = useState<string | null>(null);
   return <section className="extraction-card answer-card" aria-labelledby={`${prefix}-title`}>
-    <div className="answer-author"><BrandLogo /><h2 id={`${prefix}-title`}>My Talking RAG <span>Réponse sourcée</span></h2></div>
+    <div className="answer-author"><BrandLogo /><h2 id={`${prefix}-title`}>My Talking RAG <span>{result.provider_called ? modelLabels[result.model ?? "groq"] : "Documents consultés"}</span></h2></div>
     {result.state === "insufficient_context" ? <p role="status">{result.answer}</p> :
       <div className="answer-claims">{result.claims.map((claim, index) => <p key={index}>
         {claim.text} {Array.from(new Set(claim.evidence.map(item => item.source_id))).map(reference =>

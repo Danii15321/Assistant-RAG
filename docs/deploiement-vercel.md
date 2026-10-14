@@ -191,3 +191,57 @@ Aucun service de suivi payant ajouté.
 Rollback du code possible vers `dpl_2kCgdcbia7VVGsAEBXM8Bq47DEUK` ; aucune migration
 n’accompagne cette publication. La documentation de publication est commitée
 séparément du code exécuté. Les déploiements restent manuels.
+
+
+## OpenAI et correction de réservation — 14 octobre 2026
+
+Publication autorisée avec transfert du budget restant vers Vercel et désactivation
+locale. Production `dpl_Bz4YsavyH5JhVBeU2KvqFezmfXEb`, état `READY`, URL publique
+<https://assistant-rag-three.vercel.app>, version immuable
+<https://assistant-hj24qm8di-danii15321s-projects.vercel.app>.
+Source : arbre de travail incluant l’évolution OpenAI non commitée, base Git
+`0ac5d530f019`. Aucun commit, push ou branche créé par cette publication.
+
+- Groq reste le défaut ; GPT-6 Luna et GPT-6.1 Sol exigent un choix explicite et
+  le consentement avant chaque envoi. Aucun fallback payant.
+- `OPENAI_API_KEY` est un secret de Production, transmis à la CLI par stdin ;
+  `OPENAI_CLOUD_ENABLED=true`. Le code exige aussi `VERCEL_ENV=production`.
+  Aucune clé ajoutée en Preview ni dans le bundle navigateur.
+- OpenAI local désactivé dans Compose et compteur local verrouillé à 1 USD.
+  L’unique tentative locale de 0,01 USD a été importée avec son UUID en production.
+  Une répétition de cet import n’a ajouté aucune réservation.
+- Deux appels réels publics sur le corpus fictif Iris : Luna et Sol répondent
+  avec les ports attendus et une source valide. Chacun peut être rejoué avec le
+  même identifiant sans nouvel appel ni nouvelle réservation.
+- Réservations cumulées après validation : **0,14 USD**, reste **0,86 USD**.
+  Ce sont des marges prudentes, pas une mesure de la facture du fournisseur.
+  Les usages d’autres applications avec cette clé ne sont pas couverts.
+
+Sauvegarde privée avant migration et restauration isolée réussies : 215 lignes
+contrôlées et 27 originaux. Migrations 0009/0010 appliquées séparément du build,
+puis comparaison des documents, unités, vecteurs, conversations, échanges et
+citations : contenu inchangé (la nouvelle colonne `model` est exclue du digest
+comparatif). Le budget n’a pas été remis à zéro. Contrôle de santé de la version
+protégée via `vercel curl`, puis promotion vers l’URL publique.
+
+Validation : 99 tests unitaires, 44 tests PostgreSQL, Ruff/format/mypy,
+ESLint/TypeScript et build Next.js réussis. Neuf contrôles navigateur publics
+passent : accueil, défaut Groq/sélecteur OpenAI, imports multiples et consentement,
+thèmes, filtre bibliothèque, historique/sources/clavier, mobile, déconnexion,
+isolation entre comptes. Le premier contrôle de déconnexion attendait strictement
+`/sign-in`, alors que la révocation peut conduire à `/sign-in?expired=1` ; le test
+accepte ces deux routes prévues et vérifie toujours le refus API 401 après sortie.
+Les réponses privées d’utilisateurs n’ont pas été utilisées pour les essais.
+Aucune réponse HTTP 5xx trouvée dans les logs de ce déploiement lors du contrôle.
+
+[Preuve de publication](../evaluation/reports/openai-release-2026-10-14.json).
+Les sauvegardes vérifient désormais aussi les deux tables de budget lorsqu’elles
+existent. Conserver le journal le plus récent lors de toute restauration.
+
+Retour arrière privilégié : désactiver `OPENAI_CLOUD_ENABLED` et redéployer cette
+version, en conservant le schéma et le compteur. Un rollback vers la version
+antérieure `dpl_E2WLfpyHd3McxPUxwAbe1NyuRA7Z` nécessite aussi le downgrade vers
+`0008_cloud_wakeups` pour son contrôle de santé ; les tables de budget sont
+conservées par les migrations. Sauvegarder avant toute opération et ne jamais
+restaurer un compteur antérieur aux appels. Ne pas réactiver OpenAI local après
+rollback : le transfert de l’enveloppe reste effectif.

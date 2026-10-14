@@ -16,6 +16,9 @@ const messages: Record<string, string> = {
   conversation_quota: "La limite de 50 conversations est atteinte. Supprimez une conversation pour continuer.",
   conversation_message_quota: "Cette conversation a atteint 100 échanges. Ouvrez une nouvelle conversation.",
   external_processing_required: "Confirmez l’envoi à Groq pour générer une réponse.",
+  openai_budget_exhausted: "Le plafond d’essai OpenAI est atteint. Vous pouvez continuer avec Groq.",
+  openai_provider_quota: "OpenAI a refusé l’appel pour une limite de quota ou de crédits. Vous pouvez choisir Groq.",
+  openai_pricing_review_required: "Les tarifs OpenAI doivent être vérifiés avant de poursuivre les essais. Groq reste disponible.",
   llm_not_configured: "La génération Groq Free n’est pas configurée sur le serveur.",
   generation_busy: "Une réponse est déjà en cours. Réessayez après sa fin.",
   generation_quota: "La limite de génération est atteinte. Réessayez plus tard.",
@@ -51,10 +54,10 @@ const messages: Record<string, string> = {
 export function errorMessage(code: unknown): string {
   return typeof code === "string" && messages[code] ? messages[code] : "L’opération n’a pas abouti. Réessayez dans quelques instants.";
 }
-export async function documentRequest(path: string, method = "GET", data?: object): Promise<Response> {
+export async function documentRequest(path: string, method = "GET", data?: object, signal?: AbortSignal): Promise<Response> {
   const response = await fetch(`/api/v1${path}`, {
     method, cache: "no-store", headers: data ? { "content-type": "application/json" } : undefined,
-    body: data ? JSON.stringify(data) : undefined, signal: AbortSignal.timeout(70000),
+    body: data ? JSON.stringify(data) : undefined, signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(70000)]) : AbortSignal.timeout(70000),
   });
   if (response.status === 401) {
     window.dispatchEvent(new Event("session-expired"));

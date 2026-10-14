@@ -61,6 +61,9 @@ vérifiés. Qualifier la base locale à l'étape 1, l'identité locale à l'éta
 l'import à l'étape 3 ; regrouper les essais cloud au prochain jalon Vercel :
 consulter `docs/etape-0-faisabilite.md` et `docs/developpement-local.md`.
 Budget strict de 0 € pour développement et démonstration CV non commerciale.
+Exception utilisateur : OpenAI en production Vercel, choix explicite, plafond total
+1 USD incluant les essais locaux antérieurs ; OpenAI local désactivé après transfert.
+Groq par défaut, aucun fallback payant. Voir ADR 0011.
 Suivre ADR 0002 : URL vercel.app, aucun domaine acheté, plan/add-on payant,
 essai temporaire payant, activation de facturation ou moyen de paiement ajouté.
 À quota atteint, suspendre l'opération sans montée de plan. Vérifier les inclusions

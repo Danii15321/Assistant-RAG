@@ -1,11 +1,18 @@
 # Spécification du projet My Talking RAG — V1
 
-- **Date :** 13 octobre 2026.
+- **Date :** 14 octobre 2026.
 - **Référence :** [README du projet](../README.md).
 - **Statut :** étapes 0 à 8 achevées ; application publique sur Vercel, appels Groq réels et contrôles d’exploitation vérifiés. Le nouveau lot réservé obtient 100 % de Recall@5, 8/8 réponses complètes et 2/2 abstentions. Le porteur a validé la grille de qualité le 13 octobre 2026. Voir [le rapport de publication](etape-8-publication.md) pour les contrôles, les incidents conservés et les limites. La non-régression finale v7 obtient 7/8 réponses complètes, 15/15 références valides et 2/2 abstentions.
 - **Convention :** les exigences du README et les demandes explicites du porteur de projet sont obligatoires. Les décisions sont consignées dans [ADR 0001](decisions/0001-groq-et-architecture-v1.md) et [ADR 0002 — budget zéro](decisions/0002-budget-zero-et-authentification.md), pour le budget, et [ADR 0003 — identifiants locaux](decisions/0003-identifiants-locaux.md) pour l’identité actuelle ; une décision ne prouve pas sa validation en production.
 - **Périmètre confirmé :** authentification et hébergement public sur Vercel dès la V1, avec des données privées par utilisateur.
 - **Budget et finalité :** **0 €** pour le développement et la démonstration publique, tous services compris ; projet personnel destiné au CV, sans objectif commercial. Offres gratuites uniquement et URL `vercel.app`.
+
+Exception approuvée le 14 octobre 2026 : OpenAI sur Vercel, choix explicite
+par question et plafond cumulatif prudent de 1 USD, essais locaux antérieurs inclus.
+Le budget restant est transféré en production ; OpenAI local et Preview sont
+désactivés. Groq reste le défaut, sans fallback payant.
+[ADR 0011](decisions/0011-openai-local-plafond-un-dollar.md) précise cette évolution
+post-V1 et prévaut sur les mentions de gratuité absolue pour ces seuls essais.
 
 ## 1. Vision et objectifs
 
@@ -376,6 +383,19 @@ sources sont revalidés après génération. Aucun historique n’est créé ici
 Les échanges persistants de l’étape 7 distinguent `answered`, `insufficient_context` et `failed`. Les erreurs exposent code stable, message lisible et identifiant de requête : `401` si session absente/invalide, `403` si action interdite, `404` pour ressource inconnue ou d'un autre compte, `400` pour sélection invalide, `409` pour conflit, `413`, `415`, `422`, `429`, `502`, `504` selon la cause.
 
 ## 8. Contrainte d'API LLM gratuite
+
+### Extension locale OpenAI approuvée
+
+Sélecteur Groq / GPT-6 Luna / GPT-6.1 Sol, Groq initialement sélectionné.
+Changer de modèle annule le consentement courant. À la réouverture, reprendre le
+modèle du dernier échange ; une nouvelle discussion revient à Groq. Enregistrer le modèle par échange
+et le prendre en compte dans l’idempotence. Même recherche privée, abstention et
+validation des citations. Aucune relance ni bascule automatique vers OpenAI.
+Plafond cumulatif partagé de 1 USD, réservation transactionnelle avant HTTP,
+persistante après erreur, redémarrage et rollback ; voir ADR 0011 pour les marges.
+Tests ordinaires sans clé ni appel payant. Vercel reste sur Groq uniquement.
+
+### Socle V1 gratuit
 
 ### 8.1 Choix retenu et vérification
 

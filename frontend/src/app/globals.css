@@ -130,3 +130,9 @@ button:disabled { cursor: wait; opacity: .55; }
 .conversation-items li { flex-wrap: wrap; }
 a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 @media (max-width: 640px) { .chat-question { padding: 18px; } .conversation-items .section-top { flex-wrap: wrap; } }
+
+.model-picker { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; min-width: 0; }
+.model-picker label { min-width: 0; max-width: 100%; }
+.chat-shell .model-picker select { max-width: 100%; width: 10rem; padding: .4rem .7rem; font-size: .8rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); }
+.model-picker select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.model-picker small { font-size: .75rem; color: var(--muted); }

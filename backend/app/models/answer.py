@@ -2,10 +2,12 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints
 
+from app.models.llm import ModelChoice
 from app.models.search import SearchHit, SearchRequest
 
 
 class AnswerRequest(SearchRequest):
+    model: ModelChoice = "groq"
     allow_external_processing: bool = False
 
 
@@ -35,6 +37,7 @@ class AnswerSource(SearchHit):
 
 
 class AnswerResponse(BaseModel):
+    model: ModelChoice = "groq"
     state: Literal["answered", "insufficient_context"]
     answer: str
     claims: list[Claim]

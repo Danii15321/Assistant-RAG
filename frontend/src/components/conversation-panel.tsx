@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { type ModelChoice } from "@/lib/models";
 import { AnswerResults } from "@/components/answer-results";
 import { ConversationForm } from "@/components/conversation-form";
 import { conversationRequest, newRequestId, type Conversation, type Exchange, type MessageInput } from "@/lib/conversations";
@@ -18,7 +19,7 @@ export function ConversationPanel({ id }: { id?: string }) {
   const [outgoing, setOutgoing] = useState("");
   const [error, setError] = useState("");
   const [uncertain, setUncertain] = useState<MessageInput | null>(null);
-  const [formReset, setFormReset] = useState<{ version: number; selection: string[] | null }>({ version: 0, selection: null });
+  const [formReset, setFormReset] = useState<{ version: number; selection: string[] | null; model: ModelChoice }>({ version: 0, selection: null, model: "groq" });
   const controller = useRef<AbortController | null>(null);
   const activeId = useRef(id);
   const mutation = useRef(false);
@@ -44,7 +45,7 @@ export function ConversationPanel({ id }: { id?: string }) {
     function expire() { request.abort(); setItems([]); setDocuments([]); setConversation(null); window.location.replace("/sign-in?expired=1"); }
     function reset() {
       if (mutation.current || activeId.current) return;
-      setFormReset(old => ({ version: old.version + 1, selection: null })); setError("");
+      setFormReset(old => ({ version: old.version + 1, selection: null, model: "groq" })); setError("");
     }
     window.addEventListener("session-expired", expire);
     window.addEventListener("new-conversation", reset);
@@ -115,7 +116,7 @@ export function ConversationPanel({ id }: { id?: string }) {
   async function recover() {
     if (!uncertain) return;
     const body = uncertain;
-    if (await send(body)) setFormReset(old => ({ version: old.version + 1, selection: body.document_ids }));
+    if (await send(body)) setFormReset(old => ({ version: old.version + 1, selection: body.document_ids, model: body.model ?? "groq" }));
   }
   const empty = !items.length && !sending;
   return <section className={`chat-panel${empty ? " is-empty" : ""}`} aria-label="Conversation privée">
@@ -134,8 +135,8 @@ export function ConversationPanel({ id }: { id?: string }) {
       </div>
       {error && <p role="alert" className="form-error chat-error">{error}</p>}
       {uncertain && <div className="recovery-note"><p>L’envoi n’est pas encore confirmé. Vérifiez son état pour éviter un doublon.</p><button disabled={sending} onClick={() => void recover()}>Vérifier l’envoi</button></div>}
-      <ConversationForm key={formReset.version} initialSelection={formReset.version ? formReset.selection : items.at(-1)?.document_ids ?? null} documents={documents} onUploaded={refreshDocuments}
-        busy={sending || pending || Boolean(uncertain)} onSend={(question, selection) => send({ request_id: newRequestId(), question, document_ids: selection, allow_external_processing: true })} />
+      <ConversationForm key={formReset.version} initialModel={formReset.version ? formReset.model : items.at(-1)?.model ?? "groq"} initialSelection={formReset.version ? formReset.selection : items.at(-1)?.document_ids ?? null} documents={documents} onUploaded={refreshDocuments}
+        busy={sending || pending || Boolean(uncertain)} onSend={(question, selection, model) => send({ model, request_id: newRequestId(), question, document_ids: selection, allow_external_processing: true })} />
     </>}
   </section>;
 }

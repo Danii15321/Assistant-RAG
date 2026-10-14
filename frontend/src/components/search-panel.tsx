@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { documentRequest, type DocumentRecord } from "@/lib/documents";
 import { generateAnswer, searchDocuments, type AnswerResult, type SearchResult } from "@/lib/search";
+import { ModelPicker } from "@/components/model-picker";
+import { useModels, type ModelChoice } from "@/lib/models";
 import { AnswerResults } from "@/components/answer-results";
 import { SearchResults } from "@/components/search-results";
 
@@ -13,6 +15,9 @@ export function SearchPanel() {
   const [mode, setMode] = useState("all");
   const [selection, setSelection] = useState<string[]>([]);
   const [pending, setPending] = useState(false);
+  const [model, setModel] = useState<ModelChoice>("groq");
+  const { catalog, error: modelError } = useModels(pending);
+  const modelAvailable = catalog.models.some(item => item.id === model && item.available);
   const [error, setError] = useState("");
   const [result, setResult] = useState<SearchResult | null>(null);
   const [answer, setAnswer] = useState<AnswerResult | null>(null);
@@ -30,15 +35,15 @@ export function SearchPanel() {
   }, []);
   function submit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); void run(false); }
   async function run(generation: boolean) {
-    if (pending) return;
+    if (pending || (generation && (!consent || !modelAvailable))) return;
     setResult(null); setAnswer(null); setError("");
     if (mode === "selection" && !selection.length) { setError("Choisissez au moins un document."); return; }
     const request = new AbortController();
     controller.current = request; setPending(true);
     try {
       if (generation) {
-        const response = await generateAnswer(question, mode === "all" ? null : selection, request.signal);
-        if (!request.signal.aborted) setAnswer(response);
+        const response = await generateAnswer(question, mode === "all" ? null : selection, request.signal, model);
+        if (!request.signal.aborted) { setAnswer(response); setConsent(false); }
       } else {
         const response = await searchDocuments(question, mode === "all" ? null : selection, request.signal);
         if (!request.signal.aborted) setResult(response);
@@ -62,10 +67,11 @@ export function SearchPanel() {
             <label key={document.id}><input type="checkbox" checked={selection.includes(document.id)}
               onChange={event => { setSelection(old => event.target.checked ? [...old, document.id] : old.filter(id => id !== document.id)); setResult(null); setAnswer(null); }} />{document.filename}</label>)}</div>}
           <button type="submit" disabled={!question.trim()}>{pending ? "Recherche en cours…" : "Rechercher les passages"}</button>
+          <ModelPicker catalog={catalog} model={model} disabled={pending} error={modelError} onChange={value => { setModel(value); setConsent(false); }} />
           <label className="external-consent"><input type="checkbox" checked={consent}
-            onChange={event => setConsent(event.target.checked)} />J’accepte l’envoi de ma question et des passages à Groq pour cette réponse.</label>
+            onChange={event => setConsent(event.target.checked)} />J’accepte l’envoi de ma question et des passages à {model === "groq" ? "Groq" : "OpenAI"} pour cette réponse.</label>
           <p className="field-help">Essai sans historique. Pour enregistrer les réponses, ouvrez une discussion.</p>
-          <button type="button" disabled={!consent || !question.trim()} onClick={() => void run(true)}>Générer une réponse sourcée</button>
+          <button type="button" disabled={!modelAvailable || !consent || !question.trim()} onClick={() => void run(true)}>Générer une réponse sourcée</button>
         </fieldset>
       </form>}
       {!loading && !documents.length && <p>Aucun document prêt. Importez un document dans votre bibliothèque pour commencer.</p>}

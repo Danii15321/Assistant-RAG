@@ -1,11 +1,12 @@
+import { type ModelChoice } from "@/lib/models";
 import { errorMessage } from "@/lib/documents";
 import { type AnswerResult } from "@/lib/search";
 
 export type Conversation = { id: string; title: string; created_at: string; updated_at: string };
-export type Exchange = { id: string; request_id: string; ordinal: number; question: string;
+export type Exchange = { model?: ModelChoice; id: string; request_id: string; ordinal: number; question: string;
   document_ids: string[] | null; state: "pending" | "answered" | "insufficient_context" | "failed";
   answer: AnswerResult | null; error_code: string | null; created_at: string; completed_at: string | null };
-export type MessageInput = { request_id: string; question: string; document_ids: string[] | null; allow_external_processing: boolean };
+export type MessageInput = { model?: ModelChoice; request_id: string; question: string; document_ids: string[] | null; allow_external_processing: boolean };
 
 export function newRequestId(): string {
   if (typeof crypto.randomUUID === "function") return crypto.randomUUID();

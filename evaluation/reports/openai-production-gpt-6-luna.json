@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-14T13:09:39.709868+00:00",
+  "model": "gpt-6-luna",
+  "http": 200,
+  "state": "answered",
+  "error_code": null,
+  "provider_called": true,
+  "sources": 1,
+  "contains_expected_ports": true,
+  "elapsed_ms": 15040.4,
+  "remaining_microusd": 980000,
+  "idempotent_replay_without_charge": true
+}

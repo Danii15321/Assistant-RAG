@@ -26,6 +26,11 @@ class AnswerService:
     def execute(
         self, owner: UUID, session: str, body: AnswerRequest, active_session: Callable[[], bool]
     ) -> AnswerResponse:
+        token_reservation = 3100 if body.model == "groq" else 24576
+        prompt_version = PROMPT_VERSION
+        if body.model != "groq":
+            output_limit = 1200 if body.model == "gpt-6-luna" else 4096
+            prompt_version += f"|openai-bytes16000|completion-override{output_limit}"
         started = self.clock()
         result = self.search.execute(owner, session, body, active_session)
         if not result.hits:
@@ -34,8 +39,9 @@ class AnswerService:
                 answer="Je ne trouve pas de passage pertinent dans les documents consultés.",
                 claims=[],
                 sources=[],
+                model=body.model,
                 provider_called=False,
-                prompt_version=PROMPT_VERSION,
+                prompt_version=prompt_version,
                 elapsed_ms=round((self.clock() - started) * 1000, 2),
             )
         if not body.allow_external_processing:
@@ -47,7 +53,7 @@ class AnswerService:
         if not active_session():
             raise DocumentError(401, "session_expired")
         self.verify_sources(owner, context.sources)
-        lease, attempt = self.repository.acquire(owner, session, 3100)
+        lease, attempt = self.repository.acquire(owner, session, token_reservation)
         try:
             for number in range(3):
                 outcome = "failed"
@@ -85,11 +91,14 @@ class AnswerService:
                         ),
                         claims=answer.claims,
                         sources=[s for s in context.sources if s.source_id in cited],
+                        model=body.model,
                         provider_called=True,
-                        prompt_version=PROMPT_VERSION,
+                        prompt_version=prompt_version,
                         elapsed_ms=round((self.clock() - started) * 1000, 2),
                     )
                 except ProviderError as error:
+                    if error.code == "openai_provider_quota":
+                        raise DocumentError(429, error.code) from None
                     if error.code == "provider_quota":
                         self.repository.block(error.retry_after)
                         raise DocumentError(429, "provider_quota") from None
@@ -115,7 +124,7 @@ class AnswerService:
                     )
                 if not active_session():
                     raise DocumentError(401, "session_expired")
-                attempt = self.repository.reserve(owner, session, lease, 3100)
+                attempt = self.repository.reserve(owner, session, lease, token_reservation)
             raise DocumentError(503, "llm_unavailable")
         finally:
             self.repository.release(lease)

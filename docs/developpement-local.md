@@ -348,3 +348,33 @@ Sauvegarde privée avant application. Un downgrade vers `0006_generation` efface
 les conversations et leurs citations : le tester uniquement sur la base isolée,
 avec un retour de code coordonné. [Parcours et preuves](etape-7-conversations-locales.md) ·
 [ADR 0008](decisions/0008-conversations-privees-et-reprise.md).
+
+
+## Essais OpenAI locaux — 14 octobre 2026
+
+Groq reste le modèle initial. Placer la clé seule, sur une ligne, dans
+`/home/daniel/assistant-rag/.secrets/openai_api_key` (permissions 600).
+Le dossier `.secrets` est déjà exclu de Git et monté uniquement dans le backend.
+Après mise à jour du code, appliquer `docker compose run --rm migrate`, puis
+`docker compose up -d backend frontend worker`. Une clé ajoutée ensuite est lue
+sans redémarrage : actualiser la page. Le sélecteur affiche les deux modèles
+OpenAI et le budget prudent restant lorsqu’un modèle OpenAI est sélectionné.
+
+Migration `0009_openai_trial`, compteur global persistant de 1 USD et arrêt avant
+tout appel dépassant ce plafond. Réserve par tentative : 0,01 USD Luna, 0,12 USD
+Sol, conservée même en cas d’échec. Ne pas confondre ce compteur avec la facture.
+Aucun changement Vercel. [Décision et rollback](decisions/0011-openai-local-plafond-un-dollar.md).
+
+
+Correctif OpenAI : appliquer aussi `0010_generation_token_capacity`, qui autorise
+la réservation de tokens OpenAI dans le compteur journalier historique. Après
+migration, relancer le backend. Les plafonds de dépenses restent inchangés.
+
+
+### OpenAI après transfert en production
+
+Le porteur a autorisé le transfert du budget restant vers Vercel. Le backend
+Compose garde désormais `OPENAI_LOCAL_ENABLED=false` et le compteur local est
+verrouillé à son plafond. Les instructions d’essais locaux précédentes constituent
+l’historique ; ne pas réactiver ou remettre à zéro ce compteur. Groq reste utilisable
+localement. Voir ADR 0011 pour l’activation et le journal de production.

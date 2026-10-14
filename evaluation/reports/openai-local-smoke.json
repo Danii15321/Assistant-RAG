@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-14",
+  "environment": "local",
+  "model": "gpt-6-luna",
+  "fixture": "synthetic-public-oriole",
+  "state": "answered",
+  "citations_valid": true,
+  "prompt_tokens": 392,
+  "completion_tokens": 47,
+  "elapsed_seconds": 2.93,
+  "reserved_microusd": 10000,
+  "remaining_microusd": 990000,
+  "billing": "conservative reservation, not invoice",
+  "private_documents_sent": false
+}

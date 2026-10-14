@@ -39,6 +39,7 @@ class ConversationService:
                 owner,
                 session,
                 AnswerRequest(
+                    model=body.model,
                     question=body.question,
                     document_ids=body.document_ids,
                     allow_external_processing=body.allow_external_processing,

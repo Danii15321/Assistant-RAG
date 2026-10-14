@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-14T13:10:29.245981+00:00",
+  "model": "gpt-6.1-sol",
+  "http": 200,
+  "state": "answered",
+  "error_code": null,
+  "provider_called": true,
+  "sources": 1,
+  "contains_expected_ports": true,
+  "elapsed_ms": 15820.94,
+  "remaining_microusd": 860000,
+  "idempotent_replay_without_charge": true
+}

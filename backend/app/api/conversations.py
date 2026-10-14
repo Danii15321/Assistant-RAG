@@ -66,7 +66,7 @@ def send(
     identity: Annotated[VerifiedIdentity, Depends(require_identity)],
     identities: Annotated[IdentityRepository, Depends(get_repository)],
 ) -> Exchange:
-    exchange = ConversationService(repository, make_answer_service(request)).execute(
+    exchange = ConversationService(repository, make_answer_service(request, body.model)).execute(
         owner,
         identity.session_id,
         conversation_id,

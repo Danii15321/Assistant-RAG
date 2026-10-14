@@ -15,6 +15,14 @@ from app.repositories.conversation_snapshots import load_exchange, save_answer
 from app.repositories.search import SearchRepository
 
 
+def request_fingerprint(body: MessageRequest) -> str:
+    # Omitted/default Groq must replay requests saved before model selection existed.
+    excluded = {"request_id", "model"} if body.model == "groq" else {"request_id"}
+    return hashlib.sha256(
+        json.dumps(body.model_dump(mode="json", exclude=excluded), sort_keys=True).encode()
+    ).hexdigest()
+
+
 class ConversationRepository:
     def __init__(self, engine: Engine) -> None:
         self.engine = engine
@@ -94,11 +102,7 @@ class ConversationRepository:
             return [load_exchange(c, dict(row)) for row in rows]
 
     def begin(self, owner: UUID, conversation: UUID, body: MessageRequest) -> tuple[Exchange, bool]:
-        fingerprint = hashlib.sha256(
-            json.dumps(
-                body.model_dump(mode="json", exclude={"request_id"}), sort_keys=True
-            ).encode()
-        ).hexdigest()
+        fingerprint = request_fingerprint(body)
         with self.engine.begin() as c:
             parent = self._lock(c, owner, conversation)
             old = (
@@ -130,9 +134,9 @@ class ConversationRepository:
                     text(
                         "INSERT INTO "
                         "conversation_exchanges(id,conversation_id,owner_id,request_id,fin"
-                        "gerprint,ordinal,question,document_ids) VALUES "
+                        "gerprint,ordinal,question,document_ids,model) VALUES "
                         "(:exchange,:id,:owner,:request,:fingerprint,:ordinal,:question,CA"
-                        "ST(:selection AS jsonb)) RETURNING *"
+                        "ST(:selection AS jsonb),:model) RETURNING *"
                     ),
                     {
                         "exchange": exchange,
@@ -142,6 +146,7 @@ class ConversationRepository:
                         "fingerprint": fingerprint,
                         "ordinal": parent["next_ordinal"],
                         "question": body.question,
+                        "model": body.model,
                         "selection": json.dumps([str(doc) for doc in body.document_ids])
                         if body.document_ids is not None
                         else None,

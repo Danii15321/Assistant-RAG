@@ -1,23 +1,27 @@
 {
   "environment": "production",
-  "date": "2026-10-13T20:48:27.034Z",
+  "date": "2026-10-14T13:11:03.065Z",
   "counts": {
-    "documents": 22,
-    "extracted_units": 62,
-    "index_chunks": 23,
-    "conversations": 1,
-    "conversation_exchanges": 5,
-    "conversation_sources": 1,
-    "auth_user": 8
+    "documents": 27,
+    "extracted_units": 86,
+    "index_chunks": 76,
+    "conversations": 5,
+    "conversation_exchanges": 12,
+    "conversation_sources": 6,
+    "auth_user": 9,
+    "openai_trial_budget": 1,
+    "openai_trial_attempts": 3
   },
   "digests": {
-    "documents": "0fd09eecb075f1b17a4559a5d676a45c",
-    "extracted_units": "12b2da18b439e5e5aae82e5de456f812",
-    "index_chunks": "b8b1499e182a4a43f7b1c337f23dd88a",
-    "conversations": "48b2b9962d0dff2403f195eab7d6923b",
-    "conversation_exchanges": "b10bcddba8cf12e9e32464a373b3ca98",
-    "conversation_sources": "68375b2666758ad6e5684996f20f5268",
-    "auth_user": "8280996892b09ff16018bec8e1b3e1c5"
+    "documents": "85e45b835d5307ec9699a14f73382a71",
+    "extracted_units": "0f98a58433ce2d877a5e2084ba491a97",
+    "index_chunks": "e4c90dec3e970cbc05b7de62705fbb86",
+    "conversations": "5f34785cf0a7aee48265aca4dce9a0fd",
+    "conversation_exchanges": "120600713ea4402f0f76696e59f074a9",
+    "conversation_sources": "8e30bf7021148484583afe7a2bd5d2ac",
+    "auth_user": "5e457ca8fc1736fe230e4c795934b136",
+    "openai_trial_budget": "43babfce42e4e6a13fabbd2eb56f8bd1",
+    "openai_trial_attempts": "4eda898c085cc7633feab733d8ceb2d5"
   },
   "originals": [
     {
@@ -27,6 +31,10 @@
     {
       "bytes": 375,
       "sha256": "bbab280d419c8aea5aa37bdadc15156aeafab8872341ab1bcea61b7fdcca2d1b"
+    },
+    {
+      "bytes": 195714,
+      "sha256": "cd005dcc82b454e56b21c10c010f09773aa9073a654e2c89d777c63dc0ed6e2f"
     },
     {
       "bytes": 1027,
@@ -39,6 +47,10 @@
     {
       "bytes": 125,
       "sha256": "f585b02845b26f62f1750e713c100bf375fc02bf33bae05c172bad552c13d2e5"
+    },
+    {
+      "bytes": 1072,
+      "sha256": "93b8c71fa3cf57deed92acffec4f3fe2d2f8fc1d54e13bf8583ae05f4df4e1c1"
     },
     {
       "bytes": 37117,
@@ -57,12 +69,24 @@
       "sha256": "2465a0a39f0b1a68eba66c76fbfd121c16ffc53fa31eac15f20c3ea23201ed0d"
     },
     {
+      "bytes": 134,
+      "sha256": "606bfe1401abed269c472b14913327699fb1fe3b75f30a0838cf68ff9c36f3be"
+    },
+    {
       "bytes": 101,
       "sha256": "17c9d50cb78fad011a30fb96f2a80bb4c4ec5a0841574ad4c920949cfec9c59b"
     },
     {
+      "bytes": 1027,
+      "sha256": "17247386a7b3529103ade12a3064660c59f68ee7b36c1627f7883fc02e64196d"
+    },
+    {
       "bytes": 134,
       "sha256": "606bfe1401abed269c472b14913327699fb1fe3b75f30a0838cf68ff9c36f3be"
+    },
+    {
+      "bytes": 125,
+      "sha256": "f585b02845b26f62f1750e713c100bf375fc02bf33bae05c172bad552c13d2e5"
     },
     {
       "bytes": 37117,
@@ -109,7 +133,7 @@
       "sha256": "853b07481bbcc67071629ad20f9327583894570d35d30f295b23fcc6a06fe645"
     }
   ],
-  "dump_sha256": "595c6b9763423465f19c72b81ccae6eeff98f3f5c126ed346b41a28814d30f0b",
+  "dump_sha256": "d8165b9e81281d5bf803e72f2881e5b8eaad24e50d9daae833712c11773e3e58",
   "restore": "passed",
   "restore_target": "isolated local PostgreSQL 18; no exposed port"
 }

@@ -41,6 +41,9 @@ const counts = {};
 const digests = {};
 const digestQuery = table => `SELECT md5(coalesce(string_agg(t::text, E'\\n' ORDER BY t::text COLLATE "C"),'')) AS digest FROM ${table} t`;
 try {
+  for (const table of ["openai_trial_budget", "openai_trial_attempts"]) {
+    if ((await pool.query("SELECT to_regclass($1) AS relation", [table])).rows[0].relation) tables.push(table);
+  }
   for (const table of tables) {
     // Fixed allowlist; missing table is a schema mismatch, never silently skipped.
     counts[table] = (await pool.query(`SELECT count(*)::int AS n FROM ${table}`)).rows[0].n;

@@ -44,6 +44,7 @@ services:
     environment:
       <<: *backend-environment
       LLM_FREE_PLAN_CONFIRMED: ${LLM_FREE_PLAN_CONFIRMED:-false}
+      OPENAI_LOCAL_ENABLED: "false"
       LANGSMITH_TRACING: "false"
       LANGCHAIN_TRACING_V2: "false"
     volumes:

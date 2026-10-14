@@ -26,11 +26,22 @@ class Settings(BaseSettings):
     global_storage_bytes: int = Field(default=600 * 1024 * 1024, gt=0)
     embedding_path: Path = Path("/opt/models/e5")
     search_threshold: float = Field(default=0.81, ge=-1, le=1)
+    openai_local_enabled: bool = False
+    openai_cloud_enabled: bool = False
+    openai_api_key: SecretStr | None = Field(default=None, repr=False)
+    vercel_env: str | None = None
+    openai_api_key_file: Path = Path("/run/secrets/llm/openai_api_key")
     groq_api_key: SecretStr | None = Field(default=None, repr=False)
     groq_api_key_file: Path = Path("/run/secrets/llm/groq_api_key")
     llm_free_plan_confirmed: bool = False
     llm_model: Literal["openai/gpt-oss-120b"] = "openai/gpt-oss-120b"
     llm_test_endpoint: str | None = None
+
+    @property
+    def openai_enabled(self) -> bool:
+        if self.cloud_runtime:
+            return self.openai_cloud_enabled and self.vercel_env == "production"
+        return self.openai_local_enabled
 
     @model_validator(mode="after")
     def cloud_configuration(self) -> "Settings":
